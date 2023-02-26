@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profiloweRozmowa"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:rotationX="8"
+        android:src="@drawable/profilowe">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:id="@+id/nazwaPojUzytkownika"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/profiloweRozmowa"
+        android:text="TextView"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/wiekPoj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nazwaPojUzytkownika"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/profiloweRozmowa"
+        android:text="TextView"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/statusPoj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wiekPoj"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"
+        android:layout_toEndOf="@+id/profiloweRozmowa"
+        android:text="TextView"
+        android:textSize="17dp" />
+
+</RelativeLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Edytuj" >
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="Waga (kg):"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/editWaga"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:ems="10"
+        android:inputType="numberDecimal|numberSigned"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="Wzrost (cm):"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/editWzrost"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:ems="10"
+        android:inputType="numberDecimal|numberSigned"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/Weik"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="Wiek (lata):"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/editWiek"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/labelTryb"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="Poziom aktywności fizycznej:"
+        android:textSize="18dp" />
+
+    <Spinner
+        android:id="@+id/spinnerAktywnosc"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:id="@+id/labelCel"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="Cel:"
+        android:textSize="18dp" />
+
+    <Spinner
+        android:id="@+id/spinnerCel"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:text="Płeć:"
+        android:textSize="18dp" />
+
+    <Spinner
+        android:id="@+id/plecSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/wszyscyUzytkownicy"
+        android:layout_gravity=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zapisz"
+        />
+
+</LinearLayout>

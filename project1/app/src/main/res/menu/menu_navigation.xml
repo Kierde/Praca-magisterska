@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/Tablica"
+        android:title="Tablica"
+        android:icon="@drawable/ic_baseline_sensor_door_24"/>
+
+    <item
+        android:id="@+id/dashboard"
+        android:title="Monitor wagi"
+        android:icon="@drawable/ic_dashboard"/>
+
+    <item
+        android:id="@+id/home"
+        android:title="Dziennik posiłków"
+        android:icon="@drawable/ic_baseline_event_note_24"/>
+
+
+
+    <item
+        android:id="@+id/wiecej"
+        android:title="Więcej"
+        android:icon="@drawable/ic_baseline_more_horiz_24"/>
+
+
+
+</menu>

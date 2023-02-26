@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ostatniTydzien"
+        android:title="Ostatni tydzień"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ostatnieTrzydziesciDni"
+        android:title="Ostatnie 30 dni"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ostatnieDziewiedzisiatDni"
+        android:title="Ostatnie 90 dni"
+        app:showAsAction="never">
+    </item>
+    <item
+        android:id="@+id/zdefiniowanaData"
+        android:title="Pokaż dane dla zdefiowanego zakresu wag"
+        app:showAsAction="never">
+    </item>
+</menu>

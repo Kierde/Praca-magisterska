@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Poziom">
+
+    <Button
+        android:id="@+id/buttonBrak"
+        android:layout_width="362dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="60dp"
+        android:text="Brak aktywności fizycznej"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPoziom" />
+
+    <Button
+        android:id="@+id/buttonDuża"
+        android:layout_width="362dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="50dp"
+        android:text="Duża aktywność fizyczna"
+
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonMała" />
+
+    <Button
+        android:id="@+id/buttonMała"
+        android:layout_width="362dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="50dp"
+        android:text="Mała aktywność fizyczna"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBrak" />
+
+    <Button
+        android:id="@+id/buttonBardzoDuża"
+        android:layout_width="362dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="50dp"
+        android:text="Bardzo duża aktywność fizyczna"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDuża" />
+
+    <TextView
+        android:id="@+id/textViewPoziom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:gravity="center"
+        android:text="Oceń swój poziom aktywności fizycznej"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
