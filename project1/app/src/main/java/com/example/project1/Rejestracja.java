@@ -80,18 +80,21 @@ public class Rejestracja extends AppCompatActivity{
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            for(DataSnapshot ds :snapshot.getChildren()){
+                         if(snapshot.hasChild("nazwaUzytkownika")){
 
-                                if(ds.child("nazwaUzytkownika").getValue().toString().equals(nazwaUzytkownika_)) {
-                                    nazwaUzytkownika.setError("Podana nazwa użytkownika jest już zajęta");
-                                    error = false;
-                                    break;
-                                }
-                                else {
-                                    error = true;
-                                }
+                             for(DataSnapshot ds :snapshot.getChildren()) {
 
-                            }
+                                 if (ds.child("nazwaUzytkownika").getValue().toString().equals(nazwaUzytkownika_)) {
+                                     nazwaUzytkownika.setError("Podana nazwa użytkownika jest już zajęta");
+                                     error = false;
+                                     break;
+                                 } else {
+                                     error = true;
+                                 }
+                             }
+                         }else {
+                             error=true;
+                         }
 
                         }
 
@@ -126,7 +129,6 @@ public class Rejestracja extends AppCompatActivity{
                     adresEmail.setError("Format adresu e-mail jest nieprawidłowy");
                     return;
                 }
-
 
                 if (error) {
 

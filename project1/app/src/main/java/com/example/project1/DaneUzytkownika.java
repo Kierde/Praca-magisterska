@@ -201,13 +201,7 @@ public class DaneUzytkownika extends AppCompatActivity {
                     poziomAkt.setText("Poziom aktywności fizycznej: bardzo aktywny");
                 }
 
-
-
-
-
                 double ppm;
-
-
 
                  if(plecText.equals("true")) {
                      plec.setText("Płeć: "+"Mężczyzna");
