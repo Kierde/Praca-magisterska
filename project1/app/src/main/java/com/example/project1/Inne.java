@@ -17,6 +17,7 @@ public class Inne extends AppCompatActivity {
     Button wylogujSie;
     Button wszyscyUzytkownicy;
     Button spolecznosc;
+    Button wyszukiwanieProduktów;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class Inne extends AppCompatActivity {
         wylogujSie = (Button) findViewById(R.id.wylogujSie);
         wszyscyUzytkownicy = (Button) findViewById(R.id.wszyscyUzytkownicy);
         spolecznosc = (Button) findViewById(R.id.spolecznosc);
+        wyszukiwanieProduktów = (Button) findViewById(R.id.wyszukiwanieProduktow);
 
         daneUzytkownika.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +64,22 @@ public class Inne extends AppCompatActivity {
         });
 
 
+        wyszukiwanieProduktów.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWyszukiwanieProduktow();
+            }
+        });
+
+
+    }
+
+
+    public void openWyszukiwanieProduktow(){
+
+        Intent intent = new Intent(this, WyszukiwanieProduktu.class);
+        startActivity(intent);
+
     }
 
 
@@ -82,8 +100,6 @@ public class Inne extends AppCompatActivity {
         Intent intent = new Intent(this, KomunikatorUzytkownika.class);
         startActivity(intent);
     }
-
-
 
 
     public void wyslijDoLogowania(){

@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1">
-        <!--        <meta-data-->
-<!--            android:name="com.google.firebase.ml.vision.DEPENDENCIES"-->
-<!--            android:value="ocr" />-->
-
+        <activity android:name=".WyszukiwanieProduktu"></activity>
+        <!-- <meta-data -->
+        <!-- android:name="com.google.firebase.ml.vision.DEPENDENCIES" -->
+        <!-- android:value="ocr" /> -->
         <activity android:name=".InneWykresy" />
         <activity android:name=".DodawanieZdjecia" />
         <activity android:name=".EdytujKomentarz" />

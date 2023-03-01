@@ -77,8 +77,6 @@ public class DodawanieKomentarza extends AppCompatActivity {
         trescKomentarza = (EditText) findViewById(R.id.komentarzTresc);
 
 
-
-
         komentarze = (RecyclerView) findViewById(R.id.komentarze);
         komentarze.setHasFixedSize(true);
         komentarze.setLayoutManager(new LinearLayoutManager(DodawanieKomentarza.this));

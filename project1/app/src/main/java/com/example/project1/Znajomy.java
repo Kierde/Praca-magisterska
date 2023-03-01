@@ -2,6 +2,7 @@ package com.example.project1;
 
 public class Znajomy {
 
+
     private String data;
 
 

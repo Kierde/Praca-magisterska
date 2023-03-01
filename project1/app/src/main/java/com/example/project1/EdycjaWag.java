@@ -55,12 +55,6 @@ public class EdycjaWag extends AppCompatActivity {
     GregorianCalendar dt1;
 
 
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

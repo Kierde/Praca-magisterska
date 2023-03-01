@@ -106,9 +106,6 @@ public class InformacjeFizyczne extends AppCompatActivity {
 
 
 
-
-
-
                 String wiek_ = wiek.getText().toString();
                 String waga_ = waga.getText().toString();
                 String wzrost_ = wzrost.getText().toString();

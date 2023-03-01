@@ -35,4 +35,10 @@
         android:text="Wyloguj się"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/wyszukiwanieProduktow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Wyszukaj Produkty " />
+
 </LinearLayout>

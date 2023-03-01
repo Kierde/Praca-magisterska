@@ -171,8 +171,6 @@ public class OtwarteRozmowy extends Fragment {
 
         otwarteRozmowy.setAdapter(adapter);
         adapter.startListening();
-
-
     }
 
     public static class RozmowaViewHolder extends RecyclerView.ViewHolder{

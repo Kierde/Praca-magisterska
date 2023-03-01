@@ -99,20 +99,13 @@ public class ZapisPosilkow extends AppCompatActivity {
     Calendar calendar;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zapis_posilkow);
 
-
-
         bottomNavigationView = findViewById(R.id.bottom_navigation2);
         bottomNavigationView.setSelectedItemId(R.id.home);
-
-
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -138,14 +131,10 @@ public class ZapisPosilkow extends AppCompatActivity {
                                 Tablica.class));
                         overridePendingTransition(0,0);
                         return true;
-
                 }
                 return false;
             }
         });
-
-
-
 
 
         calendar = Calendar.getInstance();
@@ -211,12 +200,9 @@ public class ZapisPosilkow extends AppCompatActivity {
         cwiczenia.setLayoutManager(new LinearLayoutManager(this));
         cwiczenia.setAdapter(cwiczeniaAdapter);
 
-
-
         //format daty
         simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dt1 = new GregorianCalendar();
-
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -297,7 +283,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                 cwiczeniaAdapter.zmienDate(dt1);
                 przekaskiAdapter.zmienDate(dt1);
 
-
                 data.setText(dataText);
                 odswierzenieDanych();
             }
@@ -346,9 +331,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                 openNotatka();
             }
         });
-
-
-
     }
 
     private void dodajPosilek(String nazwaPosilku){
@@ -376,8 +358,6 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                 if ((!TextUtils.isEmpty(nazwaPosilkuText)) && (!TextUtils.isEmpty(kalorycznoscText))) {
 
-
-
                     String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime()) + "/" + nazwaPosilku;
                     String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" +"/"+ idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
 
@@ -403,8 +383,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                         posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscText));
                     }
 
-
-
                     Map czescPosilku = new HashMap();
                     czescPosilku.put(posilekRef + "/" + pushId, posilekMap);
 
@@ -426,19 +404,15 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                         }
                     });
-
-
                 }
             }
         });
 
         dialog.show();
-
     }
 
 
     private void wczytajPosilek(String nazwaPosilku, int i) {
-
 
         databaseReferenceMain.child("Dziennik_posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime())).child(nazwaPosilku)
                 .addChildEventListener(new ChildEventListener() {
@@ -465,7 +439,6 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
 
                     }
 

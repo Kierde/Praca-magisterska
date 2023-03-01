@@ -50,16 +50,7 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
          przekaskiRef = FirebaseDatabase.getInstance().getReference("Dziennik_posilkow")
                  .child(zalogowanyId).child(simpleDateFormat.format(dt1.getTime())).child("Przekaski");
 
-
-
-
-
-
     }
-
-
-
-
 
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -85,9 +76,6 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
 
     private List<Posilek> posilekList;
-
-
-
 
     public PosilekAdapter(List<Posilek> posilekList) {
         this.posilekList = posilekList;
@@ -118,7 +106,6 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
        holder.usunPosilek.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-
 
                String index = posilekList.get(position).getIndex();
 
@@ -231,17 +218,6 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
                    }
                });
-
-
-
-
-
-
-
-
-
-
-
 
            }
        });

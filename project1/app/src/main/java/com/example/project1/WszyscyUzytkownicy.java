@@ -52,14 +52,10 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
     Button pokazWszystkich;
     String nazwaGet;
     Spinner statusDiety;
-
     CheckBox wyszukiwanieCelem;
     CheckBox wyszukiwanieWiekiem;
 
     int cel;
-
-
-
 
 
     @SuppressLint("WrongViewCast")
@@ -69,16 +65,12 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
         setContentView(R.layout.activity_wszyscy_uzytkownicy);
 
         wyszukajPrzycisk = (ImageButton) findViewById(R.id.wyszukajButton);
-
         wyszukaj = (ImageButton) findViewById(R.id.wyszukaj);
         pokazWszystkich = (Button) findViewById(R.id.pokażWszystkich);
         wyszukajNazwa = (EditText) findViewById(R.id.wyszukajNazwa);
 
         wiekStart = (EditText)findViewById(R.id.wiekStart);
         wiekStop = (EditText) findViewById(R.id.wiekStop);
-
-
-
 
         wyszukiwanieWiekiem = (CheckBox) findViewById(R.id.checkboxWiek);
         wyszukiwanieCelem = (CheckBox) findViewById(R.id.checkBoxCel);
