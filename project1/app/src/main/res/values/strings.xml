@@ -33,4 +33,16 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="nazwaproduktu_string">nazwaProduktu</string>
+    <string name="_100_g_string">100 g</string>
+    <string name="_100_g_ek1_string">100 g</string>
+    <string name="_100_g_ek2_string">100 g</string>
+    <string name="_100_g_ek3_string">100 g</string>
+    <string name="__na_100_g__string">(na 100 g)</string>
+    <string name="__class_edittext_podaj_ilo___string">podaj ilo</string>
+    <string name="_0_kcal_string">0 kcal</string>
+
+
+
 </resources>

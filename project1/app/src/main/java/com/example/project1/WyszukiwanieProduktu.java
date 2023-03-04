@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,7 +36,7 @@ import Deserialization.Root;
 public class WyszukiwanieProduktu extends AppCompatActivity {
 
     EditText doWyszukania;
-    Button szukaj;
+    ImageButton szukaj;
     String XRapidAPIKey ="35854fb247mshf655049f443d395p18b398jsn82cdbf49ffbb";
     String XRapidAPIHost = "dietagram.p.rapidapi.com";
 
@@ -44,27 +45,13 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
     private WyszukanyPosilekAdapter wyszukanyPosilekAdapter;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wyszukiwanie_produktu);
 
-        szukaj = (Button) findViewById(R.id.wyszukajProdukt);
+        szukaj = (ImageButton) findViewById(R.id.wyszukajProdukt);
         doWyszukania = (EditText) findViewById(R.id.nazwaSzukanegoProduktu);
-
-
-        Dish dish1 = new Dish("jabłko", "100", "0.5", "10", "100","3","fok","3333");
-        Dish dish2 = new Dish("jagoda", "100", "0.5", "10", "100","3","fok","3333");
-        Dish dish3 = new Dish("borówka", "100", "0.5", "10", "100","3","fok","3333");
-
-
-        listaWyszukanychPosilkow.add(dish1);
-        listaWyszukanychPosilkow.add(dish2);
-        listaWyszukanychPosilkow.add(dish3);
-
-
 
         wyszukane = (RecyclerView) findViewById(R.id.wyszukaneRecyclerView);
         wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow);
@@ -72,17 +59,12 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
         wyszukane.setLayoutManager(new LinearLayoutManager(this));
         wyszukane.setAdapter(wyszukanyPosilekAdapter);
 
-
-
-
-        wyszukanyPosilekAdapter.notifyDataSetChanged();
-
-
-
         szukaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                listaWyszukanychPosilkow.clear();
+                wyszukanyPosilekAdapter.notifyDataSetChanged();
                 String nazwaDoSzukania = processString(doWyszukania.getText().toString());
                 String url ="https://"+ XRapidAPIHost+"/apiFood.php?name="+nazwaDoSzukania+"&lang=pl";
                 Log.d("my-tag-url", url);
@@ -96,8 +78,12 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
                         Gson gson = new Gson();
                         Root root = gson.fromJson(jsonString, Root.class);
 
+                        for(int i=0;i<root.dishes.size()-1;i++)
+                            listaWyszukanychPosilkow.add(root.dishes.get(i));
 
+                            wyszukanyPosilekAdapter.notifyDataSetChanged();
                     }
+
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -113,11 +99,9 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
                     }
                 };
 
-
                 Volley.newRequestQueue(WyszukiwanieProduktu.this).add(request);
             }
         });
-
 
     }
 
@@ -141,7 +125,5 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
         }
         return nazwa;
     }
-
-
 
 }

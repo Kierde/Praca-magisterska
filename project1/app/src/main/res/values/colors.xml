@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +11,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="_bg__pojedynczy_wyszukanyprodukt_color">#C5B3F4</color>
+    <color name="nazwaproduktu_color">#000000</color>
+    <color name="rectangle_1_color">#DBD1D1</color>
+    <color name="rectangle_2_color">#D9D9D9</color>
+    <color name="rectangle_4_color">#C2B9B9</color>
+
+
 </resources>
