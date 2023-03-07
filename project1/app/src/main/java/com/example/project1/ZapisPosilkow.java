@@ -67,6 +67,7 @@ public class ZapisPosilkow extends AppCompatActivity {
     Button wszukajSniadanie;
     Button wyszukajObiad;
     Button wyszukajKolacje;
+    Button wyszukajPrzekaski;
 
     ImageButton dodajNotatke;
 
@@ -152,6 +153,7 @@ public class ZapisPosilkow extends AppCompatActivity {
         wszukajSniadanie = (Button) findViewById(R.id.wyszukajSniadanie);
         wyszukajObiad = (Button) findViewById(R.id.wyszukajObiad);
         wyszukajKolacje = (Button) findViewById(R.id.wyszukajKolacje);
+        wyszukajPrzekaski = (Button) findViewById(R.id.wyszukajPrzekaski);
 
         //patrzenie na zapis posiłków znajomego
         if(userIdZnajomego!=null) {
@@ -339,6 +341,13 @@ public class ZapisPosilkow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dodajPosilek("Przekaski");
+            }
+        });
+
+        wyszukajPrzekaski.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWyszukanie("Przekaski");
             }
         });
 
