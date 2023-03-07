@@ -66,10 +66,6 @@ public class Notatka extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
             }
 
             @Override
@@ -77,18 +73,6 @@ public class Notatka extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

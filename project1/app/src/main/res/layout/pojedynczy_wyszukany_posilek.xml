@@ -26,7 +26,7 @@
         android:layout_marginTop="3dp"
         android:text="@string/nazwaproduktu_string"
         android:textColor="@color/nazwaproduktu_color"
-        android:textSize="10sp" />
+        android:textSize="13dp" />
 
     <ImageView
         android:id="@+id/ellipse_1"
@@ -58,21 +58,29 @@
         android:src="@drawable/trans_fats_free" />
 
 
-    <TextView
+    <EditText
         android:id="@+id/ilosc_gram"
-        android:layout_width="40dp"
+        android:layout_width="50dp"
         android:layout_height="20dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="320dp"
+        android:layout_marginStart="310dp"
         android:layout_marginTop="3dp"
-        android:background="@drawable/rectangle_4_shape"></TextView>
+        android:background="@drawable/rectangle_4_shape"
+        android:paddingLeft="7dp"
+        android:inputType="number"
+        android:hint="     g"
+        ></EditText>
+
     <TextView
         android:id="@+id/ilosc_cal"
-        android:layout_width="40dp"
+        android:layout_width="50dp"
         android:layout_height="20dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="320dp"
+        android:layout_marginStart="310dp"
         android:layout_marginTop="25dp"
+        android:paddingLeft="7dp"
+        android:hint="   kcal"
+
         android:background="@drawable/rectangle_4_shape"
         ></TextView>
 

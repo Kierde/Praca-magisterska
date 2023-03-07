@@ -220,6 +220,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dodajCwiczenia" />
 
+            <Button
+                android:id="@+id/wyszukajSniadanie"
+                android:layout_width="102dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:text="wyszukaj "
+                app:layout_constraintStart_toEndOf="@+id/dodajSniadanie"
+                app:layout_constraintTop_toBottomOf="@+id/sniadanie" />
+
+            <Button
+                android:id="@+id/wyszukajObiad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="51dp"
+                android:layout_marginTop="5dp"
+                android:text="wyszukaj"
+                app:layout_constraintStart_toEndOf="@+id/dodajObiad"
+                app:layout_constraintTop_toBottomOf="@+id/obiad" />
+
+            <Button
+                android:id="@+id/wyszukajKolacje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="4dp"
+                android:text="wyszukaj"
+                app:layout_constraintStart_toEndOf="@+id/dodajKolacje"
+                app:layout_constraintTop_toBottomOf="@+id/kolacja" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                app:layout_constraintStart_toEndOf="@+id/dodajPrzekaski"
+                tools:layout_editor_absoluteY="1460dp" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

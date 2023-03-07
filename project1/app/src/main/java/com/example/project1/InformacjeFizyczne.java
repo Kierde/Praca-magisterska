@@ -37,21 +37,15 @@ public class InformacjeFizyczne extends AppCompatActivity {
     EditText waga;
     EditText wzrost;
     Button zapisz;
-
     RadioGroup wyborPlci;
     RadioButton kobieta;
     RadioButton mezczyzna;
     FirebaseAuth FAuth;
-
     Boolean plec;
-
     DatabaseReference databaseReference;
     DatabaseReference databaseRefWaga;
-
     FirebaseAuth mAuth;
     Date date;
-
-
 
 
 

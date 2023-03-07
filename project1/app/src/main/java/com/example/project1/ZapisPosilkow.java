@@ -50,7 +50,6 @@ import java.util.Map;
 public class ZapisPosilkow extends AppCompatActivity {
 
 
-
     BottomNavigationView bottomNavigationView;
     FirebaseAuth auth;
     DatabaseReference databaseReferenceMain;
@@ -58,19 +57,21 @@ public class ZapisPosilkow extends AppCompatActivity {
     ImageButton poprzedniaData;
     TextView data;
     String idZalogowanego;
-
     TextView label;
-
     Button dodajSniadanie;
     Button dodajObiad;
     Button dodajKolacje;
     Button dodajPrzekaski;
     Button dodajCwczenia;
+
+    Button wszukajSniadanie;
+    Button wyszukajObiad;
+    Button wyszukajKolacje;
+
     ImageButton dodajNotatke;
 
+
     SimpleDateFormat simpleDateFormat;
-
-
     GregorianCalendar dt1;
 
     RecyclerView sniadanie;
@@ -148,6 +149,9 @@ public class ZapisPosilkow extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         idZalogowanego = auth.getUid();
         userIdZnajomego = getIntent().getStringExtra("userid");
+        wszukajSniadanie = (Button) findViewById(R.id.wyszukajSniadanie);
+        wyszukajObiad = (Button) findViewById(R.id.wyszukajObiad);
+        wyszukajKolacje = (Button) findViewById(R.id.wyszukajKolacje);
 
         //patrzenie na zapis posiłków znajomego
         if(userIdZnajomego!=null) {
@@ -212,8 +216,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                 int day = calendar.get(calendar.DAY_OF_MONTH);
                 int month = calendar.get(calendar.MONTH);
                 int year = calendar.get(calendar.YEAR);
-
-
 
                 picker = new DatePickerDialog(ZapisPosilkow.this,
                         new DatePickerDialog.OnDateSetListener() {
@@ -296,6 +298,14 @@ public class ZapisPosilkow extends AppCompatActivity {
             }
         });
 
+        wszukajSniadanie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openWyszukanie("Sniadanie");
+            }
+        });
+
 
         dodajObiad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,10 +314,24 @@ public class ZapisPosilkow extends AppCompatActivity {
             }
         });
 
+        wyszukajObiad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWyszukanie("Obiad");
+            }
+        });
+
         dodajKolacje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dodajPosilek("Kolacja");
+            }
+        });
+
+        wyszukajKolacje.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWyszukanie("Kolacja");
             }
         });
 
@@ -466,6 +490,14 @@ public class ZapisPosilkow extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openWyszukanie(String nazwaPosilku){
+
+        Intent intent = new Intent(ZapisPosilkow.this,WyszukiwanieProduktu.class);
+        intent.putExtra("nazwaPosilku", nazwaPosilku);
+        startActivity(intent);
+
+    }
+
     public void odswierzenieDanych(){
         listaSniadania.clear();
         sniadanieAdapter.notifyDataSetChanged();
@@ -483,15 +515,6 @@ public class ZapisPosilkow extends AppCompatActivity {
         wczytajPosilek("Przekaski", 4);
         wczytajPosilek("Cwiczenia", 5);
     }
-
-
-
-
-
-
-
-
-
 
 }
 

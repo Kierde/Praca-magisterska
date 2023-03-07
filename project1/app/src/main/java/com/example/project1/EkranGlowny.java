@@ -214,7 +214,6 @@ public class EkranGlowny extends AppCompatActivity {
         zdjecieWagi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 zrobZdjecieWagi();
             }
         });

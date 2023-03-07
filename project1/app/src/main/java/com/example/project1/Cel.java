@@ -39,7 +39,6 @@ public class Cel extends AppCompatActivity {
                 cel = 2;
                 finish();
                 openPoziom();
-
             }
         });
         przybierzWage.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +47,6 @@ public class Cel extends AppCompatActivity {
                 cel = 3;
                 finish();
                 openPoziom();
-
-
             }
         });
 
@@ -59,8 +56,6 @@ public class Cel extends AppCompatActivity {
                 cel = 1;
                 finish();
                 openPoziom();
-
-
             }
         });
 

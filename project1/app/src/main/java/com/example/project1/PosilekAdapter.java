@@ -96,12 +96,8 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
     public void onBindViewHolder(@NonNull PosilekViewHolder holder, int position) {
 
        Posilek posilek = posilekList.get(position);
-
-
        holder.nazwaJedzenia.setText(posilek.getNazwaPosilku());
        holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+"kal");
-
-
 
        holder.usunPosilek.setOnClickListener(new View.OnClickListener() {
            @Override

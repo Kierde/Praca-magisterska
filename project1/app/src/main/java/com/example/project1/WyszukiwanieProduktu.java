@@ -37,7 +37,7 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
 
     EditText doWyszukania;
     ImageButton szukaj;
-    String XRapidAPIKey ="35854fb247mshf655049f443d395p18b398jsn82cdbf49ffbb";
+    String XRapidAPIKey ="ea101cf885mshab46ad115e6e655p1734a5jsn7d62bee41295";
     String XRapidAPIHost = "dietagram.p.rapidapi.com";
 
     RecyclerView wyszukane;
@@ -45,19 +45,29 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
     private WyszukanyPosilekAdapter wyszukanyPosilekAdapter;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wyszukiwanie_produktu);
 
+        String nazwaPosilku = getIntent().getStringExtra("nazwaPosilku");
         szukaj = (ImageButton) findViewById(R.id.wyszukajProdukt);
         doWyszukania = (EditText) findViewById(R.id.nazwaSzukanegoProduktu);
 
         wyszukane = (RecyclerView) findViewById(R.id.wyszukaneRecyclerView);
-        wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow);
+        wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow,nazwaPosilku);
+        Log.d("nazwaPosilku", nazwaPosilku);
+
+
         wyszukane.setHasFixedSize(true);
         wyszukane.setLayoutManager(new LinearLayoutManager(this));
         wyszukane.setAdapter(wyszukanyPosilekAdapter);
+       // Dish posilek = new Dish("1","Jajko", "130","3","10","20","30","kat");
+       //listaWyszukanychPosilkow.add(posilek);
+        wyszukanyPosilekAdapter.notifyDataSetChanged();
+
 
         szukaj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +90,6 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
 
                         for(int i=0;i<root.dishes.size()-1;i++)
                             listaWyszukanychPosilkow.add(root.dishes.get(i));
-
                             wyszukanyPosilekAdapter.notifyDataSetChanged();
                     }
 
