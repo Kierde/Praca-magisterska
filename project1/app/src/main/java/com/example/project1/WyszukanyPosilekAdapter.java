@@ -25,6 +25,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import Deserialization.Dish;
 
@@ -64,12 +65,10 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
         holder.iloscProduktu.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -82,7 +81,7 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
                     int wynik = calculateHowMuchCalories(iloscProduktu, kcalorie);
                     holder.iloscKalorii.setText(Integer.toString(wynik));
                 } else {
-                    holder.iloscProduktu.setError("podaj wartość liczbową ilości produktu (w gramach)");
+                    holder.iloscProduktu.setError("podaj produktu (w gramach)");
                 }
             }
         });

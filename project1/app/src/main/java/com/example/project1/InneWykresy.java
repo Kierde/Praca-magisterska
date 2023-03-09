@@ -67,11 +67,6 @@ public class InneWykresy extends AppCompatActivity {
     GregorianCalendar gregorianCalendarStart;
     GregorianCalendar gregorianCalendarStop;
 
-
-
-
-
-
     int sumaKalSniadanie = 0;
     int sumaKalObiad = 0;
     int sumaKalKolacja = 0;
@@ -174,11 +169,6 @@ public class InneWykresy extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
 
 
         zmianaDanych.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -410,7 +400,6 @@ public class InneWykresy extends AppCompatActivity {
     }
 
 
-
     void wczytajOkresCzasuPie(GregorianCalendar[] gregorianCalendars) {
 
         rootRef.child("Dziennik_posilkow").child(idZalogowanego).addValueEventListener(new ValueEventListener() {
@@ -423,12 +412,9 @@ public class InneWykresy extends AppCompatActivity {
 
                 for (int i = 0; i < size; i++){
 
-
                     gregorianCalendarPie = gregorianCalendars[i];
 
                     if(snapshot.hasChild(simpleDateFormat.format(gregorianCalendarPie.getTime()))) {
-
-
 
                         if (snapshot.child(simpleDateFormat.format(gregorianCalendarPie.getTime())).hasChild("Sniadanie")) {
 
@@ -439,7 +425,6 @@ public class InneWykresy extends AppCompatActivity {
                                 Posilek posilek1 = sniadaniePosile.getValue(Posilek.class);
                                 int kal = posilek1.getKalorycznosc();
                                 sumaKalSniadanie = sumaKalSniadanie + kal;
-
                             }
 
 
@@ -487,7 +472,6 @@ public class InneWykresy extends AppCompatActivity {
                 }
 
 
-
                 mPieChart.addPieSlice(new PieModel("przekąski", sumaKalPrzekaski, Color.BLACK));
                 mPieChart.addPieSlice(new PieModel("śniadanie", sumaKalSniadanie, Color.BLUE));
                 mPieChart.addPieSlice(new PieModel("obiad", sumaKalObiad, Color.RED));
@@ -497,7 +481,6 @@ public class InneWykresy extends AppCompatActivity {
                  sumaKalObiad = 0;
                  sumaKalKolacja = 0;
                  sumaKalPrzekaski = 0;
-
             }
 
             @Override

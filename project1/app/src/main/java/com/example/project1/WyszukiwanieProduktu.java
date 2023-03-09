@@ -64,8 +64,8 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
         wyszukane.setHasFixedSize(true);
         wyszukane.setLayoutManager(new LinearLayoutManager(this));
         wyszukane.setAdapter(wyszukanyPosilekAdapter);
-       // Dish posilek = new Dish("1","Jajko", "130","3","10","20","30","kat");
-       //listaWyszukanychPosilkow.add(posilek);
+       Dish posilek = new Dish("1","Jajko z żurkiem owoc", "130","3","10","20","30","kat");
+       listaWyszukanychPosilkow.add(posilek);
         wyszukanyPosilekAdapter.notifyDataSetChanged();
 
 

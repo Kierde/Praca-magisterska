@@ -1,170 +1,174 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="145dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#b5b3f4"
     tools:ignore="ExtraText">
 
     <ImageView
         android:id="@+id/trans_fats_free_1"
-        android:layout_width="23dp"
-        android:layout_height="23dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="214dp"
+        android:layout_marginStart="270dp"
         android:layout_marginTop="3dp"
+        android:textSize="15dp"
         android:contentDescription="trans_fats_free_1"
         android:src="@drawable/protein" />
 
     <TextView
         android:id="@+id/nazwaSzukanego"
-        android:layout_width="106dp"
-        android:layout_height="24dp"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="11dp"
         android:text="@string/nazwaproduktu_string"
         android:textColor="@color/nazwaproduktu_color"
-        android:textSize="13dp" />
+        android:textSize="25dp" />
 
     <ImageView
         android:id="@+id/ellipse_1"
-        android:layout_width="26dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="2dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="3dp"
         android:contentDescription="ellipse_1"
         android:src="@drawable/kcal" />
 
     <ImageView
         android:id="@+id/ellipse_2"
-        android:layout_width="26dp"
-        android:layout_height="23dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="3dp"
         android:contentDescription="ellipse_2"
         android:src="@drawable/carbo" />
 
+
     <ImageView
         android:id="@+id/ellipse_3"
-        android:layout_width="26dp"
-        android:layout_height="23dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="260dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="340dp"
+        android:layout_marginTop="3dp"
         android:contentDescription="ellipse_3"
         android:src="@drawable/trans_fats_free" />
 
 
     <EditText
         android:id="@+id/ilosc_gram"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
+        android:layout_width="89dp"
+        android:layout_height="36dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="310dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/rectangle_4_shape"
-        android:paddingLeft="7dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/rectangle_5_shape"
+        android:hint="            g"
         android:inputType="number"
-        android:hint="     g"
-        ></EditText>
+        android:textSize="19dp"
+        android:paddingLeft="7dp"></EditText>
 
     <TextView
         android:id="@+id/ilosc_cal"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
+        android:layout_width="89dp"
+        android:layout_height="36dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="310dp"
-        android:layout_marginTop="25dp"
-        android:paddingLeft="7dp"
-        android:hint="   kcal"
-
+        android:layout_centerVertical="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="96dp"
         android:background="@drawable/rectangle_4_shape"
+        android:hint="     kcal"
+        android:paddingLeft="7dp"
+        android:textSize="19dp"
+        android:gravity="center"
         ></TextView>
-
 
     <ImageButton
         android:id="@+id/dodajDoDziennika"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="370dp"
-        android:layout_marginTop="6dp"
-        app:srcCompat="@drawable/add"
-        android:scaleType="centerInside"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginBottom="-6dp"
         android:background="#b5b3f4"
-
-
-
-
-
-        />
-
-
-
-
-
-
-
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/add" />
 
     <TextView
         android:id="@+id/bialkoSzukanego"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="207dp"
-        android:layout_marginTop="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="278dp"
+        android:layout_marginTop="56dp"
+        android:textSize="20dp"
+
         android:text="@string/_100_g_ek1_string"
         android:textColor="@color/nazwaproduktu_color" />
 
     <TextView
         android:id="@+id/wegleSzukanego"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="158dp"
-        android:layout_marginTop="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="208dp"
+        android:textSize="20dp"
+        android:layout_marginTop="56dp"
         android:text="@string/_100_g_string"
         android:textColor="@color/nazwaproduktu_color" />
 
     <TextView
         android:id="@+id/tluszczSzukanego"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="257dp"
-        android:layout_marginTop="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="343dp"
+        android:layout_marginTop="56dp"
         android:text="@string/_100_g_ek2_string"
-        android:textColor="@color/nazwaproduktu_color" />
+        android:textColor="@color/nazwaproduktu_color"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/kalorycznoscSzukanego"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/ellipse_1"
-        android:layout_alignBottom="@+id/bialkoSzukanego"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="116dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/__na_100_g_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:textSize="20dp"
+        android:layout_marginTop="56dp"
         android:text="@string/_100_g_ek3_string"
         android:textColor="@color/nazwaproduktu_color" />
 
     <TextView
         android:id="@+id/__na_100_g_"
-        android:layout_width="81dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/__na_100_g__string"
-        android:textColor="@color/nazwaproduktu_color" />
+        android:textColor="@color/nazwaproduktu_color"
+        android:textSize="20dp" />
 
     <View
         android:id="@+id/rectangle_1"
         android:layout_width="match_parent"
         android:layout_height="7dp"
-        android:layout_marginStart="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
         android:layout_marginTop="47dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="-1dp"
         android:background="@drawable/rectangle_1_shape" />
 
 </RelativeLayout>
