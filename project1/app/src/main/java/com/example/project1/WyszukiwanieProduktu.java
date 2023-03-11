@@ -37,7 +37,7 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
 
     EditText doWyszukania;
     ImageButton szukaj;
-    String XRapidAPIKey ="ea101cf885mshab46ad115e6e655p1734a5jsn7d62bee41295";
+    String XRapidAPIKey ="5778629af2msh7c559938fa40166p1a9b4ejsn2b36f5bc0e26";
     String XRapidAPIHost = "dietagram.p.rapidapi.com";
 
     RecyclerView wyszukane;
@@ -64,8 +64,16 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
         wyszukane.setHasFixedSize(true);
         wyszukane.setLayoutManager(new LinearLayoutManager(this));
         wyszukane.setAdapter(wyszukanyPosilekAdapter);
-       Dish posilek = new Dish("1","Jajko z żurkiem owoc", "130","3","10","20","30","kat");
-       listaWyszukanychPosilkow.add(posilek);
+
+        //testowanie layout
+        Dish posilek = new Dish("1","Jajko z żurkiem owoc", "130","3","100","200","300","kat");
+//        Dish posilek1 = new Dish("1","Jajko z żurkiem owoc fsdfasdfsdsdfafsdfdsfsadsfaddsf", "130","3","10","20","30","kat");
+//        Dish posilek3 = new Dish("1","Jajko z żurkiem owoc fsdfasdfsdsdfafsdfdsfsadsfaddsf", "130","3","10.3","20.3","30.3","kat");
+//
+        listaWyszukanychPosilkow.add(posilek);
+//        listaWyszukanychPosilkow.add(posilek1);
+//        listaWyszukanychPosilkow.add(posilek3);
+
         wyszukanyPosilekAdapter.notifyDataSetChanged();
 
 
@@ -88,8 +96,23 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
                         Gson gson = new Gson();
                         Root root = gson.fromJson(jsonString, Root.class);
 
-                        for(int i=0;i<root.dishes.size()-1;i++)
+                        for(int i=0;i<root.dishes.size();i++){
+
+                            String temp = root.dishes.get(i).name.toLowerCase();
+                            String temp1 = temp.substring(0, 1).toUpperCase() + temp.substring(1);
+                            root.dishes.get(i).setName(temp1);
+
+                            if(root.dishes.get(i).fat.equals("000")){
+                                root.dishes.get(i).setFat("0");
+                            }
+                            if(root.dishes.get(i).carbon.equals("000")){
+                                root.dishes.get(i).setCarbon("0");
+                            }
+                            if(root.dishes.get(i).protein.equals("000")){
+                                root.dishes.get(i).setProtein("0");
+                            }
                             listaWyszukanychPosilkow.add(root.dishes.get(i));
+                        }
                             wyszukanyPosilekAdapter.notifyDataSetChanged();
                     }
 
@@ -111,8 +134,8 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
                 Volley.newRequestQueue(WyszukiwanieProduktu.this).add(request);
             }
         });
-
     }
+
 
     static String processString(String nazwa) {
 
@@ -134,5 +157,4 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
         }
         return nazwa;
     }
-
 }

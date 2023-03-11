@@ -173,8 +173,6 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
 
                 if (wyszukiwanieWiekiem.isChecked() && wyszukiwanieCelem.isChecked()) {
 
-
-
                     if (TextUtils.isEmpty(wiekStartText) || TextUtils.isEmpty(wiekStopText)) {
                         wiekStart.setError("uzupełnij pola!");
                         wiekStop.setError("uzupełnij pola!");
@@ -193,10 +191,6 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
                         Query query4 = reference.orderByChild("wiek_cel").startAt(startWarunek).endAt(stopWarunek);
                         wczytajUzytkownikow(query4);
                     }
-
-
-
-
                 }
             }
         });
@@ -204,8 +198,6 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
     }
 
     private void wczytajUzytkownikow(Query query) {
-
-
 
         FirebaseRecyclerOptions<Uzytkownik> options = new FirebaseRecyclerOptions.Builder<Uzytkownik>()
                 .setQuery(query, Uzytkownik.class)
@@ -274,7 +266,6 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
             super(itemView);
 
             mView = itemView;
-
             nazwa = itemView.findViewById(R.id.nazwaPojUzytkownika);
             wiek = itemView.findViewById(R.id.wiekPoj);
             status = itemView.findViewById(R.id.statusPoj);

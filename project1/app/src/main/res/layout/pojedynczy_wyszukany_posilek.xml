@@ -19,13 +19,15 @@
 
     <TextView
         android:id="@+id/nazwaSzukanego"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
+        android:layout_width="103dp"
+        android:layout_height="114dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="0dp"
+        android:autoSizeTextType="uniform"
         android:text="@string/nazwaproduktu_string"
         android:textColor="@color/nazwaproduktu_color"
         android:textSize="25dp" />
@@ -110,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="278dp"
         android:layout_marginTop="56dp"
-        android:textSize="20dp"
+        android:textSize="19dp"
 
         android:text="@string/_100_g_ek1_string"
         android:textColor="@color/nazwaproduktu_color" />
@@ -120,7 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="208dp"
-        android:textSize="20dp"
+        android:textSize="19dp"
         android:layout_marginTop="56dp"
         android:text="@string/_100_g_string"
         android:textColor="@color/nazwaproduktu_color" />
@@ -129,18 +131,18 @@
         android:id="@+id/tluszczSzukanego"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="343dp"
+        android:layout_marginLeft="336dp"
         android:layout_marginTop="56dp"
         android:text="@string/_100_g_ek2_string"
         android:textColor="@color/nazwaproduktu_color"
-        android:textSize="20dp" />
+        android:textSize="19dp" />
 
     <TextView
         android:id="@+id/kalorycznoscSzukanego"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="120dp"
-        android:textSize="20dp"
+        android:textSize="19dp"
         android:layout_marginTop="56dp"
         android:text="@string/_100_g_ek3_string"
         android:textColor="@color/nazwaproduktu_color" />
@@ -167,7 +169,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="-1dp"
         android:layout_marginTop="47dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="1dp"
         android:layout_marginBottom="-1dp"
         android:background="@drawable/rectangle_1_shape" />
 

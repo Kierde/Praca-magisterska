@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -81,7 +83,7 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
                     int wynik = calculateHowMuchCalories(iloscProduktu, kcalorie);
                     holder.iloscKalorii.setText(Integer.toString(wynik));
                 } else {
-                    holder.iloscProduktu.setError("podaj produktu (w gramach)");
+                    holder.iloscProduktu.setError("Podaj ilość produktu (w gramach)");
                 }
             }
         });
@@ -91,6 +93,11 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
             public void onClick(View view) {
 
                 if (!TextUtils.isEmpty(holder.iloscProduktu.getText().toString().trim())) {
+
+                    //animacja przycisku
+                    Animation animation = new AlphaAnimation(1.0f, 0.0f);
+                    animation.setDuration(300);
+                    holder.dodajDoDziennika.startAnimation(animation);
 
                     String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" + "/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
                     String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime()) + "/" + nazwaPosilku;

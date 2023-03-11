@@ -16,6 +16,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,6 +35,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -70,7 +73,6 @@ public class ZapisPosilkow extends AppCompatActivity {
     Button wyszukajPrzekaski;
 
     ImageButton dodajNotatke;
-
 
     SimpleDateFormat simpleDateFormat;
     GregorianCalendar dt1;
@@ -257,18 +259,13 @@ public class ZapisPosilkow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 dt1.add(Calendar.DATE, 1);
-
                 String dataText = simpleDateFormat.format(dt1.getTime());
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);
                 kolacjaAdapter.zmienDate(dt1);
                 przekaskiAdapter.zmienDate(dt1);
                 cwiczeniaAdapter.zmienDate(dt1);
-
-
-
                 data.setText(dataText);
                 odswierzenieDanych();
             }
@@ -279,14 +276,12 @@ public class ZapisPosilkow extends AppCompatActivity {
             public void onClick(View v) {
 
                dt1.add(Calendar.DATE, -1);
-
                 String dataText = simpleDateFormat.format(dt1.getTime());
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);
                 kolacjaAdapter.zmienDate(dt1);
                 cwiczeniaAdapter.zmienDate(dt1);
                 przekaskiAdapter.zmienDate(dt1);
-
                 data.setText(dataText);
                 odswierzenieDanych();
             }
@@ -379,6 +374,9 @@ public class ZapisPosilkow extends AppCompatActivity {
 
         final EditText nazwaPosi = dialog.findViewById(R.id.nazwaPosilkudialog);
         final EditText kalorycznosc = dialog.findViewById(R.id.iloscKaloriidiaog);
+        final EditText weglowodany = dialog.findViewById(R.id.iloscWeglodialog);
+        final EditText bialko = dialog.findViewById(R.id.iloscBialkadialog);
+        final EditText tluszcz = dialog.findViewById(R.id.iloscTluszczudialog);
         final Button dodajPosilek = dialog.findViewById(R.id.dodajPosilekdiaglog);
 
 
@@ -386,57 +384,75 @@ public class ZapisPosilkow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String nazwaPosilkuText = nazwaPosi.getText().toString();
-                String kalorycznoscText = kalorycznosc.getText().toString();
+                String nazwaPosilkuText = nazwaPosi.getText().toString().trim();
+                String kalorycznoscText = kalorycznosc.getText().toString().trim();
+                String weglowodanyText = weglowodany.getText().toString().trim();
+                String bialoText = bialko.getText().toString().trim();
+                String tluszczText = tluszcz.getText().toString().trim();
 
-                if ((!TextUtils.isEmpty(nazwaPosilkuText)) && (!TextUtils.isEmpty(kalorycznoscText))) {
+                if ((!TextUtils.isEmpty(nazwaPosilkuText)) && (!TextUtils.isEmpty(kalorycznoscText))
+                        && !TextUtils.isEmpty(weglowodanyText) && !TextUtils.isEmpty(bialoText) && !TextUtils.isEmpty(tluszczText)) {
 
-                    String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime()) + "/" + nazwaPosilku;
-                    String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" +"/"+ idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
-
-
-                    DatabaseReference push = databaseReferenceMain.child("Dziennik_posilkow")
-                            .child(idZalogowanego).push();
-
-                    DatabaseReference push1 = databaseReferenceMain.child("Wszystkie posilki uzytkownika do monitora posilkow")
-                            .child(idZalogowanego).push();
-
-
-                    String pushId = push.getKey();
-                    String pushId1 = push1.getKey();
-
-                    Map posilekMap = new HashMap();
-                    posilekMap.put("nazwaPosilku", nazwaPosilkuText);
-                    posilekMap.put("index", pushId);
-
-
-                    if(nazwaPosilku.equals("Cwiczenia")) {
-                        posilekMap.put("kalorycznosc", -Integer.parseInt(kalorycznoscText));
-                    }else {
-                        posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscText));
-                    }
-
-                    Map czescPosilku = new HashMap();
-                    czescPosilku.put(posilekRef + "/" + pushId, posilekMap);
-
-                    Map wszystkieposilki = new HashMap();
-                    wszystkieposilki.put(posilekRef1+"/"+pushId1, posilekMap);
-
-
-                    dialog.dismiss();
-                    databaseReferenceMain.updateChildren(czescPosilku, new DatabaseReference.CompletionListener() {
+                    databaseReferenceMain.child("Baza_posilkow_uzytkonikow").child(nazwaPosilku).addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.exists()) {
+
+                                DatabaseReference referencePosilek = databaseReferenceMain.child("Dziennik_posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()))
+                                        .child(nazwaPosilku);
+                                String index = referencePosilek.push().getKey();
+                                Posilek posilek = new Posilek(Integer.parseInt(kalorycznoscText), nazwaPosilkuText, index, Float.parseFloat(bialoText), Float.parseFloat(weglowodanyText), Float.parseFloat(tluszczText));
+                                referencePosilek.child(index).setValue(posilek);
+
+                                //baza danych dla wszystkich użytkoników
+                                DatabaseReference dlaWszystkichUzytkownikow = databaseReferenceMain.child("Baza_posilkow_uzytkonikow");
+                                String index1 = dlaWszystkichUzytkownikow.push().getKey();
+                                dlaWszystkichUzytkownikow.child(index1).setValue(posilek);
+
+
+                                String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" + "/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
+                                DatabaseReference push1 = databaseReferenceMain.child("Wszystkie posilki uzytkownika do monitora posilkow")
+                                        .child(idZalogowanego).push();
+
+                                String pushId1 = push1.getKey();
+
+                                Map posilekMap = new HashMap();
+                                posilekMap.put("nazwaPosilku", nazwaPosilkuText);
+                                posilekMap.put("index", pushId1);
+
+                                if (nazwaPosilku.equals("Cwiczenia")) {
+                                    posilekMap.put("kalorycznosc", -Integer.parseInt(kalorycznoscText));
+                                } else {
+                                    posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscText));
+                                }
+
+
+                                Map wszystkieposilki = new HashMap();
+                                wszystkieposilki.put(posilekRef1 + "/" + pushId1, posilekMap);
+
+
+                                dialog.dismiss();
+
+                                databaseReferenceMain.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                                    }
+                                });
+                            }else{
+                                nazwaPosi.setError("Posiłek o podanej nazwie istnieje już w bazie danych");
+                            }
+
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
                     });
 
-                    databaseReferenceMain.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-
-                        }
-                    });
                 }
             }
         });

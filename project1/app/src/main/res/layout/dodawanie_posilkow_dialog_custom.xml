@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="nazwa posilku"
+        android:hint="Nazwa posiłku"
+        android:textSize="15dp"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -21,14 +22,57 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="ilosc kalorii"
+        android:hint="Ilość kalorii"
+        android:textSize="15dp"
         android:inputType="numberDecimal|numberSigned"
-
         />
+
+
+
+    <EditText
+        android:id="@+id/iloscWeglodialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:textSize="15dp"
+        android:hint="Ilość węglowodanów na 100 [g] produktu"
+        android:inputType="numberDecimal"
+        />
+
+    <EditText
+        android:id="@+id/iloscBialkadialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:textSize="15dp"
+        android:hint="Ilość białka na 100 [g] produktu"
+        android:inputType= "numberDecimal"/>
+
+    <EditText
+        android:id="@+id/iloscTluszczudialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:textSize="15dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:hint="Ilość tłuszczu na 100 [g] produktu"
+        android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/dodajPosilekdiaglog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="dodaj" />
+
 </LinearLayout>

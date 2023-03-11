@@ -163,8 +163,6 @@ public class InformacjeFizyczne extends AppCompatActivity {
                             Waga waga = new Waga(simpleDateFormat.format(date.getTime()), wagaFloat, pushId);
 
                             databaseRefWaga = FirebaseDatabase.getInstance().getReference("Zmiany w wadze").child(userId);
-
-
                             databaseRefWaga.child(pushId).setValue(waga);
                             openDaneActivity();
 
