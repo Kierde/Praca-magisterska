@@ -75,6 +75,11 @@ public class Dish {
         this.category_id = category_id;
     }
 
+
+    public Dish(){
+
+    }
+
     public Dish(String id, String name, String caloric, String type, String fat, String carbon, String protein, String category_id) {
         this.id = id;
         this.name = name;

@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -57,7 +59,7 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
         doWyszukania = (EditText) findViewById(R.id.nazwaSzukanegoProduktu);
 
         wyszukane = (RecyclerView) findViewById(R.id.wyszukaneRecyclerView);
-        wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow,nazwaPosilku);
+        wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow,null,nazwaPosilku);
         Log.d("nazwaPosilku", nazwaPosilku);
 
 
@@ -66,11 +68,11 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
         wyszukane.setAdapter(wyszukanyPosilekAdapter);
 
         //testowanie layout
-        Dish posilek = new Dish("1","Jajko z żurkiem owoc", "130","3","100","200","300","kat");
+       // Dish posilek = new Dish("1","Jajko z żurkiem owoc", "130","3","100","200","300","kat");
 //        Dish posilek1 = new Dish("1","Jajko z żurkiem owoc fsdfasdfsdsdfafsdfdsfsadsfaddsf", "130","3","10","20","30","kat");
 //        Dish posilek3 = new Dish("1","Jajko z żurkiem owoc fsdfasdfsdsdfafsdfdsfsadsfaddsf", "130","3","10.3","20.3","30.3","kat");
 //
-        listaWyszukanychPosilkow.add(posilek);
+      //  listaWyszukanychPosilkow.add(posilek);
 //        listaWyszukanychPosilkow.add(posilek1);
 //        listaWyszukanychPosilkow.add(posilek3);
 
@@ -80,6 +82,10 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
         szukaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Animation animation = new AlphaAnimation(1.0f, 0.0f);
+                animation.setDuration(300);
+                szukaj.startAnimation(animation);
 
                 listaWyszukanychPosilkow.clear();
                 wyszukanyPosilekAdapter.notifyDataSetChanged();

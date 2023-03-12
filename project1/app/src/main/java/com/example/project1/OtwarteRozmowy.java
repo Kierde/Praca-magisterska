@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,6 @@ public class OtwarteRozmowy extends Fragment {
     String idZalogowanego;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +68,7 @@ public class OtwarteRozmowy extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+
 
         FirebaseRecyclerOptions<Rozmowa> options = new FirebaseRecyclerOptions.Builder<Rozmowa>()
                 .setQuery(databaseReferenceRozmowy, Rozmowa.class)
@@ -152,10 +153,7 @@ public class OtwarteRozmowy extends Fragment {
                         });
 
 
-
-
                     }
-
 
                     @NonNull
                     @Override
@@ -167,7 +165,6 @@ public class OtwarteRozmowy extends Fragment {
 
                     }
                 };
-
 
         otwarteRozmowy.setAdapter(adapter);
         adapter.startListening();

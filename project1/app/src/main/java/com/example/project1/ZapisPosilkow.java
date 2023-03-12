@@ -287,7 +287,6 @@ public class ZapisPosilkow extends AppCompatActivity {
             }
         });
 
-
         dodajSniadanie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -384,6 +383,8 @@ public class ZapisPosilkow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 String nazwaPosilkuText = nazwaPosi.getText().toString().trim();
                 String kalorycznoscText = kalorycznosc.getText().toString().trim();
                 String weglowodanyText = weglowodany.getText().toString().trim();
@@ -393,11 +394,11 @@ public class ZapisPosilkow extends AppCompatActivity {
                 if ((!TextUtils.isEmpty(nazwaPosilkuText)) && (!TextUtils.isEmpty(kalorycznoscText))
                         && !TextUtils.isEmpty(weglowodanyText) && !TextUtils.isEmpty(bialoText) && !TextUtils.isEmpty(tluszczText)) {
 
-                    databaseReferenceMain.child("Baza_posilkow_uzytkonikow").child(nazwaPosilku).addValueEventListener(new ValueEventListener() {
+                    databaseReferenceMain.child("Baza_posilkow_uzytkonikow").child(nazwaPosilkuText).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            if (snapshot.exists()) {
+                            if (!snapshot.exists()) {
 
                                 DatabaseReference referencePosilek = databaseReferenceMain.child("Dziennik_posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()))
                                         .child(nazwaPosilku);
@@ -452,11 +453,9 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                         }
                     });
-
                 }
             }
         });
-
         dialog.show();
     }
 
@@ -517,7 +516,7 @@ public class ZapisPosilkow extends AppCompatActivity {
 
     public void openWyszukanie(String nazwaPosilku){
 
-        Intent intent = new Intent(ZapisPosilkow.this,WyszukiwanieProduktu.class);
+        Intent intent = new Intent(ZapisPosilkow.this,BazaProduktowUzytkownikow.class);
         intent.putExtra("nazwaPosilku", nazwaPosilku);
         startActivity(intent);
 

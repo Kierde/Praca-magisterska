@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1">
-        <activity android:name=".WyszukiwanieProduktu"></activity>
-        <!-- <meta-data -->
+        <activity android:name=".BazaProduktowUzytkownikow"></activity>
+        <activity android:name=".WyszukiwanieProduktu" /> <!-- <meta-data -->
         <!-- android:name="com.google.firebase.ml.vision.DEPENDENCIES" -->
         <!-- android:value="ocr" /> -->
         <activity android:name=".InneWykresy" />

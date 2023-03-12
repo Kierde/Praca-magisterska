@@ -40,8 +40,6 @@ public class KomunikatorUzytkownika extends AppCompatActivity {
                 }else if(tab.getPosition()==1) {
                     pagerAdapter.notifyDataSetChanged();
                 }
-
-
             }
 
             @Override
@@ -56,8 +54,12 @@ public class KomunikatorUzytkownika extends AppCompatActivity {
         });
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-
-
     }
+
+
+
+
+
+
+
 }

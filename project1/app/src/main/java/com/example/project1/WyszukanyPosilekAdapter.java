@@ -34,6 +34,7 @@ import Deserialization.Dish;
 public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosilekAdapter.WyszukanyPosilekViewHolder> {
 
     private List<Dish> wyszukanyPosilekList;
+    private List<Posilek> bazaPosilkowUzytkownika;
     String nazwaPosilku;
     SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MM-yyyy");;
     GregorianCalendar dt1 = new GregorianCalendar();
@@ -41,9 +42,10 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
     String idZalogowanego = fAuth.getUid();
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    public WyszukanyPosilekAdapter(List<Dish> wyszukanyPosilekList, String nazwaPosilku) {
+    public WyszukanyPosilekAdapter(List<Dish> wyszukanyPosilekList, List<Posilek> bazaPosilkowUzytkownika,String nazwaPosilku) {
         this.wyszukanyPosilekList = wyszukanyPosilekList;
         this.nazwaPosilku = nazwaPosilku;
+        this.bazaPosilkowUzytkownika = bazaPosilkowUzytkownika;
     }
 
     @NonNull
@@ -57,36 +59,73 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
     @Override
     public void onBindViewHolder(@NonNull WyszukanyPosilekAdapter.WyszukanyPosilekViewHolder holder, int position) {
 
-        Dish dish = wyszukanyPosilekList.get(position);
-        holder.nazwaSzukanego.setText(dish.name);
-        holder.kalorycznoscSzukanego.setText(dish.caloric + " kcal");
-        holder.tluszczSzukanego.setText(dish.fat + " g");
-        holder.weglowodanySzukanego.setText(dish.carbon + " g");
-        holder.bialkoSzukanego.setText(dish.protein + " g");
 
-        holder.iloscProduktu.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+        if(wyszukanyPosilekList!=null) {
+            Dish dish = wyszukanyPosilekList.get(position);
+            holder.nazwaSzukanego.setText(dish.name);
+            holder.kalorycznoscSzukanego.setText(dish.caloric + " kcal");
+            holder.tluszczSzukanego.setText(dish.fat + " g");
+            holder.weglowodanySzukanego.setText(dish.carbon + " g");
+            holder.bialkoSzukanego.setText(dish.protein + " g");
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                if (!TextUtils.isEmpty(holder.iloscProduktu.getText().toString().trim())) {
-
-                    float iloscProduktu = Float.parseFloat(holder.iloscProduktu.getText().toString());
-                    int kcalorie = Integer.parseInt(dish.caloric);
-                    int wynik = calculateHowMuchCalories(iloscProduktu, kcalorie);
-                    holder.iloscKalorii.setText(Integer.toString(wynik));
-                } else {
-                    holder.iloscProduktu.setError("Podaj ilość produktu (w gramach)");
+            holder.iloscProduktu.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 }
-            }
-        });
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                        if (!TextUtils.isEmpty(holder.iloscProduktu.getText().toString().trim())) {
+                            float iloscProduktu = Float.parseFloat(holder.iloscProduktu.getText().toString());
+                            int kcalorie = Integer.parseInt(dish.caloric);
+                            int wynik = calculateHowMuchCalories(iloscProduktu, kcalorie);
+                            holder.iloscKalorii.setText(wynik);
+                        } else {
+                            holder.iloscProduktu.setError("Podaj ilość produktu (w gramach)");
+                        }
+                }
+            });
+        }
+
+        if(bazaPosilkowUzytkownika!=null){
+
+            Posilek posilek = bazaPosilkowUzytkownika.get(position);
+            holder.nazwaSzukanego.setText(posilek.getNazwaPosilku());
+            holder.kalorycznoscSzukanego.setText(posilek.getKalorycznosc() + " kcal");
+            holder.tluszczSzukanego.setText(processWith0(String.valueOf(posilek.getTluszcz()))+ " g");
+            holder.weglowodanySzukanego.setText(processWith0(String.valueOf(posilek.getWeglowodany())) + " g");
+            holder.bialkoSzukanego.setText(processWith0(String.valueOf(posilek.getBialko())) + " g");
+
+
+            holder.iloscProduktu.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                        if (!TextUtils.isEmpty(holder.iloscProduktu.getText().toString().trim())) {
+                            float iloscProduktu = Float.parseFloat(holder.iloscProduktu.getText().toString());
+                            int kcalorie = posilek.getKalorycznosc();
+                            int wynik = calculateHowMuchCalories(iloscProduktu, kcalorie);
+                            holder.iloscKalorii.setText(Integer.toString(wynik));
+                        } else {
+                            holder.iloscProduktu.setError("Podaj ilość produktu (w gramach)");
+                        }
+                }
+            });
+        }
 
         holder.dodajDoDziennika.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,49 +138,31 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
                     animation.setDuration(300);
                     holder.dodajDoDziennika.startAnimation(animation);
 
-                    String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" + "/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
-                    String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime()) + "/" + nazwaPosilku;
 
+                    String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" + "/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
                     DatabaseReference push1 = databaseReference.child("Wszystkie posilki uzytkownika do monitora posilkow")
                             .child(idZalogowanego).push();
-
-                    DatabaseReference push = databaseReference.child("Dziennik_posilkow")
-                            .child(idZalogowanego).push();
-
-                    String pushId = push.getKey();
                     String pushId1 = push1.getKey();
-
-
-                    String kalorycznosc = holder.kalorycznoscSzukanego.getText().toString();
+                    String kalorycznosc = holder.iloscKalorii.getText().toString();
                     String kalorycznoscPoZmianach = kalorycznosc.replace("kcal", "");
                     Map posilekMap = new HashMap();
                     posilekMap.put("nazwaPosilku", holder.nazwaSzukanego.getText().toString());
                     posilekMap.put("index", pushId1);
                     posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscPoZmianach.trim()));
-
-
                     Map wszystkieposilki = new HashMap();
                     wszystkieposilki.put(posilekRef1 +"/"+ pushId1, posilekMap);
 
-                    Map czescPosilku = new HashMap();
-                    czescPosilku.put(posilekRef+"/"+pushId,posilekMap);
+                    DatabaseReference referencePosilek = databaseReference.child("Dziennik_posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()))
+                            .child(nazwaPosilku);
+                    String index = referencePosilek.push().getKey();
+                    Posilek posilek = new Posilek(Integer.parseInt(kalorycznoscPoZmianach.trim()), holder.nazwaSzukanego.getText().toString(),index, Float.parseFloat(processStringWithG(holder.bialkoSzukanego.getText().toString())), Float.parseFloat(processStringWithG(holder.weglowodanySzukanego.getText().toString())), Float.parseFloat(processStringWithG(holder.tluszczSzukanego.getText().toString())));
+                    referencePosilek.child(index).setValue(posilek);
 
                     databaseReference.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-
                         }
                     });
-
-                    databaseReference.updateChildren(czescPosilku, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-
-                        }
-                    });
-
-
-
 
                 } else {
                     holder.iloscProduktu.setError("podaj wartość liczbową ilości produktu (w gramach)");
@@ -156,10 +177,26 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
         return result;
     }
 
+    public String processStringWithG(String stringToProcess){
+        String kalorycznoscPoZmianach = stringToProcess.replace("g", "");
+        return kalorycznoscPoZmianach.trim();
+    }
+
+    public String processWith0(String stringToProcess){
+        String stringPozmianach = stringToProcess.replace(".0", "");
+        return stringPozmianach.trim();
+    }
 
     @Override
     public int getItemCount() {
-        return wyszukanyPosilekList.size();
+
+        int size =0;
+        if(wyszukanyPosilekList!=null)
+             size =wyszukanyPosilekList.size();
+        if(bazaPosilkowUzytkownika!=null) {
+            size = bazaPosilkowUzytkownika.size();
+        }
+        return size;
     }
 
     public class WyszukanyPosilekViewHolder extends RecyclerView.ViewHolder {

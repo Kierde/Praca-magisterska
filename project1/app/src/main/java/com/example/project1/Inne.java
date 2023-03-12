@@ -12,7 +12,6 @@ import android.widget.Button;
 
 public class Inne extends AppCompatActivity {
 
-
     Button  daneUzytkownika;
     Button wylogujSie;
     Button wszyscyUzytkownicy;
@@ -55,7 +54,6 @@ public class Inne extends AppCompatActivity {
 
 
 
-
         wszyscyUzytkownicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +65,7 @@ public class Inne extends AppCompatActivity {
         wyszukiwanieProduktów.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openWyszukiwanieProduktow();
+                openBazaProduktowUzytkonikow();
             }
         });
 
@@ -75,9 +73,9 @@ public class Inne extends AppCompatActivity {
     }
 
 
-    public void openWyszukiwanieProduktow(){
+    public void openBazaProduktowUzytkonikow(){
 
-        Intent intent = new Intent(this, WyszukiwanieProduktu.class);
+        Intent intent = new Intent(this, BazaProduktowUzytkownikow.class);
         startActivity(intent);
 
     }
