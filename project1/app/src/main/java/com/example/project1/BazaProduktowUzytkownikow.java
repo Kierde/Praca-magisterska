@@ -9,16 +9,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +41,9 @@ public class BazaProduktowUzytkownikow extends Fragment {
     RecyclerView dodane;
     DatabaseReference databaseReferenceMain;
     ImageButton przeszukajBaze;
+    EditText przeszukajNazwa;
+    DatabaseReference reference;
+
 
 
     @Override
@@ -40,7 +51,10 @@ public class BazaProduktowUzytkownikow extends Fragment {
                                Bundle savedInstanceState) {
 
         mainView = inflater.inflate(R.layout.activity_baza_produktow_uzytkownikow, container, false);
+        przeszukajBaze = (ImageButton) mainView.findViewById(R.id.wyszukajProdukt);
+        przeszukajNazwa = (EditText) mainView.findViewById(R.id.nazwaSzukanegoProduktu);
 
+        reference = FirebaseDatabase.getInstance().getReference().child("Baza_posilkow_uzytkonikow");
         databaseReferenceMain = FirebaseDatabase.getInstance().getReference();
         dodane = (RecyclerView)mainView.findViewById(R.id.wyszukaneRecyclerView);
         dodaneDoBazyWspAdapter = new WyszukanyPosilekAdapter(null,posilkiUzytkownikow,((WyszukaneBazaPosilkow)getActivity()).nazwaPosilku);
@@ -51,8 +65,54 @@ public class BazaProduktowUzytkownikow extends Fragment {
         wczytajBazePosilkow();
         dodane.setAdapter(dodaneDoBazyWspAdapter);
 
+
+        przeszukajBaze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = new AlphaAnimation(1.0f, 0.0f);
+                animation.setDuration(300);
+                przeszukajBaze.startAnimation(animation);
+
+                String przeszukajNazwaText = przeszukajNazwa.getText().toString();
+
+                if(!TextUtils.isEmpty(przeszukajNazwaText)){
+
+
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if(snapshot.exists()){
+                                posilkiUzytkownikow.clear();
+
+                                for(DataSnapshot ds:snapshot.getChildren()){
+
+                                    Posilek posilek = ds.getValue(Posilek.class);
+
+                                    if(posilek.getNazwaPosilku().contains(przeszukajNazwaText))
+                                        posilkiUzytkownikow.add(posilek);
+                                        dodaneDoBazyWspAdapter.notifyDataSetChanged();
+                                }
+                            }else{
+                                wczytajBazePosilkow();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+
         return mainView;
     }
+
 
 
 

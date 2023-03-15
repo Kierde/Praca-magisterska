@@ -424,11 +424,7 @@ public class ZapisPosilkow extends AppCompatActivity {
         final Dialog dialog = new Dialog(ZapisPosilkow.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
-
-        if(nazwaPosilku.equals("Sniadanie")||nazwaPosilku.equals("Obiad")||nazwaPosilku.equals("Kolacja")||nazwaPosilku.equals("Przekaski"))
         dialog.setContentView(R.layout.dodawanie_posilkow_dialog_custom);
-        else
-            dialog.setContentView(R.layout.dodawanie_cwiczen);
 
         final EditText nazwaPosi = dialog.findViewById(R.id.nazwaCwiczenia);
         final EditText kalorycznosc = dialog.findViewById(R.id.spaloneKalorie1);
@@ -469,7 +465,6 @@ public class ZapisPosilkow extends AppCompatActivity {
         });
 
 
-
         dodajPosilek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -489,7 +484,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            if (!snapshot.exists()){
+                            if (!snapshot.hasChild(nazwaPosilkuText)){
 
                                 DatabaseReference referencePosilek = databaseReferenceMain.child("Dziennik_posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()))
                                         .child(nazwaPosilku);
@@ -503,9 +498,8 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                                 //baza danych dla wszystkich użytkoników
                                 DatabaseReference dlaWszystkichUzytkownikow = databaseReferenceMain.child("Baza_posilkow_uzytkonikow");
-                                String index1 = dlaWszystkichUzytkownikow.push().getKey();
                                 Posilek posilek1 = new Posilek(Integer.parseInt(kalorycznoscText), nazwaPosilkuText, index, Float.parseFloat(bialoText), Float.parseFloat(weglowodanyText), Float.parseFloat(tluszczText));
-                                dlaWszystkichUzytkownikow.child(index1).setValue(posilek1);
+                                dlaWszystkichUzytkownikow.child(nazwaPosilkuText).setValue(posilek1);
 
 
                                 String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" + "/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
@@ -518,11 +512,8 @@ public class ZapisPosilkow extends AppCompatActivity {
                                 posilekMap.put("nazwaPosilku", nazwaPosilkuText);
                                 posilekMap.put("index", pushId1);
 
-                                if (nazwaPosilku.equals("Cwiczenia")) {
-                                    posilekMap.put("kalorycznosc", -Integer.parseInt(iloscKcalDoDodania.getText().toString().trim()));
-                                } else {
-                                    posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscText));
-                                }
+                                posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscText));
+
 
 
                                 Map wszystkieposilki = new HashMap();

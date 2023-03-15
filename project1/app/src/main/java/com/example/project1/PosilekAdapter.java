@@ -1,5 +1,7 @@
 package com.example.project1;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,6 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
          przekaskiRef = FirebaseDatabase.getInstance().getReference("Dziennik_posilkow")
                  .child(zalogowanyId).child(simpleDateFormat.format(dt1.getTime())).child("Przekaski");
-
     }
 
 
@@ -92,14 +93,21 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
         return new PosilekViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PosilekViewHolder holder, int position) {
 
        Posilek posilek = posilekList.get(position);
        holder.nazwaJedzenia.setText(posilek.getNazwaPosilku());
+      //  Log.d("nazwa",posilek.getNazwaPosilku());
        holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+"Kcal");
+       holder.tluszcz.setText("FAT " + posilek.getTluszcz() + "g");
+       holder.wegle.setText("PROT." + posilek.getBialko() + "g");
+       holder.bialko.setText("CARB." + posilek.getBialko() + "g");
 
-       holder.usunPosilek.setOnClickListener(new View.OnClickListener() {
+
+
+        holder.usunPosilek.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
 
@@ -234,6 +242,9 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
         TextView nazwaJedzenia;
         TextView iloscKalorii;
+        TextView bialko;
+        TextView wegle;
+        TextView tluszcz;
         ImageButton usunPosilek;
 
         public PosilekViewHolder(View itemView){
@@ -241,8 +252,10 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
             nazwaJedzenia = (TextView) itemView.findViewById(R.id.nazwaPosilku);
             iloscKalorii = (TextView) itemView.findViewById(R.id.kalorie);
+            bialko =(TextView) itemView.findViewById(R.id.bialkoPosilku);
+            wegle= (TextView) itemView.findViewById(R.id.carboPosilku);
+            tluszcz =(TextView)itemView.findViewById(R.id.tluszczPosilku);
             usunPosilek = (ImageButton) itemView.findViewById(R.id.usunPosilek);
-
         }
 
     }
