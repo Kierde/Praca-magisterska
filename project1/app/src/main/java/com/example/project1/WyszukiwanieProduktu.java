@@ -2,6 +2,7 @@ package com.example.project1;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -35,8 +38,9 @@ import Deserialization.Dish;
 import Deserialization.Root;
 
 
-public class WyszukiwanieProduktu extends AppCompatActivity {
+public class WyszukiwanieProduktu extends Fragment {
 
+    View mainView;
     EditText doWyszukania;
     ImageButton szukaj;
     String XRapidAPIKey ="5778629af2msh7c559938fa40166p1a9b4ejsn2b36f5bc0e26";
@@ -47,36 +51,26 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
     private WyszukanyPosilekAdapter wyszukanyPosilekAdapter;
 
 
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wyszukiwanie_produktu);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                Bundle savedInstanceState) {
 
-        String nazwaPosilku = getIntent().getStringExtra("nazwaPosilku");
-        szukaj = (ImageButton) findViewById(R.id.wyszukajProdukt);
-        doWyszukania = (EditText) findViewById(R.id.nazwaSzukanegoProduktu);
+        mainView = inflater.inflate(R.layout.activity_wyszukiwanie_produktu,container,false);
+        //String nazwaPosilku = getIntent().getStringExtra("nazwaPosilku");
+        szukaj = (ImageButton) mainView.findViewById(R.id.wyszukajProdukt);
+        doWyszukania = (EditText) mainView.findViewById(R.id.nazwaSzukanegoProduktu);
 
-        wyszukane = (RecyclerView) findViewById(R.id.wyszukaneRecyclerView);
-        wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow,null,nazwaPosilku);
-        Log.d("nazwaPosilku", nazwaPosilku);
+
+
+        wyszukane = (RecyclerView) mainView.findViewById(R.id.wyszukaneRecyclerView);
+        wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow,null,((WyszukaneBazaPosilkow)getActivity()).nazwaPosilku);
+        //Log.d("nazwaPosilku", nazwaPosilku);
 
 
         wyszukane.setHasFixedSize(true);
-        wyszukane.setLayoutManager(new LinearLayoutManager(this));
+        wyszukane.setLayoutManager(new LinearLayoutManager(getActivity()));
         wyszukane.setAdapter(wyszukanyPosilekAdapter);
 
-        //testowanie layout
-       // Dish posilek = new Dish("1","Jajko z żurkiem owoc", "130","3","100","200","300","kat");
-//        Dish posilek1 = new Dish("1","Jajko z żurkiem owoc fsdfasdfsdsdfafsdfdsfsadsfaddsf", "130","3","10","20","30","kat");
-//        Dish posilek3 = new Dish("1","Jajko z żurkiem owoc fsdfasdfsdsdfafsdfdsfsadsfaddsf", "130","3","10.3","20.3","30.3","kat");
-//
-      //  listaWyszukanychPosilkow.add(posilek);
-//        listaWyszukanychPosilkow.add(posilek1);
-//        listaWyszukanychPosilkow.add(posilek3);
-
-        wyszukanyPosilekAdapter.notifyDataSetChanged();
 
 
         szukaj.setOnClickListener(new View.OnClickListener() {
@@ -137,9 +131,11 @@ public class WyszukiwanieProduktu extends AppCompatActivity {
                     }
                 };
 
-                Volley.newRequestQueue(WyszukiwanieProduktu.this).add(request);
+                Volley.newRequestQueue(getActivity()).add(request);
             }
         });
+
+        return mainView;
     }
 
 

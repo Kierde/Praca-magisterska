@@ -54,7 +54,6 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
     Spinner statusDiety;
     CheckBox wyszukiwanieCelem;
     CheckBox wyszukiwanieWiekiem;
-
     int cel;
 
 
@@ -97,7 +96,6 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
 
                 if(!TextUtils.isEmpty(nazwaGet)) {
                     Query query = reference.orderByChild("nazwaUzytkownika").equalTo(nazwaGet);
-
                     wczytajUzytkownikow(query);
                 }else {
                     wczytajUzytkownikow(reference);

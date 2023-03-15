@@ -8,29 +8,6 @@
     app:layout_constraintBottom_toTopOf="parent"
     tools:context=".KomunikatorUzytkownika">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/Tab2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rozmowy" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/Tab3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Znajomi" />
-    </com.google.android.material.tabs.TabLayout>
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/ViewPager"
         android:layout_width="match_parent"
@@ -40,6 +17,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/Tab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rozmowy" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/Tab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Znajomi" />
+        </com.google.android.material.tabs.TabLayout>
     </androidx.viewpager.widget.ViewPager>
 
 

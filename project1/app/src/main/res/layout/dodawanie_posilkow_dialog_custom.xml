@@ -4,7 +4,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/nazwaPosilkudialog"
+        android:id="@+id/nazwaCwiczenia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -14,7 +14,7 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/iloscKaloriidiaog"
+        android:id="@+id/spaloneKalorie1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -22,11 +22,10 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="Ilość kalorii"
+        android:hint="Ilość kalorii na 100 g"
         android:textSize="15dp"
         android:inputType="numberDecimal|numberSigned"
         />
-
 
 
     <EditText
@@ -84,8 +83,26 @@
         android:inputType="numberDecimal"
         />
 
+    <TextView
+        android:id="@+id/iloscKaloriiDoBazy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:textSize="15dp"
+        android:hint="Ilość kcal do dodania do bazy [g]"
+        android:inputType="numberDecimal"
+        />
+
+
+
+
+
     <Button
-        android:id="@+id/dodajPosilekdiaglog"
+        android:id="@+id/dodajCwiczenie1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="dodaj" />

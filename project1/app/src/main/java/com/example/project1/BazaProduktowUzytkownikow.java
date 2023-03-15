@@ -3,11 +3,16 @@ package com.example.project1;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -20,34 +25,36 @@ import java.util.List;
 
 import Deserialization.Dish;
 
-public class BazaProduktowUzytkownikow extends AppCompatActivity {
+public class BazaProduktowUzytkownikow extends Fragment {
 
+    View mainView;
     private final List<Posilek> posilkiUzytkownikow = new ArrayList<>();
     private WyszukanyPosilekAdapter dodaneDoBazyWspAdapter;
     RecyclerView dodane;
     DatabaseReference databaseReferenceMain;
-
+    ImageButton przeszukajBaze;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_baza_produktow_uzytkownikow);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                               Bundle savedInstanceState) {
+
+        mainView = inflater.inflate(R.layout.activity_baza_produktow_uzytkownikow, container, false);
 
         databaseReferenceMain = FirebaseDatabase.getInstance().getReference();
-        String nazwaPosilku = getIntent().getStringExtra("nazwaPosilku");
-        dodaneDoBazyWspAdapter = new WyszukanyPosilekAdapter(null,posilkiUzytkownikow,nazwaPosilku);
-        dodane = (RecyclerView)findViewById(R.id.wyszukaneRecyclerView);
+        dodane = (RecyclerView)mainView.findViewById(R.id.wyszukaneRecyclerView);
+        dodaneDoBazyWspAdapter = new WyszukanyPosilekAdapter(null,posilkiUzytkownikow,((WyszukaneBazaPosilkow)getActivity()).nazwaPosilku);
         dodane.setHasFixedSize(true);
-        dodane.setLayoutManager(new LinearLayoutManager(this));
+        dodane.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        posilkiUzytkownikow.clear();
+        wczytajBazePosilkow();
         dodane.setAdapter(dodaneDoBazyWspAdapter);
 
-       // Posilek posilek = new Posilek(100,"huj","gkgokgo", 1.2f, 2.2f,3.3f);
-        //posilkiUzytkownikow.add(posilek);
-        dodaneDoBazyWspAdapter.notifyDataSetChanged();
-        wczytajBazePosilkow();
-
+        return mainView;
     }
+
+
 
 
     private void wczytajBazePosilkow(){
@@ -82,11 +89,5 @@ public class BazaProduktowUzytkownikow extends AppCompatActivity {
                     }
                 });
     }
-
-
-
-
-
-
 
 }

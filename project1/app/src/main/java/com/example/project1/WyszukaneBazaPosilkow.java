@@ -1,8 +1,6 @@
 package com.example.project1;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -10,24 +8,29 @@ import android.os.Bundle;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
-public class KomunikatorUzytkownika extends AppCompatActivity {
+public class WyszukaneBazaPosilkow extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-    TabItem  tab2, tab3;
-    PageAdapter pagerAdapter;
+    TabItem tab2, tab3;
+    PageAdapterPosilki pagerAdapter;
+    String nazwaPosilku;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_komunikator_uzytkownika);
+        setContentView(R.layout.activity_wyszukane_baza_posilkow);
 
-        tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        tab2 = (TabItem) findViewById(R.id.Tab2);
-        tab3 = (TabItem) findViewById(R.id.Tab3);
-        viewPager = findViewById(R.id.ViewPager);
+        nazwaPosilku = getIntent().getStringExtra("nazwaPosilku");
 
-        pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        tabLayout = (TabLayout) findViewById(R.id.tablayout1);
+        tab2 = (TabItem) findViewById(R.id.Tab21);
+        tab3 = (TabItem) findViewById(R.id.Tab31);
+        viewPager = findViewById(R.id.ViewPager1);
+
+
+        pagerAdapter = new PageAdapterPosilki(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -55,5 +58,4 @@ public class KomunikatorUzytkownika extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
-
 }

@@ -1,24 +1,18 @@
 package com.example.project1;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.renderscript.Sampler;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -35,20 +29,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.project1.WyszukanyPosilekAdapter.calculateHowMuchCalories;
+import static com.example.project1.WyszukanyPosilekAdapter.calculateMacro;
+import static java.lang.Float.parseFloat;
 
 public class ZapisPosilkow extends AppCompatActivity {
 
@@ -297,7 +290,6 @@ public class ZapisPosilkow extends AppCompatActivity {
         wszukajSniadanie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openWyszukanie("Sniadanie");
             }
         });
@@ -348,7 +340,7 @@ public class ZapisPosilkow extends AppCompatActivity {
         dodajCwczenia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dodajPosilek("Cwiczenia");
+                dodajCwiczenie();
             }
         });
 
@@ -359,6 +351,73 @@ public class ZapisPosilkow extends AppCompatActivity {
             }
         });
     }
+
+
+    private void dodajCwiczenie(){
+
+        final Dialog dialog = new Dialog(ZapisPosilkow.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dodawanie_cwiczen);
+
+        final EditText nazwaCwiczenia = dialog.findViewById(R.id.nazwaCwiczenia);
+        final EditText spaloneKalorie = dialog.findViewById(R.id.spaloneKalorie1);
+        final Button dodajCwiczenie = dialog.findViewById(R.id.dodajCwiczenie1);
+
+
+        dodajCwiczenie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String nazwaCwiczeniaText=  nazwaCwiczenia.getText().toString().trim();
+                String spaloneKalorieText = spaloneKalorie.getText().toString().trim();
+
+                String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime()) + "/" + "Cwiczenia";
+                String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" +"/"+ idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
+
+                DatabaseReference push = databaseReferenceMain.child("Dziennik_posilkow")
+                        .child(idZalogowanego).push();
+
+                DatabaseReference push1 = databaseReferenceMain.child("Wszystkie posilki uzytkownika do monitora posilkow")
+                        .child(idZalogowanego).push();
+
+                String pushId = push.getKey();
+                String pushId1 = push1.getKey();
+
+                Map posilekMap = new HashMap();
+
+                posilekMap.put("nazwaPosilku", nazwaCwiczeniaText);
+                posilekMap.put("index", pushId);
+
+                posilekMap.put("kalorycznosc", -Integer.parseInt(spaloneKalorieText));
+                Map czescPosilku = new HashMap();
+                czescPosilku.put(posilekRef + "/" + pushId, posilekMap);
+
+                Map wszystkieposilki = new HashMap();
+                wszystkieposilki.put(posilekRef1+"/"+pushId1, posilekMap);
+
+
+                databaseReferenceMain.updateChildren(czescPosilku, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                    }
+                });
+
+                databaseReferenceMain.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                    }
+                });
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+
 
     private void dodajPosilek(String nazwaPosilku){
 
@@ -371,45 +430,82 @@ public class ZapisPosilkow extends AppCompatActivity {
         else
             dialog.setContentView(R.layout.dodawanie_cwiczen);
 
-        final EditText nazwaPosi = dialog.findViewById(R.id.nazwaPosilkudialog);
-        final EditText kalorycznosc = dialog.findViewById(R.id.iloscKaloriidiaog);
+        final EditText nazwaPosi = dialog.findViewById(R.id.nazwaCwiczenia);
+        final EditText kalorycznosc = dialog.findViewById(R.id.spaloneKalorie1);
         final EditText weglowodany = dialog.findViewById(R.id.iloscWeglodialog);
         final EditText bialko = dialog.findViewById(R.id.iloscBialkadialog);
         final EditText tluszcz = dialog.findViewById(R.id.iloscTluszczudialog);
-        final Button dodajPosilek = dialog.findViewById(R.id.dodajPosilekdiaglog);
+        final EditText iloscGramDoDodania = dialog.findViewById(R.id.ilosc_produktu);
+        final TextView iloscKcalDoDodania = dialog.findViewById(R.id.iloscKaloriiDoBazy);
+        final Button dodajPosilek = dialog.findViewById(R.id.dodajCwiczenie1);
+
+
+        iloscGramDoDodania.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if((!TextUtils.isEmpty(kalorycznosc.getText().toString().trim()))&&(!TextUtils.isEmpty(iloscGramDoDodania.getText().toString().trim()))){
+
+                    float iloscProduktu =0;
+                    int kalorycznoscProduktu=0;
+                    iloscProduktu = parseFloat(iloscGramDoDodania.getText().toString().trim());
+                    kalorycznoscProduktu = Integer.parseInt(kalorycznosc.getText().toString().trim());
+                    int kcal =calculateHowMuchCalories(iloscProduktu,kalorycznoscProduktu);
+                    iloscKcalDoDodania.setText(String.valueOf(kcal));
+                }else{
+                    iloscKcalDoDodania.setText(String.valueOf(0));
+                }
+
+            }
+        });
+
 
 
         dodajPosilek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-
                 String nazwaPosilkuText = nazwaPosi.getText().toString().trim();
                 String kalorycznoscText = kalorycznosc.getText().toString().trim();
                 String weglowodanyText = weglowodany.getText().toString().trim();
                 String bialoText = bialko.getText().toString().trim();
                 String tluszczText = tluszcz.getText().toString().trim();
+                String iloscProduktu = iloscGramDoDodania.getText().toString().trim();
+
 
                 if ((!TextUtils.isEmpty(nazwaPosilkuText)) && (!TextUtils.isEmpty(kalorycznoscText))
                         && !TextUtils.isEmpty(weglowodanyText) && !TextUtils.isEmpty(bialoText) && !TextUtils.isEmpty(tluszczText)) {
 
-                    databaseReferenceMain.child("Baza_posilkow_uzytkonikow").child(nazwaPosilkuText).addValueEventListener(new ValueEventListener() {
+                    databaseReferenceMain.child("Baza_posilkow_uzytkonikow").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            if (!snapshot.exists()) {
+                            if (!snapshot.exists()){
 
                                 DatabaseReference referencePosilek = databaseReferenceMain.child("Dziennik_posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()))
                                         .child(nazwaPosilku);
                                 String index = referencePosilek.push().getKey();
-                                Posilek posilek = new Posilek(Integer.parseInt(kalorycznoscText), nazwaPosilkuText, index, Float.parseFloat(bialoText), Float.parseFloat(weglowodanyText), Float.parseFloat(tluszczText));
+
+                                float bialko = calculateMacro(parseFloat(iloscProduktu), parseFloat(bialoText));
+                                float weglowodany=calculateMacro(parseFloat(iloscProduktu), parseFloat(weglowodanyText));
+                                float tluszcz=calculateMacro(parseFloat(iloscProduktu), parseFloat(tluszczText));
+                                Posilek posilek = new Posilek(Integer.parseInt(iloscKcalDoDodania.getText().toString().trim()), nazwaPosilkuText, index, bialko, weglowodany, tluszcz);
                                 referencePosilek.child(index).setValue(posilek);
 
                                 //baza danych dla wszystkich użytkoników
                                 DatabaseReference dlaWszystkichUzytkownikow = databaseReferenceMain.child("Baza_posilkow_uzytkonikow");
                                 String index1 = dlaWszystkichUzytkownikow.push().getKey();
-                                dlaWszystkichUzytkownikow.child(index1).setValue(posilek);
+                                Posilek posilek1 = new Posilek(Integer.parseInt(kalorycznoscText), nazwaPosilkuText, index, Float.parseFloat(bialoText), Float.parseFloat(weglowodanyText), Float.parseFloat(tluszczText));
+                                dlaWszystkichUzytkownikow.child(index1).setValue(posilek1);
 
 
                                 String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" + "/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
@@ -423,7 +519,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                                 posilekMap.put("index", pushId1);
 
                                 if (nazwaPosilku.equals("Cwiczenia")) {
-                                    posilekMap.put("kalorycznosc", -Integer.parseInt(kalorycznoscText));
+                                    posilekMap.put("kalorycznosc", -Integer.parseInt(iloscKcalDoDodania.getText().toString().trim()));
                                 } else {
                                     posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscText));
                                 }
@@ -446,7 +542,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                             }
 
                         }
-
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
@@ -516,7 +611,7 @@ public class ZapisPosilkow extends AppCompatActivity {
 
     public void openWyszukanie(String nazwaPosilku){
 
-        Intent intent = new Intent(ZapisPosilkow.this,BazaProduktowUzytkownikow.class);
+        Intent intent = new Intent(ZapisPosilkow.this,WyszukaneBazaPosilkow.class);
         intent.putExtra("nazwaPosilku", nazwaPosilku);
         startActivity(intent);
 

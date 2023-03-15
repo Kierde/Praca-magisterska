@@ -97,7 +97,7 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
        Posilek posilek = posilekList.get(position);
        holder.nazwaJedzenia.setText(posilek.getNazwaPosilku());
-       holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+"kal");
+       holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+"Kcal");
 
        holder.usunPosilek.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -106,6 +106,8 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
                String index = posilekList.get(position).getIndex();
 
                Query mQuery = reference.orderByChild("index").equalTo(index);
+
+
                mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot snapshot) {

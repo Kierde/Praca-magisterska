@@ -138,7 +138,6 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
                     animation.setDuration(300);
                     holder.dodajDoDziennika.startAnimation(animation);
 
-
                     String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" + "/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
                     DatabaseReference push1 = databaseReference.child("Wszystkie posilki uzytkownika do monitora posilkow")
                             .child(idZalogowanego).push();
@@ -155,7 +154,11 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
                     DatabaseReference referencePosilek = databaseReference.child("Dziennik_posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()))
                             .child(nazwaPosilku);
                     String index = referencePosilek.push().getKey();
-                    Posilek posilek = new Posilek(Integer.parseInt(kalorycznoscPoZmianach.trim()), holder.nazwaSzukanego.getText().toString(),index, Float.parseFloat(processStringWithG(holder.bialkoSzukanego.getText().toString())), Float.parseFloat(processStringWithG(holder.weglowodanySzukanego.getText().toString())), Float.parseFloat(processStringWithG(holder.tluszczSzukanego.getText().toString())));
+
+                    float bialko = calculateMacro(Float.parseFloat(holder.iloscProduktu.getText().toString()),Float.parseFloat(processStringWithG(holder.bialkoSzukanego.getText().toString())));
+                    float weglowodany = calculateMacro(Float.parseFloat(holder.iloscProduktu.getText().toString()),Float.parseFloat(processStringWithG(holder.weglowodanySzukanego.getText().toString())));
+                    float tluszcz = calculateMacro(Float.parseFloat(holder.iloscProduktu.getText().toString()),Float.parseFloat(processStringWithG(holder.tluszczSzukanego.getText().toString())));
+                    Posilek posilek = new Posilek(Integer.parseInt(kalorycznoscPoZmianach.trim()), holder.nazwaSzukanego.getText().toString(),index, bialko, weglowodany, tluszcz);
                     referencePosilek.child(index).setValue(posilek);
 
                     databaseReference.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {
@@ -172,8 +175,18 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
     }
 
     static int calculateHowMuchCalories(float amount, int kcal){
+        int result =0;
+        if(amount>0 && kcal>0){
+            result= (int) (amount*kcal)/100;
+            return result;
+        }else{
+            return 0;
+        }
+    }
 
-        int result= (int) (amount*kcal)/100;
+    static float calculateMacro(float amount, float grams){
+
+        float result= (float) (amount*grams)/100;
         return result;
     }
 
