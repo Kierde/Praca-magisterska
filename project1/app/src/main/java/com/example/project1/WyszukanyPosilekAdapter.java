@@ -158,7 +158,7 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
                     float bialko = calculateMacro(Float.parseFloat(holder.iloscProduktu.getText().toString()),Float.parseFloat(processStringWithG(holder.bialkoSzukanego.getText().toString())));
                     float weglowodany = calculateMacro(Float.parseFloat(holder.iloscProduktu.getText().toString()),Float.parseFloat(processStringWithG(holder.weglowodanySzukanego.getText().toString())));
                     float tluszcz = calculateMacro(Float.parseFloat(holder.iloscProduktu.getText().toString()),Float.parseFloat(processStringWithG(holder.tluszczSzukanego.getText().toString())));
-                    Posilek posilek = new Posilek(Integer.parseInt(kalorycznoscPoZmianach.trim()), holder.nazwaSzukanego.getText().toString(),index, bialko, weglowodany, tluszcz);
+                    Posilek posilek = new Posilek(Integer.parseInt(kalorycznoscPoZmianach.trim()), holder.nazwaSzukanego.getText().toString(),pushId1, bialko, weglowodany, tluszcz);
                     referencePosilek.child(index).setValue(posilek);
 
                     databaseReference.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {

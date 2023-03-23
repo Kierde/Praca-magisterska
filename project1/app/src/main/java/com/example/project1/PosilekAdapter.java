@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -100,14 +102,14 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
        Posilek posilek = posilekList.get(position);
        holder.nazwaJedzenia.setText(posilek.getNazwaPosilku());
       //  Log.d("nazwa",posilek.getNazwaPosilku());
-       holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+"Kcal");
+       holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+" \n Kcal");
 
-       if(posilek.getTluszcz()>0)
-       holder.tluszcz.setText("FAT " + posilek.getTluszcz() + "g");
-       if(posilek.getWeglowodany()>0)
-       holder.wegle.setText("PROT." + posilek.getBialko() + "g");
-       if(posilek.getBialko()>0)
-        holder.bialko.setText("CARB." + posilek.getBialko() + "g");
+       if(posilek.getTluszcz()>=0)
+       holder.tluszcz.setText("T. " + posilek.getTluszcz() + "g");
+       if(posilek.getWeglowodany()>=0)
+       holder.wegle.setText("B." + posilek.getBialko() + "g");
+       if(posilek.getBialko()>=0)
+        holder.bialko.setText("W." + posilek.getBialko() + "g");
 
 
 
@@ -115,8 +117,11 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
            @Override
            public void onClick(View v) {
 
-               String index = posilekList.get(position).getIndex();
+               Animation animation = new AlphaAnimation(1.0f, 0.0f);
+               animation.setDuration(300);
+               holder.usunPosilek.startAnimation(animation);
 
+               String index = posilekList.get(position).getIndex();
                Query mQuery = reference.orderByChild("index").equalTo(index);
 
 
@@ -251,6 +256,7 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
         TextView tluszcz;
         ImageButton usunPosilek;
 
+        @SuppressLint("WrongViewCast")
         public PosilekViewHolder(View itemView){
             super(itemView);
 

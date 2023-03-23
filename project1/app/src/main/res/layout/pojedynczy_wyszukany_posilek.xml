@@ -113,7 +113,6 @@
         android:layout_marginLeft="278dp"
         android:layout_marginTop="56dp"
         android:textSize="19dp"
-
         android:text="@string/_100_g_ek1_string"
         android:textColor="@color/nazwaproduktu_color" />
 

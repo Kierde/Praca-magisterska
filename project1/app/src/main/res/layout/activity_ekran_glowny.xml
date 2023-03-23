@@ -16,12 +16,13 @@
     <ProgressBar
         android:id="@+id/progrsKalorii"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="359dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="356dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="12dp"
         android:maxHeight="50dp"
         android:minHeight="50dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monitorKalorii" />
 

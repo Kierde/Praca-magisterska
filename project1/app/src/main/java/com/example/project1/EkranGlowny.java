@@ -88,13 +88,10 @@ public class EkranGlowny extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ekran_glowny);
-
-
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation2);
@@ -140,10 +137,6 @@ public class EkranGlowny extends AppCompatActivity {
         });
 
 
-
-
-
-
         dodajWage = (Button) findViewById(R.id.dodajwage);
         edycjaWag = (Button) findViewById(R.id.edycjaWag);
         zdjecieWagi = (ImageButton) findViewById(R.id.zdjecieWagi);
@@ -170,6 +163,7 @@ public class EkranGlowny extends AppCompatActivity {
         databaseReferenceMain.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                labelKalorii.setTextColor(Color.GRAY);
 
                 Iterator<DataSnapshot> posilki = snapshot.getChildren().iterator();
 

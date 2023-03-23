@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import Deserialization.Dish;
 
@@ -60,8 +62,6 @@ public class BazaProduktowUzytkownikow extends Fragment {
         dodaneDoBazyWspAdapter = new WyszukanyPosilekAdapter(null,posilkiUzytkownikow,((WyszukaneBazaPosilkow)getActivity()).nazwaPosilku);
         dodane.setHasFixedSize(true);
         dodane.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        posilkiUzytkownikow.clear();
         wczytajBazePosilkow();
         dodane.setAdapter(dodaneDoBazyWspAdapter);
 
@@ -77,7 +77,6 @@ public class BazaProduktowUzytkownikow extends Fragment {
 
                 if(!TextUtils.isEmpty(przeszukajNazwaText)){
 
-
                     reference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -88,15 +87,11 @@ public class BazaProduktowUzytkownikow extends Fragment {
                                 for(DataSnapshot ds:snapshot.getChildren()){
 
                                     Posilek posilek = ds.getValue(Posilek.class);
-
                                     if(posilek.getNazwaPosilku().contains(przeszukajNazwaText))
                                         posilkiUzytkownikow.add(posilek);
                                         dodaneDoBazyWspAdapter.notifyDataSetChanged();
                                 }
-                            }else{
-                                wczytajBazePosilkow();
                             }
-
                         }
 
                         @Override
@@ -104,26 +99,27 @@ public class BazaProduktowUzytkownikow extends Fragment {
 
                         }
                     });
+                }else{
+                    wczytajBazePosilkow();
+                    przeszukajNazwa.setError("Podaj nazwę produktu, który chceszy wyszukać!");
                 }
             }
         });
-
-
 
         return mainView;
     }
 
 
 
-
-
     private void wczytajBazePosilkow(){
 
+        posilkiUzytkownikow.clear();
         databaseReferenceMain.child("Baza_posilkow_uzytkonikow")
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         Posilek posilek = snapshot.getValue(Posilek.class);
+                        assert posilek != null;
                         posilkiUzytkownikow.add(posilek);
                         dodaneDoBazyWspAdapter.notifyDataSetChanged();
                     }

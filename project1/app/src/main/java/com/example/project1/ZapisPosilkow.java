@@ -9,10 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.icu.text.Edits;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +25,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,20 +37,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.project1.DaneUzytkownika.getKal;
 import static com.example.project1.WyszukanyPosilekAdapter.calculateHowMuchCalories;
 import static com.example.project1.WyszukanyPosilekAdapter.calculateMacro;
 import static java.lang.Float.parseFloat;
+import static java.lang.Float.sum;
 
 public class ZapisPosilkow extends AppCompatActivity {
-
 
     BottomNavigationView bottomNavigationView;
     FirebaseAuth auth;
@@ -59,13 +68,13 @@ public class ZapisPosilkow extends AppCompatActivity {
     Button dodajKolacje;
     Button dodajPrzekaski;
     Button dodajCwczenia;
-
     Button wszukajSniadanie;
     Button wyszukajObiad;
     Button wyszukajKolacje;
     Button wyszukajPrzekaski;
-
     ImageButton dodajNotatke;
+    TextView kalorie;
+    ProgressBar barKalorii;
 
     SimpleDateFormat simpleDateFormat;
     GregorianCalendar dt1;
@@ -91,9 +100,7 @@ public class ZapisPosilkow extends AppCompatActivity {
     private PosilekAdapter cwiczeniaAdapter;
 
     String userIdZnajomego;
-
     DatePickerDialog picker;
-    Calendar calendar;
 
 
     @Override
@@ -134,7 +141,6 @@ public class ZapisPosilkow extends AppCompatActivity {
         });
 
 
-        calendar = Calendar.getInstance();
         label = (TextView)findViewById(R.id.textView9);
         dodajNotatke = (ImageButton) findViewById(R.id.dodajNotatke);
         dodajSniadanie = (Button) findViewById(R.id.dodajSniadanie);
@@ -149,6 +155,9 @@ public class ZapisPosilkow extends AppCompatActivity {
         wyszukajObiad = (Button) findViewById(R.id.wyszukajObiad);
         wyszukajKolacje = (Button) findViewById(R.id.wyszukajKolacje);
         wyszukajPrzekaski = (Button) findViewById(R.id.wyszukajPrzekaski);
+        barKalorii = (ProgressBar) findViewById(R.id.progrsKalorii);
+        barKalorii.setScaleY(3f);
+        kalorie = (TextView) findViewById(R.id.monitorKalorii2);
 
         //patrzenie na zapis posiłków znajomego
         if(userIdZnajomego!=null) {
@@ -204,6 +213,10 @@ public class ZapisPosilkow extends AppCompatActivity {
         //format daty
         simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dt1 = new GregorianCalendar();
+        GregorianCalendar today = new GregorianCalendar();
+        String todayDate =  simpleDateFormat.format(today.getTime());
+        Log.d("dzis", todayDate);
+
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,8 +234,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                                 
                                 GregorianCalendar gregorianCalendar = new GregorianCalendar();
                                 gregorianCalendar.set(year, monthOfYear, dayOfMonth);
-                               // long diff = ChronoUnit.DAYS.between(dt1.toInstant(),gregorianCalendar.toInstant());
-                               //dt1.add(Calendar.DATE, (int) diff);
                                 dt1.set(year, monthOfYear, dayOfMonth);
                                 odswierzenieDanych();
                                 data.setText(simpleDateFormat.format(gregorianCalendar.getTime()));
@@ -243,6 +254,8 @@ public class ZapisPosilkow extends AppCompatActivity {
         wczytajPosilek("Przekaski", 4);
         //i=5 spalone kalorie podczas ćwiczeń
         wczytajPosilek("Cwiczenia", 5);
+        wczytajPostepKalorii();
+
 
 
         String dataText = simpleDateFormat.format(dt1.getTime());
@@ -254,12 +267,36 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                 dt1.add(Calendar.DATE, 1);
                 String dataText = simpleDateFormat.format(dt1.getTime());
+                Log.d("dataText", dataText);
+                if(!dataText.equals(todayDate)){
+                    wszukajSniadanie.setVisibility(View.GONE);
+                    wyszukajObiad.setVisibility(View.GONE);
+                    wyszukajKolacje.setVisibility(View.GONE);
+                    wyszukajPrzekaski.setVisibility(View.GONE);
+                    dodajSniadanie.setVisibility(View.GONE);
+                    dodajObiad.setVisibility(View.GONE);
+                    dodajKolacje.setVisibility(View.GONE);
+                    dodajPrzekaski.setVisibility(View.GONE);
+                    dodajCwczenia.setVisibility(View.GONE);
+                }else{
+                    wszukajSniadanie.setVisibility(View.VISIBLE);
+                    wyszukajObiad.setVisibility(View.VISIBLE);
+                    wyszukajKolacje.setVisibility(View.VISIBLE);
+                    wyszukajPrzekaski.setVisibility(View.VISIBLE);
+                    dodajSniadanie.setVisibility(View.VISIBLE);
+                    dodajObiad.setVisibility(View.VISIBLE);
+                    dodajKolacje.setVisibility(View.VISIBLE);
+                    dodajPrzekaski.setVisibility(View.VISIBLE);
+                    dodajCwczenia.setVisibility(View.VISIBLE);
+                }
+
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);
                 kolacjaAdapter.zmienDate(dt1);
                 przekaskiAdapter.zmienDate(dt1);
                 cwiczeniaAdapter.zmienDate(dt1);
                 data.setText(dataText);
+                wczytajPostepKalorii();
                 odswierzenieDanych();
             }
         });
@@ -270,11 +307,33 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                dt1.add(Calendar.DATE, -1);
                 String dataText = simpleDateFormat.format(dt1.getTime());
+                if(!dataText.equals(todayDate)){
+                    wszukajSniadanie.setVisibility(View.GONE);
+                    wyszukajObiad.setVisibility(View.GONE);
+                    wyszukajKolacje.setVisibility(View.GONE);
+                    wyszukajPrzekaski.setVisibility(View.GONE);
+                    dodajSniadanie.setVisibility(View.GONE);
+                    dodajObiad.setVisibility(View.GONE);
+                    dodajKolacje.setVisibility(View.GONE);
+                    dodajPrzekaski.setVisibility(View.GONE);
+                    dodajCwczenia.setVisibility(View.GONE);
+                }else{
+                    wszukajSniadanie.setVisibility(View.VISIBLE);
+                    wyszukajObiad.setVisibility(View.VISIBLE);
+                    wyszukajKolacje.setVisibility(View.VISIBLE);
+                    wyszukajPrzekaski.setVisibility(View.VISIBLE);
+                    dodajSniadanie.setVisibility(View.VISIBLE);
+                    dodajObiad.setVisibility(View.VISIBLE);
+                    dodajKolacje.setVisibility(View.VISIBLE);
+                    dodajPrzekaski.setVisibility(View.VISIBLE);
+                    dodajCwczenia.setVisibility(View.VISIBLE);
+                }
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);
                 kolacjaAdapter.zmienDate(dt1);
                 cwiczeniaAdapter.zmienDate(dt1);
                 przekaskiAdapter.zmienDate(dt1);
+                wczytajPostepKalorii();
                 data.setText(dataText);
                 odswierzenieDanych();
             }
@@ -350,6 +409,48 @@ public class ZapisPosilkow extends AppCompatActivity {
                 openNotatka();
             }
         });
+    }
+
+
+
+    private void wczytajPostepKalorii(){
+
+        databaseReferenceMain.child("Wszystkie posilki uzytkownika do monitora posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()))
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                        barKalorii.getProgressDrawable().clearColorFilter();
+                        int suma = 0;
+                        Iterator<DataSnapshot> posilki = snapshot.getChildren().iterator();
+
+                        while (posilki.hasNext()){
+                            DataSnapshot item = posilki.next();
+                            Posilek posilek = item.getValue(Posilek.class);
+                            suma+=posilek.getKalorycznosc();
+                            Log.d("tag", String.valueOf(posilek.getKalorycznosc()));
+                        }
+
+
+                        int wartosc = (int) ((suma*100)/getKal());
+
+                        if(wartosc>100){
+                            kalorie.setText(suma +"/"+String.format("%.2f",getKal())+"\n przekroczyłeś limit kalorii na dzisiaj");
+                            barKalorii.getProgressDrawable().setColorFilter(
+                                    Color.RED, PorterDuff.Mode.SRC_IN);
+
+                        }else {
+                            kalorie.setText(suma +"/"+String.format("%.2f",getKal()));
+                        }
+                        barKalorii.setProgress(wartosc);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
 
@@ -506,18 +607,18 @@ public class ZapisPosilkow extends AppCompatActivity {
                                 DatabaseReference push1 = databaseReferenceMain.child("Wszystkie posilki uzytkownika do monitora posilkow")
                                         .child(idZalogowanego).push();
 
-                                String pushId1 = push1.getKey();
+
 
                                 Map posilekMap = new HashMap();
                                 posilekMap.put("nazwaPosilku", nazwaPosilkuText);
-                                posilekMap.put("index", pushId1);
+                                posilekMap.put("index", index);
 
                                 posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscText));
 
 
 
                                 Map wszystkieposilki = new HashMap();
-                                wszystkieposilki.put(posilekRef1 + "/" + pushId1, posilekMap);
+                                wszystkieposilki.put(posilekRef1 + "/" + index, posilekMap);
 
 
                                 dialog.dismiss();
