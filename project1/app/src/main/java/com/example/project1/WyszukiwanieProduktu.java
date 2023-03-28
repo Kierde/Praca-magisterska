@@ -67,7 +67,7 @@ public class WyszukiwanieProduktu extends Fragment {
         szukaj = (ImageButton) mainView.findViewById(R.id.wyszukajProdukt);
         doWyszukania = (EditText) mainView.findViewById(R.id.nazwaSzukanegoProduktu);
         wyszukane = (RecyclerView) mainView.findViewById(R.id.wyszukaneRecyclerView);
-        wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow,null,((WyszukaneBazaPosilkow)getActivity()).nazwaPosilku);
+        wyszukanyPosilekAdapter = new WyszukanyPosilekAdapter(listaWyszukanychPosilkow,null,((WyszukaneBazaPosilkow)getActivity()).nazwaPosilku,((WyszukaneBazaPosilkow)getActivity()).gregorianCalendar);
         wyszukane.setHasFixedSize(true);
         wyszukane.setLayoutManager(new LinearLayoutManager(getActivity()));
         wyszukane.setAdapter(wyszukanyPosilekAdapter);

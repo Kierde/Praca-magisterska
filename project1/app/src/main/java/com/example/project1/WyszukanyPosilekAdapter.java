@@ -37,15 +37,16 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
     private List<Posilek> bazaPosilkowUzytkownika;
     String nazwaPosilku;
     SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MM-yyyy");;
-    GregorianCalendar dt1 = new GregorianCalendar();
+    GregorianCalendar dt1;
     FirebaseAuth fAuth=FirebaseAuth.getInstance();
     String idZalogowanego = fAuth.getUid();
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    public WyszukanyPosilekAdapter(List<Dish> wyszukanyPosilekList, List<Posilek> bazaPosilkowUzytkownika,String nazwaPosilku) {
+    public WyszukanyPosilekAdapter(List<Dish> wyszukanyPosilekList, List<Posilek> bazaPosilkowUzytkownika,String nazwaPosilku,GregorianCalendar dt1) {
         this.wyszukanyPosilekList = wyszukanyPosilekList;
         this.nazwaPosilku = nazwaPosilku;
         this.bazaPosilkowUzytkownika = bazaPosilkowUzytkownika;
+        this.dt1 = dt1;
     }
 
     @NonNull

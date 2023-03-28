@@ -37,6 +37,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -267,7 +269,8 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                 dt1.add(Calendar.DATE, 1);
                 String dataText = simpleDateFormat.format(dt1.getTime());
-                Log.d("dataText", dataText);
+
+                //do testowania zakomentować
                 if(!dataText.equals(todayDate)){
                     wszukajSniadanie.setVisibility(View.GONE);
                     wyszukajObiad.setVisibility(View.GONE);
@@ -289,7 +292,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                     dodajPrzekaski.setVisibility(View.VISIBLE);
                     dodajCwczenia.setVisibility(View.VISIBLE);
                 }
-
+                
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);
                 kolacjaAdapter.zmienDate(dt1);
@@ -307,6 +310,8 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                dt1.add(Calendar.DATE, -1);
                 String dataText = simpleDateFormat.format(dt1.getTime());
+
+                //do testowania zakomentować
                 if(!dataText.equals(todayDate)){
                     wszukajSniadanie.setVisibility(View.GONE);
                     wyszukajObiad.setVisibility(View.GONE);
@@ -328,6 +333,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                     dodajPrzekaski.setVisibility(View.VISIBLE);
                     dodajCwczenia.setVisibility(View.VISIBLE);
                 }
+                ///
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);
                 kolacjaAdapter.zmienDate(dt1);
@@ -352,7 +358,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                 openWyszukanie("Sniadanie");
             }
         });
-
 
         dodajObiad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -410,8 +415,6 @@ public class ZapisPosilkow extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void wczytajPostepKalorii(){
 
@@ -473,45 +476,54 @@ public class ZapisPosilkow extends AppCompatActivity {
                 String nazwaCwiczeniaText=  nazwaCwiczenia.getText().toString().trim();
                 String spaloneKalorieText = spaloneKalorie.getText().toString().trim();
 
-                String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime()) + "/" + "Cwiczenia";
-                String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" +"/"+ idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
+                if(!TextUtils.isEmpty(nazwaCwiczeniaText)&&!TextUtils.isEmpty(spaloneKalorieText)){
 
-                DatabaseReference push = databaseReferenceMain.child("Dziennik_posilkow")
-                        .child(idZalogowanego).push();
+                    String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime()) + "/" + "Cwiczenia";
+                    String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" +"/"+ idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
 
-                DatabaseReference push1 = databaseReferenceMain.child("Wszystkie posilki uzytkownika do monitora posilkow")
-                        .child(idZalogowanego).push();
+                    DatabaseReference push = databaseReferenceMain.child("Dziennik_posilkow")
+                            .child(idZalogowanego).push();
 
-                String pushId = push.getKey();
-                String pushId1 = push1.getKey();
+                    DatabaseReference push1 = databaseReferenceMain.child("Wszystkie posilki uzytkownika do monitora posilkow")
+                            .child(idZalogowanego).push();
 
-                Map posilekMap = new HashMap();
+                    String pushId = push.getKey();
+                    String pushId1 = push1.getKey();
 
-                posilekMap.put("nazwaPosilku", nazwaCwiczeniaText);
-                posilekMap.put("index", pushId);
+                    Map posilekMap = new HashMap();
 
-                posilekMap.put("kalorycznosc", -Integer.parseInt(spaloneKalorieText));
-                Map czescPosilku = new HashMap();
-                czescPosilku.put(posilekRef + "/" + pushId, posilekMap);
+                    posilekMap.put("nazwaPosilku", nazwaCwiczeniaText);
+                    posilekMap.put("index", pushId);
 
-                Map wszystkieposilki = new HashMap();
-                wszystkieposilki.put(posilekRef1+"/"+pushId1, posilekMap);
+                    posilekMap.put("kalorycznosc", -Integer.parseInt(spaloneKalorieText));
+                    Map czescPosilku = new HashMap();
+                    czescPosilku.put(posilekRef + "/" + pushId, posilekMap);
+
+                    Map wszystkieposilki = new HashMap();
+                    wszystkieposilki.put(posilekRef1+"/"+pushId1, posilekMap);
 
 
-                databaseReferenceMain.updateChildren(czescPosilku, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    databaseReferenceMain.updateChildren(czescPosilku, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
 
-                    }
-                });
+                        }
+                    });
 
-                databaseReferenceMain.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    databaseReferenceMain.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
 
-                    }
-                });
-                dialog.dismiss();
+                        }
+                    });
+                    dialog.dismiss();
+                }else{
+
+                    if(TextUtils.isEmpty(nazwaCwiczeniaText))
+                       nazwaCwiczenia.setError("Podaj nazwę ćwiczenia");
+                    if(TextUtils.isEmpty(spaloneKalorieText))
+                        spaloneKalorie.setError("Podaj ilość saplonych kalorii");
+                }
             }
         });
 
@@ -571,6 +583,10 @@ public class ZapisPosilkow extends AppCompatActivity {
             public void onClick(View v) {
 
                 String nazwaPosilkuText = nazwaPosi.getText().toString().trim();
+
+                String temp = nazwaPosilku.toLowerCase();
+                String temp1 = temp.substring(0, 1).toUpperCase() + temp.substring(1);
+                String nazwaPosilkuText1 = temp1;
                 String kalorycznoscText = kalorycznosc.getText().toString().trim();
                 String weglowodanyText = weglowodany.getText().toString().trim();
                 String bialoText = bialko.getText().toString().trim();
@@ -578,14 +594,16 @@ public class ZapisPosilkow extends AppCompatActivity {
                 String iloscProduktu = iloscGramDoDodania.getText().toString().trim();
 
 
-                if ((!TextUtils.isEmpty(nazwaPosilkuText)) && (!TextUtils.isEmpty(kalorycznoscText))
-                        && !TextUtils.isEmpty(weglowodanyText) && !TextUtils.isEmpty(bialoText) && !TextUtils.isEmpty(tluszczText)) {
+
+                if ((!TextUtils.isEmpty(nazwaPosilkuText1)) && (!TextUtils.isEmpty(kalorycznoscText))
+                        && !TextUtils.isEmpty(weglowodanyText) && !TextUtils.isEmpty(bialoText) && !TextUtils.isEmpty(tluszczText)
+                        && !TextUtils.isEmpty(iloscProduktu)) {
 
                     databaseReferenceMain.child("Baza_posilkow_uzytkonikow").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            if (!snapshot.hasChild(nazwaPosilkuText)){
+                            if (!snapshot.hasChild(nazwaPosilkuText1)){
 
                                 DatabaseReference referencePosilek = databaseReferenceMain.child("Dziennik_posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()))
                                         .child(nazwaPosilku);
@@ -594,13 +612,13 @@ public class ZapisPosilkow extends AppCompatActivity {
                                 float bialko = calculateMacro(parseFloat(iloscProduktu), parseFloat(bialoText));
                                 float weglowodany=calculateMacro(parseFloat(iloscProduktu), parseFloat(weglowodanyText));
                                 float tluszcz=calculateMacro(parseFloat(iloscProduktu), parseFloat(tluszczText));
-                                Posilek posilek = new Posilek(Integer.parseInt(iloscKcalDoDodania.getText().toString().trim()), nazwaPosilkuText, index, bialko, weglowodany, tluszcz);
+                                Posilek posilek = new Posilek(Integer.parseInt(iloscKcalDoDodania.getText().toString().trim()), nazwaPosilkuText1, index, bialko, weglowodany, tluszcz);
                                 referencePosilek.child(index).setValue(posilek);
 
                                 //baza danych dla wszystkich użytkoników
                                 DatabaseReference dlaWszystkichUzytkownikow = databaseReferenceMain.child("Baza_posilkow_uzytkonikow");
                                 Posilek posilek1 = new Posilek(Integer.parseInt(kalorycznoscText), nazwaPosilkuText, index, Float.parseFloat(bialoText), Float.parseFloat(weglowodanyText), Float.parseFloat(tluszczText));
-                                dlaWszystkichUzytkownikow.child(nazwaPosilkuText).setValue(posilek1);
+                                dlaWszystkichUzytkownikow.child(nazwaPosilkuText1).setValue(posilek1);
 
 
                                 String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" + "/" + idZalogowanego + "/" + simpleDateFormat.format(dt1.getTime());
@@ -608,9 +626,8 @@ public class ZapisPosilkow extends AppCompatActivity {
                                         .child(idZalogowanego).push();
 
 
-
                                 Map posilekMap = new HashMap();
-                                posilekMap.put("nazwaPosilku", nazwaPosilkuText);
+                                posilekMap.put("nazwaPosilku", nazwaPosilkuText1);
                                 posilekMap.put("index", index);
 
                                 posilekMap.put("kalorycznosc", Integer.parseInt(kalorycznoscText));
@@ -640,6 +657,19 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                         }
                     });
+                }else {
+                    if(TextUtils.isEmpty(nazwaPosilkuText1))
+                        nazwaPosi.setError("Podaj nazwę posiłku!");
+                    if(TextUtils.isEmpty(kalorycznoscText))
+                        kalorycznosc.setError("Podaj kaloryczność na 100 gram!");
+                    if(TextUtils.isEmpty(weglowodanyText))
+                        weglowodany.setError("Podaj ilość węglowodanów  na 100 gram!");
+                    if(TextUtils.isEmpty(bialoText))
+                        bialko.setError("Podaj ilość białka  na 100 gram!");
+                    if(TextUtils.isEmpty(tluszczText))
+                        tluszcz.setError("Podaj ilość tłuszczu  na 100 gram!");
+                    if(TextUtils.isEmpty(iloscProduktu))
+                        iloscGramDoDodania.setError("Podaj ilość produktu do dodania");
                 }
             }
         });
@@ -705,6 +735,7 @@ public class ZapisPosilkow extends AppCompatActivity {
 
         Intent intent = new Intent(ZapisPosilkow.this,WyszukaneBazaPosilkow.class);
         intent.putExtra("nazwaPosilku", nazwaPosilku);
+        intent.putExtra("data", dt1);
         startActivity(intent);
 
     }

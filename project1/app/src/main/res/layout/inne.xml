@@ -36,9 +36,9 @@
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/wyszukiwanieProduktow"
+        android:id="@+id/inneWykresy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Baza produktów użytkowników " />
+        android:text="inne wykresy" />
 
 </LinearLayout>

@@ -89,7 +89,6 @@
         android:ems="10"
         android:hint="data od:"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/dataStop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zmianaDanych" />
 

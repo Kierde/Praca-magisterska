@@ -16,7 +16,7 @@ public class Inne extends AppCompatActivity {
     Button wylogujSie;
     Button wszyscyUzytkownicy;
     Button spolecznosc;
-    Button wyszukiwanieProduktów;
+    Button inneWykresy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class Inne extends AppCompatActivity {
         wylogujSie = (Button) findViewById(R.id.wylogujSie);
         wszyscyUzytkownicy = (Button) findViewById(R.id.wszyscyUzytkownicy);
         spolecznosc = (Button) findViewById(R.id.spolecznosc);
-        wyszukiwanieProduktów = (Button) findViewById(R.id.wyszukiwanieProduktow);
+        inneWykresy = (Button) findViewById(R.id.inneWykresy);
 
         daneUzytkownika.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,10 +62,10 @@ public class Inne extends AppCompatActivity {
         });
 
 
-        wyszukiwanieProduktów.setOnClickListener(new View.OnClickListener() {
+        inneWykresy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openBazaProduktowUzytkonikow();
+                opeInneWykresy();
             }
         });
 
@@ -73,9 +73,9 @@ public class Inne extends AppCompatActivity {
     }
 
 
-    public void openBazaProduktowUzytkonikow(){
+    public void opeInneWykresy(){
 
-        Intent intent = new Intent(this, BazaProduktowUzytkownikow.class);
+        Intent intent = new Intent(this, KolejneWykresyTestActivity.class);
         startActivity(intent);
 
     }

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.GregorianCalendar;
+
 public class WyszukaneBazaPosilkow extends AppCompatActivity {
 
     TabLayout tabLayout;
@@ -15,6 +17,8 @@ public class WyszukaneBazaPosilkow extends AppCompatActivity {
     TabItem tab2, tab3;
     PageAdapterPosilki pagerAdapter;
     String nazwaPosilku;
+    GregorianCalendar gregorianCalendar;
+
 
 
     @Override
@@ -23,6 +27,8 @@ public class WyszukaneBazaPosilkow extends AppCompatActivity {
         setContentView(R.layout.activity_wyszukane_baza_posilkow);
 
         nazwaPosilku = getIntent().getStringExtra("nazwaPosilku");
+        gregorianCalendar = (GregorianCalendar) getIntent().getSerializableExtra("data");
+
 
         tabLayout = (TabLayout) findViewById(R.id.tablayout1);
         tab2 = (TabItem) findViewById(R.id.Tab21);

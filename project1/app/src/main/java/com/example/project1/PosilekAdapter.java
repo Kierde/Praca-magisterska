@@ -29,12 +29,16 @@ import java.util.List;
 public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekViewHolder> {
 
 
+    GregorianCalendar today = new GregorianCalendar();
     GregorianCalendar dt1 = new GregorianCalendar();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    String todayDate =  simpleDateFormat.format(today.getTime());
+
 
     void zmienDate(GregorianCalendar nowaData){
 
         this.dt1 = nowaData;
+
 
          reference = FirebaseDatabase.getInstance().getReference("Wszystkie posilki uzytkownika do monitora posilkow")
                 .child(zalogowanyId).child(simpleDateFormat.format(dt1.getTime()));
@@ -102,15 +106,20 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
        Posilek posilek = posilekList.get(position);
        holder.nazwaJedzenia.setText(posilek.getNazwaPosilku());
       //  Log.d("nazwa",posilek.getNazwaPosilku());
-       holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+" \n Kcal");
+       holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+" \n kcal");
 
-       if(posilek.getTluszcz()>=0)
-       holder.tluszcz.setText("T. " + posilek.getTluszcz() + "g");
-       if(posilek.getWeglowodany()>=0)
-       holder.wegle.setText("B." + posilek.getBialko() + "g");
-       if(posilek.getBialko()>=0)
-        holder.bialko.setText("W." + posilek.getBialko() + "g");
+      if(posilek.getKalorycznosc()>0){
 
+          holder.tluszcz.setText("T. " + posilek.getTluszcz() + "g");
+          holder.wegle.setText("B." + posilek.getBialko() + "g");
+          holder.bialko.setText("W." + posilek.getBialko() + "g");
+      }
+
+        if(!todayDate.equals(simpleDateFormat.format(dt1.getTime()))){
+            holder.usunPosilek.setVisibility(View.GONE);
+        }else{
+            holder.usunPosilek.setVisibility(View.VISIBLE);
+        }
 
 
         holder.usunPosilek.setOnClickListener(new View.OnClickListener() {

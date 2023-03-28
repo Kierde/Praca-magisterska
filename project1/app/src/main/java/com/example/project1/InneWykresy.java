@@ -63,6 +63,7 @@ public class InneWykresy extends AppCompatActivity {
 
     GregorianCalendar gregorianCalendarOdStacked;
     SimpleDateFormat simpleDateFormat;
+    SimpleDateFormat formatForLabel;
 
     GregorianCalendar gregorianCalendarStart;
     GregorianCalendar gregorianCalendarStop;
@@ -79,18 +80,11 @@ public class InneWykresy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inne_wykresy);
 
-
-
         dataStart = (TextView) findViewById(R.id.dataStart);
         dataStop = (TextView) findViewById(R.id.dataStop);
-
-
         zmianaDanych = (Toolbar) findViewById(R.id.zmianaDanych);
         zmianaDanych.inflateMenu(R.menu.menu_czas);
-
         nazwaOkresu = (TextView) findViewById(R.id.labelNazwaOkresu);
-
-
         mStackedBarChart = (StackedBarChart) findViewById(R.id.stackedbarchart);
         mPieChart = (PieChart) findViewById(R.id.wykreskolowy);
         rootRef = FirebaseDatabase.getInstance().getReference();
@@ -99,6 +93,7 @@ public class InneWykresy extends AppCompatActivity {
         gregorianCalendarOdStacked = new GregorianCalendar();
 
         simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        formatForLabel = new SimpleDateFormat("dd-MM-yy");
 
         wyswietlWykresStaked(7,gregorianCalendarOdStacked,true);
 
@@ -364,7 +359,6 @@ public class InneWykresy extends AppCompatActivity {
                         wyk1.addBar(new BarModel(sumaKalPrzekaski, Color.BLACK));
                     }
                 }
-
                 mStackedBarChart.addBar(wyk1);
             }
 
@@ -382,7 +376,9 @@ public class InneWykresy extends AppCompatActivity {
         if(tyl) {
             for (int i = 1; i <= iloscDni; i++) {
 
-                StackedBarModel wyk1 = new StackedBarModel(simpleDateFormat.format(gregorianCalendar.getTime()));
+                //StackedBarModel wyk1 = new StackedBarModel(simpleDateFormat.format(gregorianCalendar.getTime()));
+                StackedBarModel wyk1 = new StackedBarModel(formatForLabel.format(gregorianCalendar.getTime()));
+
                 wczytajOkresCzasuStacked(gregorianCalendar, wyk1);
                 gregorianCalendar.add(Calendar.DATE, -1);
             }
@@ -390,7 +386,9 @@ public class InneWykresy extends AppCompatActivity {
 
             for (int i = 1; i <= iloscDni; i++) {
 
-                StackedBarModel wyk1 = new StackedBarModel(simpleDateFormat.format(gregorianCalendar.getTime()));
+               //StackedBarModel wyk1 = new StackedBarModel(simpleDateFormat.format(gregorianCalendar.getTime()));
+                StackedBarModel wyk1 = new StackedBarModel(formatForLabel.format(gregorianCalendar.getTime()));
+
                 wczytajOkresCzasuStacked(gregorianCalendar, wyk1);
                 gregorianCalendar.add(Calendar.DATE, 1);
             }

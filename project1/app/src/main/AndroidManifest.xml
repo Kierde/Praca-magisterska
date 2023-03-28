@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1">
-        <activity android:name=".WyszukaneBazaPosilkow"></activity>
+        <activity
+            android:name=".KolejneWykresyTestActivity"
+            android:label="@string/title_activity_kolejne_wykresy_test"
+            android:theme="@style/Theme.Project1.NoActionBar"></activity>
+        <activity android:name=".WyszukaneBazaPosilkow" />
         <activity android:name=".BazaProduktowUzytkownikow" />
         <activity android:name=".WyszukiwanieProduktu" /> <!-- <meta-data -->
         <!-- android:name="com.google.firebase.ml.vision.DEPENDENCIES" -->

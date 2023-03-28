@@ -42,6 +42,7 @@
     <string name="__na_100_g__string">(na 100 g)</string>
     <string name="__class_edittext_podaj_ilo___string">podaj ilo</string>
     <string name="_0_kcal_string">0 kcal</string>
+    <string name="title_activity_kolejne_wykresy_test">MainActivity</string>
 
 
 </resources>

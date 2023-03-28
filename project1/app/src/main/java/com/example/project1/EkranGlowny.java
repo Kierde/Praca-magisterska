@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +24,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -48,8 +60,10 @@ import org.eazegraph.lib.models.ValueLinePoint;
 import org.eazegraph.lib.models.ValueLineSeries;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -77,15 +91,17 @@ public class EkranGlowny extends AppCompatActivity {
     Button edycjaWag;
     EditText wagaText;
     int suma;
-    ValueLineChart mCubicValueLineChart;
-    ValueLineSeries series;
+    LineChart wagaLineChart;
+    String[] datyWag;
+    LineDataSet lineDataSet;
+    ArrayList<ILineDataSet> dataSets;
+    LineData data;
 
     TextView wagaPoczatkowa;
     TextView wagaBiezaca;
     ImageButton inneWykresy;
     ImageButton zdjecieWagi;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
 
 
     @Override
@@ -136,7 +152,6 @@ public class EkranGlowny extends AppCompatActivity {
             }
         });
 
-
         dodajWage = (Button) findViewById(R.id.dodajwage);
         edycjaWag = (Button) findViewById(R.id.edycjaWag);
         zdjecieWagi = (ImageButton) findViewById(R.id.zdjecieWagi);
@@ -144,20 +159,21 @@ public class EkranGlowny extends AppCompatActivity {
         wagaBiezaca = (TextView) findViewById(R.id.wagaBiezaca);
         wagaPoczatkowa = (TextView) findViewById(R.id.wagaPoczatkowa);
 
-        mCubicValueLineChart = (ValueLineChart) findViewById(R.id.cubiclinechart);
+        ///wykres
+        wagaLineChart =(LineChart) findViewById(R.id.wykresWagiOdCzasu);
+        wagaLineChart.setTouchEnabled(true);
+        wagaLineChart.setPinchZoom(true);
+        ArrayList<Entry> zapisaneWagi = new ArrayList<>();
         lista = new ArrayList<>();
-
         simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         auth = FirebaseAuth.getInstance();
         idZalogowanego = auth.getUid();
         databaseReferenceMain = FirebaseDatabase.getInstance().getReference().child("Wszystkie posilki uzytkownika do monitora posilkow").child(idZalogowanego).child(simpleDateFormat.format(dt1.getTime()));
         databaseReferenceRoot = FirebaseDatabase.getInstance().getReference();
-
         labelKalorii = (TextView) findViewById(R.id.kalorieInfo);
         monitorKalorii = (TextView) findViewById(R.id.monitorKalorii);
         progresKalorycznosci = (ProgressBar) findViewById(R.id.progrsKalorii);
         progresKalorycznosci.setScaleY(4f);
-
 
 
         databaseReferenceMain.addValueEventListener(new ValueEventListener() {
@@ -204,7 +220,6 @@ public class EkranGlowny extends AppCompatActivity {
         });
 
 
-
         zdjecieWagi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,55 +228,62 @@ public class EkranGlowny extends AppCompatActivity {
         });
 
 
-
-
         dodajWage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String wagaRef = "Zmiany w wadze/" + idZalogowanego;
+                String waga = wagaText.getText().toString();
 
 
-                if(!wagaText.getText().equals("")) {
+                if(!TextUtils.isEmpty(waga)) {
 
-                    DatabaseReference push = databaseReferenceMain.child("Zmiany w wadze")
-                            .child(idZalogowanego).push();
-                    String waga = wagaText.getText().toString();
-
-
-                    String pushId = push.getKey();
-
-                    Map wagaWlasciwosci = new HashMap();
-                    String data_ = simpleDateFormat.format(new Date().getTime());
-
-                    if(!waga.equals("")){
-                    wagaWlasciwosci.put("waga", Float.parseFloat(waga));
-                    wagaWlasciwosci.put("data", data_);
-                    wagaWlasciwosci.put("index", pushId );
-                    wagaWlasciwosci.put("zdjecie sylwetki", "");
-
-                    Map wagaMap = new HashMap();
-                    wagaMap.put(wagaRef+"/"+pushId, wagaWlasciwosci);
+                    ///pobrać wszystkie wagi i sprawdzić
+                    List listToCheck = Arrays.asList(datyWag);
+                    String todayDate = simpleDateFormat.format(dt1.getTime());
 
 
+                    if(!listToCheck.contains(todayDate)){
 
 
-                    databaseReferenceRoot.updateChildren(wagaMap, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        DatabaseReference push = databaseReferenceMain.child("Zmiany w wadze")
+                                .child(idZalogowanego).push();
 
-                            Intent intent = getIntent();
-                            overridePendingTransition(0, 0);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            finish();
-                            overridePendingTransition(0, 0);
-                            startActivity(intent);
+                        String pushId = push.getKey();
+
+                        Map wagaWlasciwosci = new HashMap();
+                        String data_ = simpleDateFormat.format(new Date().getTime());
+
+                        if(!waga.equals("")){
+                            wagaWlasciwosci.put("waga", Float.parseFloat(waga));
+                            wagaWlasciwosci.put("data", data_);
+                            wagaWlasciwosci.put("index", pushId );
+                            wagaWlasciwosci.put("zdjecie sylwetki", "");
+
+                            Map wagaMap = new HashMap();
+                            wagaMap.put(wagaRef+"/"+pushId, wagaWlasciwosci);
 
 
 
+
+                            databaseReferenceRoot.updateChildren(wagaMap, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                                    Intent intent = getIntent();
+                                    overridePendingTransition(0, 0);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                    startActivity(intent);
+                                }
+                            });
                         }
-                    });
-                }
+                    }else {
+                        wagaText.setError("Waga na dzień "+todayDate+" jest już dodana!");
+                    }
+                }else {
+                    wagaText.setError("Podaj wagę do dodania");
                 }
             }
         });
@@ -301,15 +323,16 @@ public class EkranGlowny extends AppCompatActivity {
 
         Query wagaObecna = databaseReferenceRoot.child("Zmiany w wadze").child(idZalogowanego).limitToFirst(1);
 
+
+
+
         wagaObecna.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                 String waga = snapshot.child("waga").getValue().toString();
                 Float wagaFloat = Float.parseFloat(waga);
                 wagaPoczatkowa.setText("WAGA POCZĄTKOWA:"+"\n\t\t\t\t\t\t\t"+ String.format("%.2f",wagaFloat)+" kg");
-
-
-
             }
 
             @Override
@@ -334,23 +357,26 @@ public class EkranGlowny extends AppCompatActivity {
         });
 
 
-        series = new ValueLineSeries();
-        series.setColor(0xFF56B7F1);
-
         databaseReferenceRoot.child("Zmiany w wadze").child(idZalogowanego).addValueEventListener(new ValueEventListener() {
                 @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ValueLinePoint[] vlp = new ValueLinePoint[(int) snapshot.getChildrenCount()];
+
+                datyWag = new String[(int) snapshot.getChildrenCount()];
                 int i = 0;
                 for (DataSnapshot myDataSnapshot : snapshot.getChildren()){
                     Waga wagaValue = myDataSnapshot.getValue(Waga.class);
-                    vlp[i] = new ValueLinePoint(wagaValue.getData(), wagaValue.getWaga());
-                    series.addPoint(vlp[i]);
+                    zapisaneWagi.add(new Entry(i,wagaValue.getWaga()));
+                    datyWag[i] = wagaValue.getData();
                     i++;
                 }
-                mCubicValueLineChart.addSeries(series);
-                mCubicValueLineChart.startAnimation();
+                lineDataSet = new LineDataSet(zapisaneWagi, "ZMIANA WAGI");
+                dataSets = new ArrayList<>();
+                dataSets.add(lineDataSet);
+                data = new LineData(dataSets);
+                wagaLineChart.setData(data);
+                wagaLineChart.invalidate();
 
+                configAxis();
             }
 
             @Override
@@ -358,11 +384,32 @@ public class EkranGlowny extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
+    void configAxis(){
+        int lineColor = Color.rgb(52,235,55);
+        int dotsColor = Color.rgb(235, 52, 79);
+        lineDataSet.setColors(new int[]{lineColor});
+        lineDataSet.setValueTextSize(13f);
+        lineDataSet.setCircleColor(dotsColor);
+        lineDataSet.setLineWidth(4f);
+        XAxis xAxis = wagaLineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setTextSize(11f);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(datyWag));
+        xAxis.setLabelRotationAngle(-45);
+        YAxis yAxis = wagaLineChart.getAxisLeft();
+        yAxis.setTextSize(15f);
+        yAxis.setGranularity(1f);
+        Legend legend = wagaLineChart.getLegend();
+        legend.setEnabled(true);
+        legend.setTextSize(15f);
+        wagaLineChart.setAutoScaleMinMaxEnabled(true);
+        wagaLineChart.setExtraTopOffset(35f);
+    }
 
 
     public void openEdycjaWag(){
@@ -376,7 +423,6 @@ public class EkranGlowny extends AppCompatActivity {
     }
 
 
-
     private void zrobZdjecieWagi() {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -386,7 +432,6 @@ public class EkranGlowny extends AppCompatActivity {
         } catch (ActivityNotFoundException e) {
         }
     }
-
 
     private void dispTextFromImage(FirebaseVisionText firebaseVisionText) {
 
@@ -404,13 +449,8 @@ public class EkranGlowny extends AppCompatActivity {
                     wagaText.setText(poModyfikacji2);
                 }
             }
-
         }
-
     }
-
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -429,19 +469,10 @@ public class EkranGlowny extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
-
                 }
             });
-
-
         }
     }
-
-
-
-
-
 
 }
 
