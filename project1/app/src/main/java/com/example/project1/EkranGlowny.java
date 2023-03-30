@@ -4,13 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -19,12 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Cache;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -37,7 +32,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -50,17 +44,8 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextDetector;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 
-import org.eazegraph.lib.charts.ValueLineChart;
-import org.eazegraph.lib.models.ValueLinePoint;
-import org.eazegraph.lib.models.ValueLineSeries;
-
-import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,6 +76,7 @@ public class EkranGlowny extends AppCompatActivity {
     Button edycjaWag;
     EditText wagaText;
     int suma;
+
     LineChart wagaLineChart;
     String[] datyWag;
     LineDataSet lineDataSet;
@@ -160,10 +146,9 @@ public class EkranGlowny extends AppCompatActivity {
         wagaPoczatkowa = (TextView) findViewById(R.id.wagaPoczatkowa);
 
         ///wykres
-        wagaLineChart =(LineChart) findViewById(R.id.wykresWagiOdCzasu);
+        wagaLineChart =(LineChart) findViewById(R.id.barChartAktynwosci);
         wagaLineChart.setTouchEnabled(true);
         wagaLineChart.setPinchZoom(true);
-        ArrayList<Entry> zapisaneWagi = new ArrayList<>();
         lista = new ArrayList<>();
         simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         auth = FirebaseAuth.getInstance();
@@ -242,9 +227,7 @@ public class EkranGlowny extends AppCompatActivity {
                     List listToCheck = Arrays.asList(datyWag);
                     String todayDate = simpleDateFormat.format(dt1.getTime());
 
-
                     if(!listToCheck.contains(todayDate)){
-
 
                         DatabaseReference push = databaseReferenceMain.child("Zmiany w wadze")
                                 .child(idZalogowanego).push();
@@ -262,9 +245,6 @@ public class EkranGlowny extends AppCompatActivity {
 
                             Map wagaMap = new HashMap();
                             wagaMap.put(wagaRef+"/"+pushId, wagaWlasciwosci);
-
-
-
 
                             databaseReferenceRoot.updateChildren(wagaMap, new DatabaseReference.CompletionListener() {
                                 @Override
@@ -287,7 +267,6 @@ public class EkranGlowny extends AppCompatActivity {
                 }
             }
         });
-
 
         Query ostatniaWaga = databaseReferenceRoot.child("Zmiany w wadze").child(idZalogowanego).limitToLast(1);
 
@@ -322,9 +301,6 @@ public class EkranGlowny extends AppCompatActivity {
 
 
         Query wagaObecna = databaseReferenceRoot.child("Zmiany w wadze").child(idZalogowanego).limitToFirst(1);
-
-
-
 
         wagaObecna.addChildEventListener(new ChildEventListener() {
             @Override
@@ -361,7 +337,9 @@ public class EkranGlowny extends AppCompatActivity {
                 @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                datyWag = new String[(int) snapshot.getChildrenCount()];
+                    ArrayList<Entry> zapisaneWagi = new ArrayList<>();
+
+                    datyWag = new String[(int) snapshot.getChildrenCount()];
                 int i = 0;
                 for (DataSnapshot myDataSnapshot : snapshot.getChildren()){
                     Waga wagaValue = myDataSnapshot.getValue(Waga.class);
@@ -375,7 +353,6 @@ public class EkranGlowny extends AppCompatActivity {
                 data = new LineData(dataSets);
                 wagaLineChart.setData(data);
                 wagaLineChart.invalidate();
-
                 configAxis();
             }
 

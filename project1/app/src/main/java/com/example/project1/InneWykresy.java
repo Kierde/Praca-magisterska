@@ -191,8 +191,6 @@ public class InneWykresy extends AppCompatActivity {
                     }
 
                     wczytajOkresCzasuPie(gregorianCalendars);
-
-
                     mPieChart.startAnimation();
 
 

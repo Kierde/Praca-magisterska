@@ -105,14 +105,13 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
        Posilek posilek = posilekList.get(position);
        holder.nazwaJedzenia.setText(posilek.getNazwaPosilku());
-      //  Log.d("nazwa",posilek.getNazwaPosilku());
        holder.iloscKalorii.setText(String.valueOf(posilek.getKalorycznosc())+" \n kcal");
 
       if(posilek.getKalorycznosc()>0){
 
-          holder.tluszcz.setText("T. " + posilek.getTluszcz() + "g");
-          holder.wegle.setText("B." + posilek.getBialko() + "g");
-          holder.bialko.setText("W." + posilek.getBialko() + "g");
+          holder.tluszcz.setText("T. " + String.format("%.1f",posilek.getTluszcz()) + "g");
+          holder.wegle.setText("B." + String.format("%.1f",posilek.getBialko()) + "g");
+          holder.bialko.setText("W." +String.format("%.1f", posilek.getBialko()) + "g");
       }
 
         if(!todayDate.equals(simpleDateFormat.format(dt1.getTime()))){

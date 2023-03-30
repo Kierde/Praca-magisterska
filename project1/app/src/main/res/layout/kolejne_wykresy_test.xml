@@ -7,14 +7,15 @@
     tools:context=".KolejneWykresyTestActivity" >
 
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/wykresWagiOdCzasu"
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChartAktynwosci"
         android:layout_width="match_parent"
         android:layout_height="445dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></com.github.mikephil.charting.charts.LineChart>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
