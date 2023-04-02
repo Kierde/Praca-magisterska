@@ -95,7 +95,6 @@ public class EkranGlowny extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ekran_glowny);
 
-
         bottomNavigationView = findViewById(R.id.bottom_navigation2);
         bottomNavigationView.setSelectedItemId(R.id.dashboard);
 

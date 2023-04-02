@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1">
         <activity
-            android:name=".KolejneWykresyTestActivity"
+            android:name=".KolejneWykresy"
             android:label="@string/title_activity_kolejne_wykresy_test"
             android:theme="@style/Theme.Project1.NoActionBar"></activity>
         <activity android:name=".WyszukaneBazaPosilkow" />

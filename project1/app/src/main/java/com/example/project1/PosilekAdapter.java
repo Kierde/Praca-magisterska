@@ -111,7 +111,7 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
           holder.tluszcz.setText("T. " + String.format("%.1f",posilek.getTluszcz()) + "g");
           holder.wegle.setText("B." + String.format("%.1f",posilek.getBialko()) + "g");
-          holder.bialko.setText("W." +String.format("%.1f", posilek.getBialko()) + "g");
+          holder.bialko.setText("W." +String.format("%.1f", posilek.getWeglowodany()) + "g");
       }
 
         if(!todayDate.equals(simpleDateFormat.format(dt1.getTime()))){

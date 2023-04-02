@@ -75,7 +75,7 @@ public class Inne extends AppCompatActivity {
 
     public void opeInneWykresy(){
 
-        Intent intent = new Intent(this, KolejneWykresyTestActivity.class);
+        Intent intent = new Intent(this, KolejneWykresy.class);
         startActivity(intent);
 
     }
