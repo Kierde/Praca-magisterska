@@ -235,14 +235,23 @@ public class KolejneWykresy extends AppCompatActivity {
                         tluszczDataSet.setValueTextSize(13f);
                         tluszczDataSet.setColor(yellow);
                         BarData data = new BarData(bialkoDataSet,weglowodanyDataSet,tluszczDataSet);
+
                         barChartMakroSkladniki.setData(data);
-                        data.setBarWidth(0.06f);
+                        if(howMuchDays==7){
+                            data.setBarWidth(0.06f);
+                        }else if(howMuchDays==30){
+                            data.setBarWidth(0.5f);
+                        }else if(howMuchDays==90){
+                            data.setBarWidth(1.5f);
+                        }
+                        //data.setBarWidth(1f);
                         float barSpace = 0.09f;
                         float groupSpace = 0.5f;
                         barChartMakroSkladniki.groupBars(0, groupSpace, barSpace);
                         configAxis(barChartMakroSkladniki);
                         barChartMakroSkladniki.getLegend().setTextSize(10f);
                         barChartMakroSkladniki.setExtraTopOffset(40f);
+
                     }
 
                     @Override

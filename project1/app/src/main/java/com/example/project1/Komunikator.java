@@ -1,31 +1,36 @@
 package com.example.project1;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
-public class KomunikatorUzytkownika extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
+import android.view.View;
+
+import java.util.GregorianCalendar;
+
+public class Komunikator extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-    TabItem  tab2, tab3;
+    TabItem tab2, tab3;
     PageAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_komunikator_uzytkownika);
+        setContentView(R.layout.activity_komunikator);
 
-        tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        tab2 = (TabItem) findViewById(R.id.Tab2);
-        tab3 = (TabItem) findViewById(R.id.Tab3);
-        viewPager = findViewById(R.id.ViewPager);
+        tabLayout =(TabLayout) findViewById(R.id.tablayout2);
+        tab2 =(TabItem) findViewById(R.id.Tab22);
+        tab3 =(TabItem) findViewById(R.id.Tab31);
+        viewPager =(ViewPager) findViewById(R.id.ViewPager2);
 
         pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
@@ -54,6 +59,7 @@ public class KomunikatorUzytkownika extends AppCompatActivity {
         });
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-    }
 
+
+    }
 }

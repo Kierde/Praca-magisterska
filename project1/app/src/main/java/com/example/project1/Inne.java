@@ -69,7 +69,6 @@ public class Inne extends AppCompatActivity {
             }
         });
 
-
     }
 
 
@@ -79,7 +78,6 @@ public class Inne extends AppCompatActivity {
         startActivity(intent);
 
     }
-
 
     public void openDaneActivity(){
 
@@ -95,7 +93,7 @@ public class Inne extends AppCompatActivity {
 
     public void openSpolecznosc(){
 
-        Intent intent = new Intent(this, KomunikatorUzytkownika.class);
+        Intent intent = new Intent(this, Komunikator.class);
         startActivity(intent);
     }
 

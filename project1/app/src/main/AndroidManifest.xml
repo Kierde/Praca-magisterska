@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.project1">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,16 +11,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Project1">
+        android:theme="@style/Theme.Project1"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity
+            android:name=".Komunikator"
+            android:label="@string/title_activity_komunikator"
+            android:theme="@style/Theme.Project1.NoActionBar"></activity>
         <activity
             android:name=".KolejneWykresy"
             android:label="@string/title_activity_kolejne_wykresy_test"
-            android:theme="@style/Theme.Project1.NoActionBar"></activity>
+            android:theme="@style/Theme.Project1.NoActionBar" />
         <activity android:name=".WyszukaneBazaPosilkow" />
-        <activity android:name=".BazaProduktowUzytkownikow" />
-        <activity android:name=".WyszukiwanieProduktu" /> <!-- <meta-data -->
-        <!-- android:name="com.google.firebase.ml.vision.DEPENDENCIES" -->
-        <!-- android:value="ocr" /> -->
         <activity android:name=".InneWykresy" />
         <activity android:name=".DodawanieZdjecia" />
         <activity android:name=".EdytujKomentarz" />
@@ -32,7 +35,6 @@
         <activity android:name=".Czat" />
         <activity android:name=".WyslanieZaproszenia" />
         <activity android:name=".WszyscyUzytkownicy" />
-        <activity android:name=".KomunikatorUzytkownika" />
         <activity
             android:name=".Inne"
             android:label="@string/title_activity_inne"

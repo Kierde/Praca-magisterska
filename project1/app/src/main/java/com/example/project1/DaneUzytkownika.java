@@ -107,10 +107,6 @@ public class DaneUzytkownika extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
-
         nazwaUzytkownika = (TextView) findViewById(R.id.textViewNazwaUzytkownika);
         adresEmail = (TextView) findViewById(R.id.textViewAresEmail);
         plec = (TextView) findViewById(R.id.textViewPlec);
@@ -121,17 +117,9 @@ public class DaneUzytkownika extends AppCompatActivity {
         poziomAkt = (TextView) findViewById(R.id.textViewPoziom);
         cel = (TextView) findViewById(R.id.textViewCel);
         zdjecieProfilowe = (CircleImageView) findViewById(R.id.profilowe1);
-
-
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
-
-
-
-
-         edytuj = (Button) findViewById(R.id.buttonTest);
-
+        edytuj = (Button) findViewById(R.id.buttonTest);
 
         edytuj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,14 +128,10 @@ public class DaneUzytkownika extends AppCompatActivity {
             }
         });
 
-
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getUid();
         databaseReference =  FirebaseDatabase.getInstance().getReference().child("Uzytkownicy").child(userID);
         databaseReference1 = FirebaseDatabase.getInstance().getReference().child("Uzytkownicy").child(userID).child("zdjecieProfilowe");
-
-
-
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -162,7 +146,6 @@ public class DaneUzytkownika extends AppCompatActivity {
                 celText = snapshot.child("cel").getValue().toString();
                 poziomText = snapshot.child("poziomAktywnosci").getValue().toString();
                 profiloweText =  snapshot.child("zdjecieProfilowe").getValue().toString();
-
 
 
                 if(!profiloweText.equals(""))

@@ -43,6 +43,8 @@
     <string name="__class_edittext_podaj_ilo___string">podaj ilo</string>
     <string name="_0_kcal_string">0 kcal</string>
     <string name="title_activity_kolejne_wykresy_test">MainActivity</string>
+    <string name="title_activity_host">Host</string>
+    <string name="title_activity_komunikator">Komunikator</string>
 
 
 </resources>
