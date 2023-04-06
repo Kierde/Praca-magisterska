@@ -77,6 +77,9 @@ public class KolejneWykresy extends AppCompatActivity {
         ost7dni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                barChartSpoztychKalorii.fitScreen();
+                barChartAktynosc.fitScreen();
+                barChartMakroSkladniki.fitScreen();
                 drawExercisesChart(7);
                 drawSpozytchKaloriiChart(7);
                 drawMacroIngreChart(7);
@@ -92,6 +95,9 @@ public class KolejneWykresy extends AppCompatActivity {
         ost30dni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                barChartSpoztychKalorii.fitScreen();
+                barChartAktynosc.fitScreen();
+                barChartMakroSkladniki.fitScreen();
                 drawExercisesChart(30);
                 drawSpozytchKaloriiChart(30);
                 drawMacroIngreChart(30);
@@ -107,6 +113,9 @@ public class KolejneWykresy extends AppCompatActivity {
         ost90dni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                barChartSpoztychKalorii.fitScreen();
+                barChartAktynosc.fitScreen();
+                barChartMakroSkladniki.fitScreen();
                 drawExercisesChart(90);
                 drawSpozytchKaloriiChart(90);
                 drawMacroIngreChart(90);

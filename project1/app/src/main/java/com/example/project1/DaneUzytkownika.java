@@ -61,6 +61,10 @@ public class DaneUzytkownika extends AppCompatActivity {
     String celText;
     String poziomText;
 
+    TextView zapotrzeBialko;
+    TextView zapotrzeWegle;
+    TextView zapotrzebTluszcz;
+
 
     String profiloweText;
     CircleImageView zdjecieProfilowe;
@@ -68,6 +72,9 @@ public class DaneUzytkownika extends AppCompatActivity {
     public Uri imageUri;
     static double kalorieRet;
 
+    static float bialkoRet;
+    static float wegleRet;
+    static float tluszczeRet;
 
 
 
@@ -120,6 +127,10 @@ public class DaneUzytkownika extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         edytuj = (Button) findViewById(R.id.buttonTest);
+
+        zapotrzeBialko = (TextView) findViewById(R.id.zapotrzebowanieBialko);
+        zapotrzeWegle = (TextView) findViewById(R.id.zapotrzebowanieWegle);
+        zapotrzebTluszcz =(TextView) findViewById(R.id.zapotrzebowanieTluszcz);
 
         edytuj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +206,6 @@ public class DaneUzytkownika extends AppCompatActivity {
                         ppm = (float) (665.1 + 9.563 * wagaFloat + 1.850 * wzrostFloat - 4.676 * wiekInt);
                  }
 
-
                  //Obliczanie PA
 
                 double pa = 0;
@@ -266,8 +276,21 @@ public class DaneUzytkownika extends AppCompatActivity {
                      kalorieRet = cmp3;
                 }
 
+                 //2 gramy białka na kilogram ciała
+                bialkoRet = ((int) wagaFloat) *2;
 
+                float kcalBialka = 4*bialkoRet;
+                float kcalTluszczu = (float) (0.25 * kalorieRet);
 
+                //1g tłuszczu - 9 kcal
+                tluszczeRet = kcalTluszczu/9;
+                float kcalWeglowodanow= (float) (kalorieRet-kcalBialka-kcalTluszczu);
+                //1 g weglowodanów - 4 kcal
+                wegleRet = kcalWeglowodanow/4;
+
+                zapotrzeBialko.setText("B. "+ String.format("%.1f",bialkoRet)+" g");
+                zapotrzeWegle.setText("W. " + String.format("%.1f",wegleRet)+" g");
+                zapotrzebTluszcz.setText("T. "+ String.format("%.1f",tluszczeRet)+" g");
             }
 
             @Override
@@ -276,13 +299,10 @@ public class DaneUzytkownika extends AppCompatActivity {
 
         });
 
-
-
         zdjecieProfilowe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 wybierzZdjencie();
-
             }
         });
     }
@@ -318,8 +338,6 @@ public class DaneUzytkownika extends AppCompatActivity {
         pd.show();
         StorageReference riversRef = storageReference.child("images/"+userID);
 
-
-
         riversRef.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -331,7 +349,6 @@ public class DaneUzytkownika extends AppCompatActivity {
                                     public void onSuccess(Uri uri) {
                                         databaseReference1.setValue(uri.toString());
                                     }
-
                                 });
 
                         pd.dismiss();
@@ -354,8 +371,22 @@ public class DaneUzytkownika extends AppCompatActivity {
                 });
     }
 
-
     static public double getKal(){
         return kalorieRet;
     }
+
+    public static float getBialkoRet() {
+        return bialkoRet;
+    }
+
+    public static float getWegleRet() {
+        return wegleRet;
+    }
+
+    public static float getTluszczeRet() {
+        return tluszczeRet;
+    }
+
+
+
 }

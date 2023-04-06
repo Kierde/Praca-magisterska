@@ -5,15 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.icu.text.Edits;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -27,7 +24,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -36,10 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,12 +40,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import static com.example.project1.DaneUzytkownika.getKal;
+import static com.example.project1.DaneUzytkownika.getBialkoRet;
+import static com.example.project1.DaneUzytkownika.getTluszczeRet;
+import static com.example.project1.DaneUzytkownika.getWegleRet;
 import static com.example.project1.WyszukanyPosilekAdapter.calculateHowMuchCalories;
 import static com.example.project1.WyszukanyPosilekAdapter.calculateMacro;
+import static java.lang.Float.floatToIntBits;
 import static java.lang.Float.parseFloat;
-import static java.lang.Float.sum;
 
 public class ZapisPosilkow extends AppCompatActivity {
 
@@ -76,6 +70,9 @@ public class ZapisPosilkow extends AppCompatActivity {
     Button wyszukajPrzekaski;
     ImageButton dodajNotatke;
     TextView kalorie;
+    TextView dziennyStanBialka;
+    TextView dziennyStanWegli;
+    TextView dziennyStanTluszczu;
     ProgressBar barKalorii;
 
     SimpleDateFormat simpleDateFormat;
@@ -103,7 +100,6 @@ public class ZapisPosilkow extends AppCompatActivity {
 
     String userIdZnajomego;
     DatePickerDialog picker;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +156,10 @@ public class ZapisPosilkow extends AppCompatActivity {
         barKalorii = (ProgressBar) findViewById(R.id.progrsKalorii);
         barKalorii.setScaleY(3f);
         kalorie = (TextView) findViewById(R.id.monitorKalorii2);
+
+        dziennyStanBialka = (TextView) findViewById(R.id.stanBialka);
+        dziennyStanWegli = (TextView) findViewById(R.id.stanWegli);
+        dziennyStanTluszczu = (TextView) findViewById(R.id.stanTluszczu);
 
         //patrzenie na zapis posiłków znajomego
         if(userIdZnajomego!=null) {
@@ -257,6 +257,7 @@ public class ZapisPosilkow extends AppCompatActivity {
         //i=5 spalone kalorie podczas ćwiczeń
         wczytajPosilek("Cwiczenia", 5);
         wczytajPostepKalorii();
+        wczytajPostepMakroSkladnikow();
 
 
 
@@ -300,6 +301,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                 cwiczeniaAdapter.zmienDate(dt1);
                 data.setText(dataText);
                 wczytajPostepKalorii();
+                wczytajPostepMakroSkladnikow();
                 odswierzenieDanych();
             }
         });
@@ -339,8 +341,9 @@ public class ZapisPosilkow extends AppCompatActivity {
                 kolacjaAdapter.zmienDate(dt1);
                 cwiczeniaAdapter.zmienDate(dt1);
                 przekaskiAdapter.zmienDate(dt1);
-                wczytajPostepKalorii();
                 data.setText(dataText);
+                wczytajPostepKalorii();
+                wczytajPostepMakroSkladnikow();
                 odswierzenieDanych();
             }
         });
@@ -414,6 +417,89 @@ public class ZapisPosilkow extends AppCompatActivity {
                 openNotatka();
             }
         });
+    }
+
+    private void wczytajPostepMakroSkladnikow(){
+
+        databaseReferenceMain.child("Dziennik_posilkow").child(idZalogowanego)
+                .child(simpleDateFormat.format(dt1.getTime()))
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        float sumaBialka=0;
+                        float sumaTluszczu=0;
+                        float sumaWeglowodanow=0;
+
+                        if(snapshot.hasChild("Sniadanie")){
+
+                            Iterator<DataSnapshot> posilki = snapshot.child("Sniadanie").getChildren().iterator();
+                            float[] makro;
+                            makro=obliczMakroPosilku(posilki);
+                            sumaBialka+=makro[0];
+                            sumaWeglowodanow+=makro[1];
+                            sumaTluszczu+=makro[2];
+                        }
+
+                        if(snapshot.hasChild("Obiad")){
+
+                            Iterator<DataSnapshot> posilki = snapshot.child("Obiad").getChildren().iterator();
+                            float[] makro;
+                            makro=obliczMakroPosilku(posilki);
+                            sumaBialka+=makro[0];
+                            sumaWeglowodanow+=makro[1];
+                            sumaTluszczu+=makro[2];
+                        }
+
+                        if(snapshot.hasChild("Kolacja")){
+
+                            Iterator<DataSnapshot> posilki = snapshot.child("Kolacja").getChildren().iterator();
+                            float[] makro;
+                            makro=obliczMakroPosilku(posilki);
+                            sumaBialka+=makro[0];
+                            sumaWeglowodanow+=makro[1];
+                            sumaTluszczu+=makro[2];
+                        }
+
+                        if (snapshot.hasChild("Przekaski")){
+
+                            Iterator<DataSnapshot> posilki = snapshot.child("Przekaski").getChildren().iterator();
+                            float[] makro;
+                            makro=obliczMakroPosilku(posilki);
+                            sumaBialka+=makro[0];
+                            sumaWeglowodanow+=makro[1];
+                            sumaTluszczu+=makro[2];
+                        }
+
+                        dziennyStanBialka.setText("        B. \n"+String.format("%.1f",sumaBialka)+" g"+"/"+String.format("%.1f",getBialkoRet())+" g");
+                        dziennyStanWegli.setText("        W. \n"+String.format("%.1f",sumaWeglowodanow)+" g"+"/"+String.format("%.1f",getWegleRet())+" g");
+                        dziennyStanTluszczu.setText("        T. \n"+String.format("%.1f",sumaTluszczu)+" g"+"/"+String.format("%.1f",getTluszczeRet())+" g");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    public float[] obliczMakroPosilku(Iterator<DataSnapshot> posilki){
+
+        //0 - bialko, 1 - wegle, 2 - tluszcz
+        float[] makros = new float[3];
+
+        while (posilki.hasNext()){
+
+            DataSnapshot posilekSnap =posilki.next();
+            Posilek posilek = posilekSnap.getValue(Posilek.class);
+            makros[0] +=  posilek.getBialko();
+            makros[1] += posilek.getWeglowodany();
+            makros[2] += posilek.getTluszcz();
+        }
+        Log.d("bialko", String.valueOf(makros[0]));
+        Log.d("wegle", String.valueOf(makros[1]));
+        Log.d("tluszcz", String.valueOf(makros[2]));
+        return makros;
     }
 
     private void wczytajPostepKalorii(){
@@ -736,7 +822,6 @@ public class ZapisPosilkow extends AppCompatActivity {
         intent.putExtra("nazwaPosilku", nazwaPosilku);
         intent.putExtra("data", dt1);
         startActivity(intent);
-
     }
 
     public void odswierzenieDanych(){
@@ -756,6 +841,5 @@ public class ZapisPosilkow extends AppCompatActivity {
         wczytajPosilek("Przekaski", 4);
         wczytajPosilek("Cwiczenia", 5);
     }
-
 }
 
