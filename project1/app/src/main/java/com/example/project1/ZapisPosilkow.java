@@ -59,15 +59,15 @@ public class ZapisPosilkow extends AppCompatActivity {
     TextView data;
     String idZalogowanego;
     TextView label;
-    Button dodajSniadanie;
-    Button dodajObiad;
-    Button dodajKolacje;
-    Button dodajPrzekaski;
-    Button dodajCwczenia;
-    Button wszukajSniadanie;
-    Button wyszukajObiad;
-    Button wyszukajKolacje;
-    Button wyszukajPrzekaski;
+    ImageButton dodajSniadanie;
+    ImageButton dodajObiad;
+    ImageButton dodajKolacje;
+    ImageButton dodajPrzekaski;
+    ImageButton dodajCwczenia;
+    ImageButton wszukajSniadanie;
+    ImageButton wyszukajObiad;
+    ImageButton wyszukajKolacje;
+    ImageButton wyszukajPrzekaski;
     ImageButton dodajNotatke;
     TextView kalorie;
     TextView dziennyStanBialka;
@@ -141,18 +141,18 @@ public class ZapisPosilkow extends AppCompatActivity {
 
         label = (TextView)findViewById(R.id.textView9);
         dodajNotatke = (ImageButton) findViewById(R.id.dodajNotatke);
-        dodajSniadanie = (Button) findViewById(R.id.dodajSniadanie);
-        dodajObiad = (Button) findViewById(R.id.dodajObiad);
-        dodajKolacje = (Button) findViewById(R.id.dodajKolacje);
-        dodajPrzekaski = (Button) findViewById(R.id.dodajPrzekaski);
-        dodajCwczenia = (Button) findViewById(R.id.dodajCwiczenia);
+        dodajSniadanie = (ImageButton) findViewById(R.id.dodajSniadanie);
+        dodajObiad = (ImageButton) findViewById(R.id.dodajObiad);
+        dodajKolacje = (ImageButton) findViewById(R.id.dodajKolacje);
+        dodajPrzekaski = (ImageButton) findViewById(R.id.dodajPrzekaski);
+        dodajCwczenia = (ImageButton) findViewById(R.id.dodajCwiczenia);
         auth = FirebaseAuth.getInstance();
         idZalogowanego = auth.getUid();
         userIdZnajomego = getIntent().getStringExtra("userid");
-        wszukajSniadanie = (Button) findViewById(R.id.wyszukajSniadanie);
-        wyszukajObiad = (Button) findViewById(R.id.wyszukajObiad);
-        wyszukajKolacje = (Button) findViewById(R.id.wyszukajKolacje);
-        wyszukajPrzekaski = (Button) findViewById(R.id.wyszukajPrzekaski);
+        wszukajSniadanie = (ImageButton) findViewById(R.id.wyszukajSniadanie);
+        wyszukajObiad = (ImageButton) findViewById(R.id.wyszukajObiad);
+        wyszukajKolacje = (ImageButton) findViewById(R.id.wyszukajKolacje);
+        wyszukajPrzekaski = (ImageButton) findViewById(R.id.wyszukajPrzekaski);
         barKalorii = (ProgressBar) findViewById(R.id.progrsKalorii);
         barKalorii.setScaleY(3f);
         kalorie = (TextView) findViewById(R.id.monitorKalorii2);
@@ -668,8 +668,7 @@ public class ZapisPosilkow extends AppCompatActivity {
             public void onClick(View v) {
 
                 String nazwaPosilkuText = nazwaPosi.getText().toString().trim();
-
-                String temp = nazwaPosilku.toLowerCase();
+                String temp = nazwaPosilkuText.toLowerCase();
                 String temp1 = temp.substring(0, 1).toUpperCase() + temp.substring(1);
                 String nazwaPosilkuText1 = temp1;
                 String kalorycznoscText = kalorycznosc.getText().toString().trim();
@@ -677,8 +676,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                 String bialoText = bialko.getText().toString().trim();
                 String tluszczText = tluszcz.getText().toString().trim();
                 String iloscProduktu = iloscGramDoDodania.getText().toString().trim();
-
-
 
                 if ((!TextUtils.isEmpty(nazwaPosilkuText1)) && (!TextUtils.isEmpty(kalorycznoscText))
                         && !TextUtils.isEmpty(weglowodanyText) && !TextUtils.isEmpty(bialoText) && !TextUtils.isEmpty(tluszczText)
@@ -702,7 +699,7 @@ public class ZapisPosilkow extends AppCompatActivity {
 
                                 //baza danych dla wszystkich użytkoników
                                 DatabaseReference dlaWszystkichUzytkownikow = databaseReferenceMain.child("Baza_posilkow_uzytkonikow");
-                                Posilek posilek1 = new Posilek(Integer.parseInt(kalorycznoscText), nazwaPosilkuText, index, Float.parseFloat(bialoText), Float.parseFloat(weglowodanyText), Float.parseFloat(tluszczText));
+                                Posilek posilek1 = new Posilek(Integer.parseInt(kalorycznoscText), nazwaPosilkuText1, index, Float.parseFloat(bialoText), Float.parseFloat(weglowodanyText), Float.parseFloat(tluszczText));
                                 dlaWszystkichUzytkownikow.child(nazwaPosilkuText1).setValue(posilek1);
 
 

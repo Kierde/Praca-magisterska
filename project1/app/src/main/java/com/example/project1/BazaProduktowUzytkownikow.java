@@ -74,8 +74,11 @@ public class BazaProduktowUzytkownikow extends Fragment {
                 przeszukajBaze.startAnimation(animation);
 
                 String przeszukajNazwaText = przeszukajNazwa.getText().toString();
+                String temp = przeszukajNazwaText.toLowerCase();
+                String temp1 = temp.substring(0, 1).toUpperCase() + temp.substring(1);
+                String przeszukajNazwaText1 = temp1;
 
-                if(!TextUtils.isEmpty(przeszukajNazwaText)){
+                if(!TextUtils.isEmpty(przeszukajNazwaText1)){
 
                     reference.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -87,7 +90,7 @@ public class BazaProduktowUzytkownikow extends Fragment {
                                 for(DataSnapshot ds:snapshot.getChildren()){
 
                                     Posilek posilek = ds.getValue(Posilek.class);
-                                    if(posilek.getNazwaPosilku().contains(przeszukajNazwaText))
+                                    if(posilek.getNazwaPosilku().contains(przeszukajNazwaText1))
                                         posilkiUzytkownikow.add(posilek);
                                         dodaneDoBazyWspAdapter.notifyDataSetChanged();
                                 }

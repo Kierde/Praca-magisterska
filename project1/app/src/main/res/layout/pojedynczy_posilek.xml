@@ -30,11 +30,12 @@
 
     <TextView
         android:id="@+id/nazwaPosilku"
-        android:layout_width="284.5dp"
+        android:layout_width="400dp"
         android:layout_height="22.5dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="8dp"
         android:autoSizeTextType="uniform"
         android:fontFamily="IBM Plex Serif"
         android:gravity="center"
