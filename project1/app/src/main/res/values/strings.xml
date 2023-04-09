@@ -45,6 +45,7 @@
     <string name="title_activity_kolejne_wykresy_test">MainActivity</string>
     <string name="title_activity_host">Host</string>
     <string name="title_activity_komunikator">Komunikator</string>
+    <string name="title_activity_sledzenie_biegu">SledzenieBiegu</string>
 
 
 </resources>

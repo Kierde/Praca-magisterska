@@ -17,6 +17,7 @@ public class Inne extends AppCompatActivity {
     Button wszyscyUzytkownicy;
     Button spolecznosc;
     Button inneWykresy;
+    Button sledzenieBiegu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,15 @@ public class Inne extends AppCompatActivity {
         wszyscyUzytkownicy = (Button) findViewById(R.id.wszyscyUzytkownicy);
         spolecznosc = (Button) findViewById(R.id.spolecznosc);
         inneWykresy = (Button) findViewById(R.id.inneWykresy);
+        sledzenieBiegu = (Button) findViewById(R.id.trackowanieBiegu);
+
+
+        sledzenieBiegu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openTrakowanieBiegu();
+            }
+        });
 
         daneUzytkownika.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +79,13 @@ public class Inne extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    public void openTrakowanieBiegu(){
+
+        Intent intent = new Intent(this, SledzenieBiegu.class);
+        startActivity(intent); 
     }
 
 

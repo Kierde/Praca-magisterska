@@ -29,16 +29,22 @@
         android:textAllCaps="false" />
 
     <Button
+        android:id="@+id/inneWykresy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="inne wykresy" />
+
+    <Button
+        android:id="@+id/trackowanieBiegu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="trakowanie biegu" />
+
+    <Button
         android:id="@+id/wylogujSie"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:text="Wyloguj się"
         android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/inneWykresy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="inne wykresy" />
 
 </LinearLayout>
