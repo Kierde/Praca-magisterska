@@ -2,6 +2,7 @@ package com.example.project1;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -35,8 +36,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import static com.example.project1.DaneUzytkownika.getWagaRet;
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,22 +58,26 @@ public class SledzenieBiegu extends FragmentActivity
     Button startTracking;
     Button stopTracking;
     TextView przebytaDroga;
+    TextView spaloneKalorieBiegu;
     TextView czasTrwania;
     TextView srednieTempo;
-
     boolean isPermissionGranted = false;
     FusedLocationProviderClient fusedLocationProviderClient;
     LocationRequest locationRequest;
     ArrayList<LatLng> locations = new ArrayList<>();
     PolylineOptions polylineOptions = new PolylineOptions();
     LocationListener locationListener;
-
-    double droga =0.0;
     Timer timer;
     TimerTask timerTask;
-    double czas =0.0;
-    double sredniaPredkosc=0.0;
-    double tempo=0.0;
+    double czas = 0.0;
+    double czasKilometra = 0.0;
+    boolean biegWystarowany = false;
+    double spaloneKalorie =0.0;
+
+    GregorianCalendar gregorianCalendar = new GregorianCalendar();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    Bieg nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
+    KilometrBiegu kilometr = new KilometrBiegu(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
 
 
     @Override
@@ -77,31 +90,60 @@ public class SledzenieBiegu extends FragmentActivity
         przebytaDroga =(TextView)findViewById(R.id.przebytaOdleglosc);
         czasTrwania = (TextView) findViewById(R.id.czasTrwania);
         srednieTempo = (TextView) findViewById(R.id.srednieTempo);
-        checkMyPermission();
+        spaloneKalorieBiegu = (TextView) findViewById(R.id.spaloneKalorieBiegu);
         stopTracking.setEnabled(false);
+
+
+       // Log.d("MET"," "+oszacujWartoscMET(7.3));
+
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            firstTimeAskForPermission();
+        }else{
+            isPermissionGranted=true;
+        }
 
         if (isPermissionGranted) {
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
             mapFragment.getMapAsync(this);
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-            //co 30 sekund albo co 5 metrów
-            locationRequest = new LocationRequest.Builder(500).setIntervalMillis(3000).setMinUpdateDistanceMeters(5f).build();
+            //co 3 sekundy
+            locationRequest = new LocationRequest.Builder(500).setIntervalMillis(1000).build();
 
             startTracking.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
+
+                    if(!biegWystarowany){
+                        nowyBieg.getKilometrBiegus().add(kilometr);
+                        biegWystarowany=true;
+                    }
                     startTracking.setEnabled(false);
+
                    locationListener = new LocationListener() {
                         @Override
                         public void onLocationChanged(@NonNull Location location) {
-                            Log.d("Lat,Long", ""+location.getLatitude()+" "+location.getLongitude());
                             LatLng locationCurr = new LatLng(location.getLatitude(),location.getLongitude());;
                             locations.add(locationCurr);
                             polylineOptions.add(locationCurr);
-                            droga=0.0;
-                            sredniaPredkosc=0.0;
-                            tempo=0.0;
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationCurr, 16));
+
+
+                            if(Math.floor(kilometr.getDystans())==1){
+                                Log.d("Kilometr", "OSIĄGNIĘTY"+kilometr.getDystans());
+                                kilometr.obliczSredniaPredkosc();
+                                kilometr.obliczSrednieTempo();
+                                KilometrBiegu kilometr = new KilometrBiegu(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
+                                nowyBieg.getKilometrBiegus().add(kilometr);
+                                czasKilometra=0.0;
+                            }
+
+                            kilometr.setCzas(czasKilometra);
+                            nowyBieg.setCzas(czas);
+
+                            double droga=0.0;
+                            double predkoscWdanejChwili;
 
 
                             if(locations.size()>=2){
@@ -109,14 +151,29 @@ public class SledzenieBiegu extends FragmentActivity
                                 for(int i=1; i<locations.size();i++) {
                                     droga += odleglosc(locations.get(i), locations.get(i - 1));
                                 }
-                                Log.d("droga i czas"," "+droga+" "+czas);
+
+                                predkoscWdanejChwili = odleglosc(locations.get(locations.size()-1), locations.get(locations.size()-2));
+
+                                if(predkoscWdanejChwili!=0)
+                                    predkoscWdanejChwili = (1/(predkoscWdanejChwili*3600)*60);
+
+                                spaloneKalorie += oszacujWartoscMET(predkoscWdanejChwili)*getWagaRet()*(0.00027777777);
+                                Log.d("spalone", " "+spaloneKalorie);
                             }
-                            przebytaDroga.setText(String.format("%.3f",droga)+" Km");
+                            int iloscKilometrow = nowyBieg.getKilometrBiegus().size()-1;
+                            nowyBieg.setDystans(droga);
+                            kilometr.setDystans(droga-iloscKilometrow);
+                            przebytaDroga.setText(String.format("%.2f",nowyBieg.getDystans())+"\n Km");
+                            spaloneKalorieBiegu.setText(String.valueOf((int)spaloneKalorie)+"\n kcal");
 
-                             sredniaPredkosc= droga/czas;
-                             tempo=(1/(3600*sredniaPredkosc))*60;
 
-                            srednieTempo.setText(String.format("%.2f",tempo )+" min/km");
+                            if(droga==0){
+                                srednieTempo.setText("---------------");
+                            }else{
+                                nowyBieg.obliczSredniaPredkosc();
+                                nowyBieg.obliczSrednieTempo();
+                                srednieTempo.setText(String.format("%.2f",nowyBieg.getTempo() )+"\n min/km");
+                            }
                             Polyline polyline = map.addPolyline(polylineOptions);
                             polyline.setColor(Color.rgb(255,127,80));
                             polyline.setWidth(20f);
@@ -140,6 +197,60 @@ public class SledzenieBiegu extends FragmentActivity
         }
     }
 
+    public float oszacujWartoscMET(double sredniaPredkosc){
+
+        float MET = 0;
+        Map<Double, Float> mapPredkosciMET = new HashMap<>();
+
+        //k-tempo min/h, v-MET
+        mapPredkosciMET.put(0.0,2f);
+        mapPredkosciMET.put(21.93271044,2.3f);
+        mapPredkosciMET.put(14.9142431,2.9f);
+        mapPredkosciMET.put(12.42853592,	3.3f);
+        mapPredkosciMET.put(10.96635522,3.6f);
+        mapPredkosciMET.put(9.321401939,6f);
+        mapPredkosciMET.put(7.457121551,8.3f);
+        mapPredkosciMET.put(7.170309184,9f);
+        mapPredkosciMET.put(6.214267959,9.8f);
+        mapPredkosciMET.put(5.565016083,10.5f);
+        mapPredkosciMET.put(5.326515394,11f);
+        mapPredkosciMET.put(4.971414367,11.5f);
+        mapPredkosciMET.put(4.335535786,12.3f);
+        mapPredkosciMET.put(4.142845306,12.8f);
+        mapPredkosciMET.put(3.728560776,14.5f);
+        mapPredkosciMET.put(3.389600705,16f);
+        mapPredkosciMET.put(3.10713398,19f);
+        mapPredkosciMET.put(2.868123673,19.8f);
+        mapPredkosciMET.put(2.663257697,23f);
+
+        Set<Double> keys= mapPredkosciMET.keySet();
+        double[] array = new double[19];
+        int i=0;
+
+        for(Double key:keys){
+            array[i]=key;
+            Log.d("Str", " "+array[i]);
+            i++;
+        }
+        Arrays.sort(array);
+        int left =0;
+        int right= 18;
+
+
+        while (left<right){
+
+            if(Math.abs(array[left]-sredniaPredkosc)
+            <=Math.abs(array[right]-sredniaPredkosc)){
+                right--;
+            }else{
+                left++;
+            }
+        }
+
+        MET = mapPredkosciMET.get(array[left]);
+        return MET;
+    }
+
 
     private void startTimer(){
 
@@ -154,6 +265,7 @@ public class SledzenieBiegu extends FragmentActivity
                     @Override
                     public void run() {
                         czas++;
+                        czasKilometra++;
                         czasTrwania.setText(getTimerText());
                     }
                 });
@@ -164,11 +276,9 @@ public class SledzenieBiegu extends FragmentActivity
 
     private void stopTimer(){
 
-        czas =0.0;
         startTracking.setEnabled(true);
         stopTracking.setEnabled(false);
         timer.cancel();
-        czasTrwania.setText(fortmatTime(0,0,0));
     }
 
     private String getTimerText(){
@@ -182,9 +292,8 @@ public class SledzenieBiegu extends FragmentActivity
 
     private String fortmatTime(int seconds, int minutes, int hours){
 
-        return String.format("%02d",hours) + " : " + String.format("%02d",minutes) + " : " + String.format("%02d",seconds);
+        return String.format("%02d",hours) + ":" + String.format("%02d",minutes) +  ":" + String.format("%02d",seconds);
     }
-
 
 
     private void startLocationUpdates() {
@@ -199,12 +308,15 @@ public class SledzenieBiegu extends FragmentActivity
         fusedLocationProviderClient.removeLocationUpdates(locationListener);
     }
 
-    private void checkMyPermission() {
+    private void firstTimeAskForPermission() {
         Dexter.withContext(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                 Toast.makeText(SledzenieBiegu.this, "Permission granted", Toast.LENGTH_SHORT).show();
-                isPermissionGranted = true;
+                Intent intent = getIntent();
+                finish();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
             }
 
             @Override
@@ -249,6 +361,7 @@ public class SledzenieBiegu extends FragmentActivity
     }
 
 
+
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
@@ -265,13 +378,13 @@ public class SledzenieBiegu extends FragmentActivity
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-
         Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
         locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
             }
         });
     }

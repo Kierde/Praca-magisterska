@@ -46,7 +46,6 @@ import static com.example.project1.DaneUzytkownika.getTluszczeRet;
 import static com.example.project1.DaneUzytkownika.getWegleRet;
 import static com.example.project1.WyszukanyPosilekAdapter.calculateHowMuchCalories;
 import static com.example.project1.WyszukanyPosilekAdapter.calculateMacro;
-import static java.lang.Float.floatToIntBits;
 import static java.lang.Float.parseFloat;
 
 public class ZapisPosilkow extends AppCompatActivity {

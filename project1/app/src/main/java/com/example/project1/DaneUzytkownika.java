@@ -75,6 +75,7 @@ public class DaneUzytkownika extends AppCompatActivity {
     static float bialkoRet;
     static float wegleRet;
     static float tluszczeRet;
+    static float wagaRet;
 
 
 
@@ -168,6 +169,7 @@ public class DaneUzytkownika extends AppCompatActivity {
                 int celInt = Integer.parseInt(celText);
                 int wiekInt = Integer.parseInt(wiekText);
                 float wagaFloat = Float.valueOf(wagaText).floatValue();
+                wagaRet = wagaFloat;
                 float wzrostFloat =Float.valueOf(wzrostText).floatValue();
 
 
@@ -385,6 +387,10 @@ public class DaneUzytkownika extends AppCompatActivity {
 
     public static float getTluszczeRet() {
         return tluszczeRet;
+    }
+
+    public static float getWagaRet(){
+        return wagaRet;
     }
 
 

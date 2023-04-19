@@ -10,11 +10,10 @@
     <fragment
         android:id="@+id/maps"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/czasTrwania"
+        android:layout_width="411dp"
+        android:layout_height="500dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,28 +31,28 @@
 
     <TextView
         android:id="@+id/przebytaOdleglosc"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_marginStart="10dp"
-        android:text="0.0  Km"
+        android:layout_width="141dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rectangle_6_shape"
+        android:gravity="center"
+        android:text="0.00 \n Dystans"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/srednieTempo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/czasTrwania" />
 
     <TextView
         android:id="@+id/czasTrwania"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="4dp"
-        android:text="00 : 00 : 00"
+        android:layout_height="48dp"
+        android:background="@drawable/rectangle_6_shape"
+        android:gravity="center"
+        android:text="00:00:00 \n Czas"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/przebytaOdleglosc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maps" />
 
     <Button
         android:id="@+id/stopTracking"
@@ -68,16 +67,52 @@
 
     <TextView
         android:id="@+id/srednieTempo"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="---------------"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/rectangle_6_shape"
+        android:gravity="center"
+        android:text="--------------- \n Tempo"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/spaloneKalorieBiegu"
+        app:layout_constraintStart_toEndOf="@+id/przebytaOdleglosc"
+        app:layout_constraintTop_toBottomOf="@+id/czasTrwania" />
+
+    <TextView
+        android:id="@+id/spaloneKalorieBiegu"
+        android:layout_width="141dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rectangle_6_shape"
+        android:gravity="center"
+        android:text="0\n Kalorie"
+
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/startTracking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/czasTrwania" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="44dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/textView12"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/srednieTempo" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="64dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/srednieTempo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
