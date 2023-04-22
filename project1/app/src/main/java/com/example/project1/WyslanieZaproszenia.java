@@ -187,10 +187,7 @@ public class WyslanieZaproszenia extends AppCompatActivity {
                             stanZnajomości = "prośba_wysłana";
                             zapros.setText("Anuluj zaproszenie do znajomych");
                         }
-
                 }
-
-
             }
 
             @Override
@@ -248,12 +245,10 @@ public class WyslanieZaproszenia extends AppCompatActivity {
                                     zapros.setEnabled(true);
                                     stanZnajomości = "nie_znajomi";
                                     zapros.setText("Zaproś do znajomych");
-
                                 }
                             });
                         }
                     });
-
                 }
 
                 if(stanZnajomości.equals("prośba_otrzymana")){
@@ -358,9 +353,6 @@ public class WyslanieZaproszenia extends AppCompatActivity {
 
             }
         });
-
-
-
 
     }
 }

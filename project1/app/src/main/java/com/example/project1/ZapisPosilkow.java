@@ -74,6 +74,8 @@ public class ZapisPosilkow extends AppCompatActivity {
     TextView dziennyStanTluszczu;
     ProgressBar barKalorii;
 
+
+
     SimpleDateFormat simpleDateFormat;
     GregorianCalendar dt1;
 
@@ -155,7 +157,6 @@ public class ZapisPosilkow extends AppCompatActivity {
         barKalorii = (ProgressBar) findViewById(R.id.progrsKalorii);
         barKalorii.setScaleY(3f);
         kalorie = (TextView) findViewById(R.id.monitorKalorii2);
-
         dziennyStanBialka = (TextView) findViewById(R.id.stanBialka);
         dziennyStanWegli = (TextView) findViewById(R.id.stanWegli);
         dziennyStanTluszczu = (TextView) findViewById(R.id.stanTluszczu);

@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
     tools:context=".SledzenieBiegu">
 
 
@@ -11,23 +12,13 @@
         android:id="@+id/maps"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="411dp"
-        android:layout_height="500dp"
+        android:layout_height="450dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/startTracking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/stopTracking"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/przebytaOdleglosc"
@@ -53,17 +44,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/maps" />
-
-    <Button
-        android:id="@+id/stopTracking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="stop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/startTracking" />
 
     <TextView
         android:id="@+id/srednieTempo"
@@ -93,26 +73,70 @@
         app:layout_constraintTop_toBottomOf="@+id/czasTrwania" />
 
     <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="44dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/textView12"
-        app:layout_constraintHorizontal_bias="0.485"
+        android:id="@+id/dystansBIerzacegoKm"
+        android:layout_width="141dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/rectangle_6_shape"
+        android:gravity="center"
+        android:text="0.00 \n Dystans bierzącego kilometra"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/srednieTempo" />
 
     <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="64dp"
-        android:text="TextView"
+        android:id="@+id/srednieTempoBierzKm"
+        android:layout_width="141dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="55dp"
+        android:background="@drawable/rectangle_6_shape"
+        android:gravity="center"
+        android:text="--------------- \n Średnie tempo bierzącego kilometra"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/srednieTempo" />
+
+    <ImageButton
+        android:id="@+id/startTracking"
+        android:layout_width="108dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:scaleType="centerInside"
+        android:src="@drawable/play_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dystansBIerzacegoKm" />
+
+    <ImageButton
+        android:id="@+id/stopTracking"
+        android:layout_width="108dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="63dp"
+        android:background="#ffffff"
+        android:scaleType="centerInside"
+        android:src="@drawable/stop_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.692"
+        app:layout_constraintStart_toEndOf="@+id/startTracking"
+        app:layout_constraintTop_toBottomOf="@+id/dystansBIerzacegoKm" />
+
+    <ImageView
+        android:id="@+id/testScreen"
+        android:layout_width="408dp"
+        android:layout_height="448dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/maps"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/maps"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

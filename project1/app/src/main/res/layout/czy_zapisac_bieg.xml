@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Czy chcesz zapisać swój bieg?"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/zapiszBieg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Zapisz bieg" />
+
+    <Button
+        android:id="@+id/wyjdz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@id/zapiszBieg"
+        android:text="wyjdź" />
+
+</RelativeLayout>

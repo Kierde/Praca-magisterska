@@ -140,7 +140,6 @@ public class DodawanieZdjecia extends AppCompatActivity{
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-
                     storageReference.child("Zdjęcia sylwetki/"+ idZalogowanego + "/" + idWagi)
                             .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
@@ -148,7 +147,6 @@ public class DodawanieZdjecia extends AppCompatActivity{
 
                             rootRef.child("Zmiany w wadze").child(idZalogowanego)
                                     .child(idWagi).child("zdjecie sylwetki").setValue(uri.toString());
-
 
                         }
                     });

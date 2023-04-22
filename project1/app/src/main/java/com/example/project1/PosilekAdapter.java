@@ -39,7 +39,6 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
 
         this.dt1 = nowaData;
 
-
          reference = FirebaseDatabase.getInstance().getReference("Wszystkie posilki uzytkownika do monitora posilkow")
                 .child(zalogowanyId).child(simpleDateFormat.format(dt1.getTime()));
 
@@ -58,7 +57,6 @@ public class PosilekAdapter extends RecyclerView.Adapter<PosilekAdapter.PosilekV
          przekaskiRef = FirebaseDatabase.getInstance().getReference("Dziennik_posilkow")
                  .child(zalogowanyId).child(simpleDateFormat.format(dt1.getTime())).child("Przekaski");
     }
-
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String zalogowanyId = auth.getUid();
