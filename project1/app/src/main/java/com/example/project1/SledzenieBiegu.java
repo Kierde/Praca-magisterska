@@ -15,13 +15,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -30,7 +34,8 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import android.Manifest;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -40,13 +45,12 @@ import com.google.android.gms.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +58,8 @@ import android.widget.Toast;
 import static com.example.project1.DaneUzytkownika.getWagaRet;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,7 +75,10 @@ public class SledzenieBiegu extends FragmentActivity
         implements
         OnMapReadyCallback{
 
+    boolean biegNieWystarowal = false;
     GoogleMap map;
+    FirebaseStorage storage;
+    StorageReference storageReference;
     ImageButton startTracking;
     ImageButton stopTracking;
     TextView przebytaDroga;
@@ -90,17 +99,16 @@ public class SledzenieBiegu extends FragmentActivity
     double czas = 0.0;
     double czasKilometra = 0.0;
     boolean isPaused=false;
+    boolean zapisywanie = false;
     String idZalogowanego;
     FirebaseAuth auth;
     DatabaseReference databaseReference;
     Bitmap bitmapMapy;
-
-    ImageView test;
-
-
+    Uri zdjecieMapy;
+    String index;
     GregorianCalendar gregorianCalendar = new GregorianCalendar();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    Bieg nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
+    Bieg nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0, "");
     KilometrBiegu kilometr = new KilometrBiegu(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
 
 
@@ -119,16 +127,11 @@ public class SledzenieBiegu extends FragmentActivity
         srednieTempoBierzacegoKm =(TextView) findViewById(R.id.srednieTempoBierzKm);
         dystansBierzacegoKm = (TextView) findViewById(R.id.dystansBIerzacegoKm);
         stopTracking.setVisibility(View.GONE);
-
-        test = (ImageView) findViewById(R.id.testScreen);
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         auth = FirebaseAuth.getInstance();
         idZalogowanego = auth.getUid();
-
-        test.setVisibility(View.GONE);
-
-
 
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
@@ -141,14 +144,14 @@ public class SledzenieBiegu extends FragmentActivity
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
             mapFragment.getMapAsync(this);
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-            //co 3 sekundy
+            //co 1 sekundy
             locationRequest = new LocationRequest.Builder(500).setIntervalMillis(1000).build();
 
             startTracking.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-
+                    biegNieWystarowal=true;
                     if(isPaused==false){
 
                         isPaused=true;
@@ -229,28 +232,7 @@ public class SledzenieBiegu extends FragmentActivity
             stopTracking.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     czyZapisacDialog("new");
-
-                    //zapiszBazieDanych();
-                    //stopSledzenieBiegu();
-                    //stopTracking.setVisibility(View.GONE);
-                    //zrobScreenMapy();
-               /*     map.clear();
-                    locations.clear();
-                    nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
-                    kilometr = new KilometrBiegu(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
-                    nowyBieg.getKilometrBiegus().add(kilometr);
-                    polylineOptions = new PolylineOptions();
-                    dystansBierzacegoKm.setText("0.00 \n Dystans bierzącego kilometra");
-                    srednieTempoBierzacegoKm.setText("--------------- \n Średnie tempo bierzącego kilometra");
-                    przebytaDroga.setText("0.00 \n Dystans");
-                    spaloneKalorieBiegu.setText("0\n Kalorie");
-                    srednieTempo.setText("--------------- \n Tempo");
-                    czasTrwania.setText("00:00:00 \n Czas");
-                    czas=0.0;
-                    czasKilometra=0.0;
-                    test.setVisibility(View.VISIBLE);*/
                 }
             });
         }
@@ -262,7 +244,6 @@ public class SledzenieBiegu extends FragmentActivity
         double n = locations.get(0).latitude;
         double w = locations.get(0).longitude;
         double e = locations.get(0).longitude;
-
 
         for(int i=1; i<=locations.size()-1;i++){
 
@@ -276,16 +257,13 @@ public class SledzenieBiegu extends FragmentActivity
                 new LatLng(s,w),
                 new LatLng(n,e)
         );
-
         return granica;
     }
 
 
-    public void zrobScreenMapy(){
+    public void zrobScreenMapyZapiszStorage(){
 
-        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(locations.get(locations.size()-1), 12));
-        //map.moveCamera(CameraUpdateFactory.newLatLngBounds(obliczGranice(), 0));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(obliczGranice().getCenter(),10));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(obliczGranice().getCenter(),12));
 
         map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
@@ -295,15 +273,55 @@ public class SledzenieBiegu extends FragmentActivity
                     public void onSnapshotReady(@Nullable Bitmap bitmap) {
                         bitmapMapy=null;
                         bitmapMapy=bitmap;
-                        test.setImageBitmap(bitmapMapy);
-                    }
+                        zdjecieMapy = getImageUri(SledzenieBiegu.this, bitmapMapy);
+
+                        DatabaseReference dataref = databaseReference.child("Biegi").child(idZalogowanego).child(simpleDateFormat.format(gregorianCalendar.getTime())).child(index).child("mapaBiegu");
+
+                        StorageReference riversRef = storageReference.child("Zjdecia_mapy_biegu/"+idZalogowanego+"/"+index);
+
+                        riversRef.putFile(zdjecieMapy)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                        riversRef.getDownloadUrl().
+                                                addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        dataref.setValue(uri.toString());
+                                                        ContentResolver contentResolver = getContentResolver ();
+                                                        contentResolver.delete(zdjecieMapy,null,null);
+                                                            Intent intent = new Intent(SledzenieBiegu.this, PodsumowanieBiegu.class );
+                                                            intent.putExtra("indexBiegu",index );
+                                                            startActivity(intent);
+                                                            finish();
+                                                    }
+                                                });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                    }
+                                })
+                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+
+                                        Toast.makeText(SledzenieBiegu.this, "Wczytywanie podsumowania...", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        }
                 });
             }
         });
-
     }
 
     public void zapiszBazieDanych(){
+
+        DatabaseReference referencePosilek = databaseReference.child("Biegi").child(idZalogowanego).child(simpleDateFormat.format(gregorianCalendar.getTime()));
+         index = referencePosilek.push().getKey();
+        referencePosilek.child(index).setValue(nowyBieg);
 
         String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(gregorianCalendar.getTime()) + "/" + "Cwiczenia";
         String posilekRef1 = "Wszystkie posilki uzytkownika do monitora posilkow" +"/"+ idZalogowanego + "/" + simpleDateFormat.format(gregorianCalendar.getTime());
@@ -332,7 +350,12 @@ public class SledzenieBiegu extends FragmentActivity
         databaseReference.updateChildren(czescPosilku, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+            }
+        });
 
+        databaseReference.updateChildren(wszystkieposilki, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
             }
         });
     }
@@ -343,6 +366,13 @@ public class SledzenieBiegu extends FragmentActivity
         stopTimer();
         stopLocationUpdate();
         isPaused=false;
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "temp", null);
+        return Uri.parse(path);
     }
 
     public void czyZapisacDialog(String backOrNew){
@@ -363,14 +393,16 @@ public class SledzenieBiegu extends FragmentActivity
         zapiszBieg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                zrobScreenMapy();
-                test.setVisibility(View.VISIBLE);
+                stopSledzenieBiegu();
+                isPaused=true;
+                stopTracking.setVisibility(View.GONE);
+                startTracking.setVisibility(View.GONE);
                 zapiszBazieDanych();
-                //otwarcie podsumowania
-
+                zrobScreenMapyZapiszStorage();
+                dialog.dismiss();
+                zapisywanie=true;
             }
         });
-
 
         wroc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -382,12 +414,12 @@ public class SledzenieBiegu extends FragmentActivity
                 }
 
                 if(backOrNew.equals("new")){
-                    zapiszBazieDanych();
+
                     stopSledzenieBiegu();
                     stopTracking.setVisibility(View.GONE);
                     map.clear();
                     locations.clear();
-                    nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
+                    nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0,"");
                     kilometr = new KilometrBiegu(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
                     nowyBieg.getKilometrBiegus().add(kilometr);
                     polylineOptions = new PolylineOptions();
@@ -407,7 +439,16 @@ public class SledzenieBiegu extends FragmentActivity
 
     @Override
     public void onBackPressed() {
-        czyZapisacDialog("back");
+
+        if(zapisywanie=true){
+
+        }else{
+            if(biegNieWystarowal){
+                czyZapisacDialog("back");
+            }else{
+                normalOnbackPressed();
+            }
+        }
     }
 
 
@@ -499,7 +540,7 @@ public class SledzenieBiegu extends FragmentActivity
         return fortmatTime(seconds,minutes, hours);
     }
 
-    private String fortmatTime(int seconds, int minutes, int hours){
+    public static String fortmatTime(int seconds, int minutes, int hours){
 
         return String.format("%02d",hours) + ":" + String.format("%02d",minutes) +  ":" + String.format("%02d",seconds);
     }
@@ -545,7 +586,6 @@ public class SledzenieBiegu extends FragmentActivity
         }).check();
     }
 
-
     public static double odleglosc(LatLng punkt1, LatLng punkt2) {
         double lon1=punkt1.longitude;
         double lon2=punkt2.longitude;
@@ -572,7 +612,6 @@ public class SledzenieBiegu extends FragmentActivity
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-
         map = googleMap;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -591,7 +630,6 @@ public class SledzenieBiegu extends FragmentActivity
             @Override
             public void onSuccess(Location location) {
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
             }
         });

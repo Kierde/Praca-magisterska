@@ -11,7 +11,7 @@
     <fragment
         android:id="@+id/maps"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="450dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -124,19 +124,6 @@
         app:layout_constraintHorizontal_bias="0.692"
         app:layout_constraintStart_toEndOf="@+id/startTracking"
         app:layout_constraintTop_toBottomOf="@+id/dystansBIerzacegoKm" />
-
-    <ImageView
-        android:id="@+id/testScreen"
-        android:layout_width="408dp"
-        android:layout_height="448dp"
-        android:layout_marginBottom="56dp"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/maps"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/maps"
-        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

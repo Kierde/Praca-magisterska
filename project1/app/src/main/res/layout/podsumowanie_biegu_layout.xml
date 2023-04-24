@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PodsumowanieBiegu">
+
+
+    <ImageView
+        android:id="@+id/zdjecieMapyBiegu"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataBieguPodsumowania"
+        app:srcCompat="@drawable/rectangle_6_shape" />
+
+    <TextView
+        android:id="@+id/czasTrwaniaPodusmowania"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/dystansPodsumowania"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zdjecieMapyBiegu" />
+
+    <TextView
+        android:id="@+id/dystansPodsumowania"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="70dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/srednieTempoPodsumowanie"
+        app:layout_constraintTop_toBottomOf="@+id/zdjecieMapyBiegu" />
+
+    <TextView
+        android:id="@+id/srednieTempoPodsumowanie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="44dp"
+        android:text="TextView"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/spaloneKaloriePodusmowania"
+        app:layout_constraintTop_toBottomOf="@+id/zdjecieMapyBiegu" />
+
+    <TextView
+        android:id="@+id/spaloneKaloriePodusmowania"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zdjecieMapyBiegu" />
+
+    <TextView
+        android:id="@+id/dataBieguPodsumowania"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/kilometryBiegu"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="169dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="185dp"
+        android:text="Kilometry biegu: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dystansPodsumowania" />
+</androidx.constraintlayout.widget.ConstraintLayout>

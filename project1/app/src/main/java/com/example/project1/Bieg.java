@@ -1,7 +1,7 @@
 package com.example.project1;
 
+import android.graphics.Bitmap;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Bieg {
 
@@ -11,15 +11,35 @@ public class Bieg {
     public double tempo;
     public double spaloneKalorie;
     private String dataDnia;
+    private String mapaBiegu;
     private ArrayList<KilometrBiegu> kilometrBiegus = new ArrayList<>();
 
-    public Bieg(double dystans, double czas, double sredniaPredkosc, double tempo, String dataDnia, int spaloneKalorie) {
+
+    public Bieg(){
+
+    }
+
+    public Bieg(double dystans, double czas, double sredniaPredkosc, double tempo, String dataDnia, int spaloneKalorie, String mapaBiegu) {
         this.dystans = dystans;
         this.czas = czas;
         this.sredniaPredkosc = sredniaPredkosc;
         this.tempo = tempo;
         this.dataDnia = dataDnia;
         this.spaloneKalorie = spaloneKalorie;
+        this.mapaBiegu = mapaBiegu;
+    }
+
+
+
+    public Bieg(double dystans, double czas, double sredniaPredkosc, double tempo, String dataDnia, int spaloneKalorie) {
+    }
+
+    public String getMapaBiegu() {
+        return mapaBiegu;
+    }
+
+    public void setMapaBiegu(String mapaBiegu) {
+        this.mapaBiegu = mapaBiegu;
     }
 
     public void obliczSredniaPredkosc(){

@@ -56,7 +56,6 @@ public class InneWykresy extends AppCompatActivity {
     Toolbar zmianaDanych;
     TextView nazwaOkresu;
 
-
     TextView dataStart;
     TextView dataStop;
     DatePickerDialog picker;

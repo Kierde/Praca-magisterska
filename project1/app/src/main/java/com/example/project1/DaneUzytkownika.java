@@ -393,6 +393,4 @@ public class DaneUzytkownika extends AppCompatActivity {
         return wagaRet;
     }
 
-
-
 }
