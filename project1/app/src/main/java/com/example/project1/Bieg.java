@@ -13,13 +13,14 @@ public class Bieg {
     private String dataDnia;
     private String mapaBiegu;
     private ArrayList<KilometrBiegu> kilometrBiegus = new ArrayList<>();
+    private String index;
 
 
     public Bieg(){
 
     }
 
-    public Bieg(double dystans, double czas, double sredniaPredkosc, double tempo, String dataDnia, int spaloneKalorie, String mapaBiegu) {
+    public Bieg(double dystans, double czas, double sredniaPredkosc, double tempo, String dataDnia, int spaloneKalorie, String mapaBiegu, String index) {
         this.dystans = dystans;
         this.czas = czas;
         this.sredniaPredkosc = sredniaPredkosc;
@@ -27,11 +28,20 @@ public class Bieg {
         this.dataDnia = dataDnia;
         this.spaloneKalorie = spaloneKalorie;
         this.mapaBiegu = mapaBiegu;
+        this.index = index;
     }
 
 
 
     public Bieg(double dystans, double czas, double sredniaPredkosc, double tempo, String dataDnia, int spaloneKalorie) {
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 
     public String getMapaBiegu() {

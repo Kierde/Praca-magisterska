@@ -272,7 +272,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                 String dataText = simpleDateFormat.format(dt1.getTime());
 
                 //do testowania zakomentować
-       /*         if(!dataText.equals(todayDate)){
+                if(!dataText.equals(todayDate)){
                     wszukajSniadanie.setVisibility(View.GONE);
                     wyszukajObiad.setVisibility(View.GONE);
                     wyszukajKolacje.setVisibility(View.GONE);
@@ -292,7 +292,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                     dodajKolacje.setVisibility(View.VISIBLE);
                     dodajPrzekaski.setVisibility(View.VISIBLE);
                     dodajCwczenia.setVisibility(View.VISIBLE);
-                }*/
+                }
                 
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);
@@ -314,7 +314,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                 String dataText = simpleDateFormat.format(dt1.getTime());
 
                 //do testowania zakomentować
-              /*  if(!dataText.equals(todayDate)){
+                if(!dataText.equals(todayDate)){
                     wszukajSniadanie.setVisibility(View.GONE);
                     wyszukajObiad.setVisibility(View.GONE);
                     wyszukajKolacje.setVisibility(View.GONE);
@@ -334,7 +334,7 @@ public class ZapisPosilkow extends AppCompatActivity {
                     dodajKolacje.setVisibility(View.VISIBLE);
                     dodajPrzekaski.setVisibility(View.VISIBLE);
                     dodajCwczenia.setVisibility(View.VISIBLE);
-                }*/
+                }
                 ///
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);

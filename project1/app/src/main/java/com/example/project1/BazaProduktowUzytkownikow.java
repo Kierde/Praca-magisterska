@@ -59,6 +59,7 @@ public class BazaProduktowUzytkownikow extends Fragment {
         reference = FirebaseDatabase.getInstance().getReference().child("Baza_posilkow_uzytkonikow");
         databaseReferenceMain = FirebaseDatabase.getInstance().getReference();
         dodane = (RecyclerView)mainView.findViewById(R.id.wyszukaneRecyclerView);
+
         dodaneDoBazyWspAdapter = new WyszukanyPosilekAdapter(null,posilkiUzytkownikow,((WyszukaneBazaPosilkow)getActivity()).nazwaPosilku,((WyszukaneBazaPosilkow)getActivity()).gregorianCalendar);
         dodane.setHasFixedSize(true);
         dodane.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -108,7 +109,6 @@ public class BazaProduktowUzytkownikow extends Fragment {
                 }
             }
         });
-
         return mainView;
     }
 

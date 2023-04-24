@@ -53,8 +53,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import static com.example.project1.DaneUzytkownika.getWagaRet;
 
 
@@ -108,8 +106,9 @@ public class SledzenieBiegu extends FragmentActivity
     String index;
     GregorianCalendar gregorianCalendar = new GregorianCalendar();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    Bieg nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0, "");
+    Bieg nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0, "","");
     KilometrBiegu kilometr = new KilometrBiegu(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
+
 
 
     @Override
@@ -228,7 +227,6 @@ public class SledzenieBiegu extends FragmentActivity
                 }
             });
 
-
             stopTracking.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -275,7 +273,7 @@ public class SledzenieBiegu extends FragmentActivity
                         bitmapMapy=bitmap;
                         zdjecieMapy = getImageUri(SledzenieBiegu.this, bitmapMapy);
 
-                        DatabaseReference dataref = databaseReference.child("Biegi").child(idZalogowanego).child(simpleDateFormat.format(gregorianCalendar.getTime())).child(index).child("mapaBiegu");
+                        DatabaseReference dataref = databaseReference.child("Biegi").child(idZalogowanego).child(index).child("mapaBiegu");
 
                         StorageReference riversRef = storageReference.child("Zjdecia_mapy_biegu/"+idZalogowanego+"/"+index);
 
@@ -293,6 +291,7 @@ public class SledzenieBiegu extends FragmentActivity
                                                         contentResolver.delete(zdjecieMapy,null,null);
                                                             Intent intent = new Intent(SledzenieBiegu.this, PodsumowanieBiegu.class );
                                                             intent.putExtra("indexBiegu",index );
+                                                            //intent.putExtra("data",simpleDateFormat.format(gregorianCalendar.getTime()));
                                                             startActivity(intent);
                                                             finish();
                                                     }
@@ -319,8 +318,9 @@ public class SledzenieBiegu extends FragmentActivity
 
     public void zapiszBazieDanych(){
 
-        DatabaseReference referencePosilek = databaseReference.child("Biegi").child(idZalogowanego).child(simpleDateFormat.format(gregorianCalendar.getTime()));
-         index = referencePosilek.push().getKey();
+        DatabaseReference referencePosilek = databaseReference.child("Biegi").child(idZalogowanego);
+        index = referencePosilek.push().getKey();
+        nowyBieg.setIndex(index);
         referencePosilek.child(index).setValue(nowyBieg);
 
         String posilekRef = "Dziennik_posilkow/" + idZalogowanego + "/" + simpleDateFormat.format(gregorianCalendar.getTime()) + "/" + "Cwiczenia";
@@ -419,7 +419,7 @@ public class SledzenieBiegu extends FragmentActivity
                     stopTracking.setVisibility(View.GONE);
                     map.clear();
                     locations.clear();
-                    nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0,"");
+                    nowyBieg = new Bieg(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0,"","");
                     kilometr = new KilometrBiegu(0.0,0.0,0.0,0.0,simpleDateFormat.format(gregorianCalendar.getTime()),0);
                     nowyBieg.getKilometrBiegus().add(kilometr);
                     polylineOptions = new PolylineOptions();
@@ -440,7 +440,7 @@ public class SledzenieBiegu extends FragmentActivity
     @Override
     public void onBackPressed() {
 
-        if(zapisywanie=true){
+        if(zapisywanie!=false){
 
         }else{
             if(biegNieWystarowal){

@@ -41,6 +41,12 @@
         android:text="trakowanie biegu" />
 
     <Button
+        android:id="@+id/historiaAktywnosci"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dziennik treningowy - bieganie" />
+
+    <Button
         android:id="@+id/wylogujSie"
         android:layout_width="match_parent"
         android:layout_height="70dp"

@@ -3,8 +3,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+
 public class PodsumowanieBiegu extends AppCompatActivity {
 
     TextView dataPodsumowania;
@@ -30,15 +31,10 @@ public class PodsumowanieBiegu extends AppCompatActivity {
     FirebaseAuth auth;
     DatabaseReference databaseReference;
     String idZalogowanego;
-    SimpleDateFormat simpleDateFormat;
-    GregorianCalendar gregorianCalendar;
     String index;
-
     RecyclerView kilometry;
     private final List<KilometrBiegu> listaKilometrow = new ArrayList<>();
     private KilometrAdapter kilometrAdapter;
-
-
 
 
     @Override
@@ -51,14 +47,10 @@ public class PodsumowanieBiegu extends AppCompatActivity {
         kilometry.setHasFixedSize(true);
         kilometry.setLayoutManager(new LinearLayoutManager(this));
         kilometry.setAdapter(kilometrAdapter);
-
-         gregorianCalendar = new GregorianCalendar();
-         simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-         auth= FirebaseAuth.getInstance();
-         idZalogowanego = auth.getUid();
-         index = getIntent().getStringExtra("indexBiegu");
-         databaseReference = FirebaseDatabase.getInstance().getReference().child("Biegi").child(idZalogowanego).
-                 child(simpleDateFormat.format(gregorianCalendar.getTime())).child(index);
+        auth= FirebaseAuth.getInstance();
+        idZalogowanego = auth.getUid();
+        index = getIntent().getStringExtra("indexBiegu");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Biegi").child(idZalogowanego).child(index);
 
          dataPodsumowania = (TextView) findViewById(R.id.dataBieguPodsumowania);
          dystansPodsumowania =(TextView) findViewById(R.id.dystansPodsumowania);
@@ -73,8 +65,11 @@ public class PodsumowanieBiegu extends AppCompatActivity {
 
                  Bieg bieg = snapshot.getValue(Bieg.class);
 
+                 Log.d("size", String.valueOf(bieg.getKilometrBiegus().size()));
+
                  for(int i=0;i<bieg.getKilometrBiegus().size();i++)
                  listaKilometrow.add(bieg.getKilometrBiegus().get(i));
+
 
 
                  dataPodsumowania.setText("Podsumowanie biegu z dnia: "+bieg.getDataDnia());
