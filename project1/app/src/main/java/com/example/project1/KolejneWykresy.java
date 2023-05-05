@@ -26,11 +26,16 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.List;
 
 public class KolejneWykresy extends AppCompatActivity {
 
@@ -218,13 +223,6 @@ public class KolejneWykresy extends AppCompatActivity {
                                     }
                                 }
                             }
-
-
-
-                            Log.d("sum",daty[i]);
-                            Log.d("sumBialko", String.valueOf(sumaBialka));
-                            Log.d("sumWegli", String.valueOf(sumaWeglowodanow));
-                            Log.d("sumTluszczu", String.valueOf(sumaTluszcz));
                              bialko.add(new BarEntry(i,sumaBialka));
                              weglowodany.add(new BarEntry(i,sumaWeglowodanow));
                              tluszcz.add(new BarEntry(i,sumaTluszcz));
@@ -260,17 +258,12 @@ public class KolejneWykresy extends AppCompatActivity {
                         configAxis(barChartMakroSkladniki);
                         barChartMakroSkladniki.getLegend().setTextSize(10f);
                         barChartMakroSkladniki.setExtraTopOffset(40f);
-
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
     }
-
-
 
     void drawSpozytchKaloriiChart(int howMuchDays){
 
@@ -353,7 +346,6 @@ public class KolejneWykresy extends AppCompatActivity {
                         barChartSpoztychKalorii.invalidate();
                         configAxis(barChartSpoztychKalorii);
                         graphLegend("Spożyte kalorie", orange, barChartSpoztychKalorii);
-
                     }
 
                     @Override
@@ -366,19 +358,25 @@ public class KolejneWykresy extends AppCompatActivity {
 
        GregorianCalendar gr = new GregorianCalendar();
         ArrayList<BarEntry> entries = new ArrayList<>();
-
         rootRef.child("Dziennik_posilkow").child(idZalogowanego)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         daty = new String[howMuchDays];
+                        for(int j=0;j<howMuchDays;j++) {
+                            daty[j] = simpleDateFormat.format(gr.getTime());
+                            gr.add(Calendar.DATE,-1);
+                        }
+                        Collections.reverse(Arrays.asList(daty));
+
 
                         for(int i=0;i<howMuchDays;i++){
                            int sumaKalCwiczen=0;
-                            daty[i] = simpleDateFormat.format(gr.getTime());
-                            gr.add(Calendar.DATE,-1);
+
+                            //gr.add(Calendar.DATE,-howMuchDays+i);
                             if(snapshot.hasChild(daty[i])){
+
                                 DataSnapshot snapDnia = snapshot.child(daty[i]);
 
                                 if(snapDnia.hasChild("Cwiczenia")){

@@ -52,10 +52,8 @@ public class DodawanieZdjecia extends AppCompatActivity{
         auth = FirebaseAuth.getInstance();
         idZalogowanego = auth.getUid();
         zdjecieSylwetki = (ImageView) findViewById(R.id.zdjecieSylwetki);
-
         zdjecieAparat = (Button) findViewById(R.id.zdjecieAparat);
         zdjecieZTelefonu = (Button) findViewById(R.id.zdjecieTelefonu);
-
         idWagi =getIntent().getStringExtra("idWagi");
 
 
@@ -69,19 +67,16 @@ public class DodawanieZdjecia extends AppCompatActivity{
                     zdjecieZTelefonu.setText("Dodaj inne zdjęcie z telefonu");
                 }
 
+                if(snapshot.hasChild("zdjecie sylwetki")){
+                    String zdjecie = snapshot.child("zdjecie sylwetki").getValue().toString();
 
-                String zdjecie = snapshot.child("zdjecie sylwetki").getValue().toString();
-
-                if(!zdjecie.equals("")) {
-                    Picasso.get().load(zdjecie).into(zdjecieSylwetki);
+                    if(!zdjecie.equals("")) {
+                        Picasso.get().load(zdjecie).into(zdjecieSylwetki);
+                    }
                 }
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -89,38 +84,24 @@ public class DodawanieZdjecia extends AppCompatActivity{
         zdjecieZTelefonu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 wybierzZdjencie();
-
-
-
             }
         });
-
-
         zdjecieAparat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, CAMERA_REQUEST_CODE);
-
             }
         });
 
     }
-
-
     private void wybierzZdjencie(){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
     }
-
-
-
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -130,11 +111,7 @@ public class DodawanieZdjecia extends AppCompatActivity{
 
             Bitmap zdjecie = (Bitmap) data.getExtras().get("data");
             Uri uri = getImageUri(this, zdjecie);
-
-
             StorageReference filepath = storageReference.child("Zdjęcia sylwetki").child(idZalogowanego).child(idWagi);
-
-
 
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -144,19 +121,13 @@ public class DodawanieZdjecia extends AppCompatActivity{
                             .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-
                             rootRef.child("Zmiany w wadze").child(idZalogowanego)
                                     .child(idWagi).child("zdjecie sylwetki").setValue(uri.toString());
-
                         }
                     });
-
-
                 }
             });
-
         }
-
 
         if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
             Uri imageUri = data.getData();
@@ -170,9 +141,6 @@ public class DodawanieZdjecia extends AppCompatActivity{
                 }
             });
         }
-
-
-
     }
 
     private Uri getImageUri(Context context, Bitmap inImage) {
