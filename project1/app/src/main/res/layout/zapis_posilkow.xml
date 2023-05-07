@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#708090">
+    android:background="#FFF">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:padding="40dp"
             tools:context=".ZapisPosilkow">
-
 
             <ProgressBar
                 android:id="@+id/progrsKalorii"
@@ -104,10 +103,10 @@
 
             <ImageButton
                 android:id="@+id/dodajSniadanie"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="#708090"
+                android:background="#FFF"
                 android:scaleType="centerInside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sniadanie"
@@ -135,11 +134,11 @@
 
             <ImageButton
                 android:id="@+id/dodajObiad"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:scaleType="centerInside"
-                android:background="#708090"
+                android:background="#FFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -169,11 +168,11 @@
 
             <ImageButton
                 android:id="@+id/dodajKolacje"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:scaleType="centerInside"
-                android:background="#708090"
+                android:background="#FFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -201,11 +200,11 @@
 
             <ImageButton
                 android:id="@+id/dodajPrzekaski"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:scaleType="centerInside"
-                android:background="#708090"
+                android:background="#FFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -235,11 +234,11 @@
 
             <ImageButton
                 android:id="@+id/dodajCwiczenia"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:scaleType="centerInside"
-                android:background="#708090"
+                android:background="#FFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -266,7 +265,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="35dp"
-                android:text="Dodaj notatkę dzisiejszego dnia dotyczącą diety"
+                android:text="Dodaj notatkę dla dnia:"
                 android:textSize="20dp"
                 android:textColor="#000000"
                 app:layout_constraintStart_toStartOf="parent"
@@ -274,11 +273,11 @@
 
             <ImageButton
                 android:id="@+id/wyszukajSniadanie"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="4dp"
-                android:background="#708090"
+                android:background="#FFF"
                 android:scaleType="centerInside"
                 app:layout_constraintStart_toEndOf="@+id/dodajSniadanie"
                 app:layout_constraintTop_toBottomOf="@+id/sniadanie"
@@ -286,11 +285,11 @@
 
             <ImageButton
                 android:id="@+id/wyszukajObiad"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="4dp"
-                android:background="#708090"
+                android:background="#FFF"
                 android:scaleType="centerInside"
                 app:layout_constraintStart_toEndOf="@+id/dodajObiad"
                 app:layout_constraintTop_toBottomOf="@+id/obiad"
@@ -298,11 +297,11 @@
 
             <ImageButton
                 android:id="@+id/wyszukajKolacje"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="4dp"
-                android:background="#708090"
+                android:background="#FFF"
                 android:scaleType="centerInside"
                 app:layout_constraintStart_toEndOf="@+id/dodajKolacje"
                 app:layout_constraintTop_toBottomOf="@+id/kolacja"
@@ -310,11 +309,11 @@
 
             <ImageButton
                 android:id="@+id/wyszukajPrzekaski"
-                android:layout_width="69dp"
-                android:layout_height="57dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="4dp"
-                android:background="#708090"
+                android:background="#FFF"
                 android:scaleType="centerInside"
                 app:layout_constraintStart_toEndOf="@+id/dodajPrzekaski"
                 app:layout_constraintTop_toBottomOf="@+id/przekaski"

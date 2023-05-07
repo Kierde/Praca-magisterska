@@ -8,9 +8,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/zapisaneWagi"
-        android:layout_width="407dp"
-        android:layout_height="594dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="408dp"
+        android:layout_height="680dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,12 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="153dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="200dp"
         android:text="Historia zapisanych wag"
+        android:textColor="#000"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.414"
+        app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

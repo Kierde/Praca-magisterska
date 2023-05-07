@@ -8,8 +8,9 @@
 
     <EditText
         android:id="@+id/edycjaposta"
-        android:layout_width="403dp"
+        android:layout_width="match_parent"
         android:layout_height="93dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="4dp"
         android:ems="10"
         android:gravity="start|top"
@@ -20,10 +21,12 @@
 
     <Button
         android:id="@+id/zatwierdzZminay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/button_"
         android:text="Zatwierdz zmiany"
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"

@@ -9,48 +9,69 @@
 
     <Button
         android:id="@+id/informacjeProfil"
+        android:background="@drawable/button_"
+        android:textColor="#FFF"
+        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:text="Informacje o profilu"
-        android:textAllCaps="false" />
+        />
 
     <Button
         android:id="@+id/wszyscyUzytkownicy"
         android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_"
+        android:textColor="#FFF"
         android:layout_height="70dp"
         android:text="Wszyscy użytkownicy"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/spolecznosc"
+        android:background="@drawable/button_"
+        android:textColor="#FFF"
+        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:text="Społeczność"
-        android:textAllCaps="false" />
+        />
 
     <Button
         android:id="@+id/inneWykresy"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="inne wykresy" />
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_"
+        android:text="inne wykresy"
+        android:textColor="#FFF" />
 
     <Button
         android:id="@+id/trackowanieBiegu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="trakowanie biegu" />
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_"
+        android:text="trakowanie biegu"
+        android:textColor="#FFF" />
 
     <Button
         android:id="@+id/historiaAktywnosci"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dziennik treningowy - bieganie" />
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_"
+        android:text="Dziennik treningowy - bieganie"
+        android:textColor="#FFF" />
 
     <Button
         android:id="@+id/wylogujSie"
         android:layout_width="match_parent"
+        android:background="@drawable/button_"
+        android:textColor="#FFF"
+        android:layout_marginBottom="8dp"
         android:layout_height="70dp"
         android:text="Wyloguj się"
-        android:textAllCaps="false" />
+         />
 
 </LinearLayout>

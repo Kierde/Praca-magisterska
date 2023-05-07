@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/laayout1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -22,17 +22,22 @@
 
             <EditText
                 android:id="@+id/wyszukajNazwa"
+                android:background="@drawable/user_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:layout_marginTop="10dp"
                 android:hint="Wyszukaj użytkownika za pomocą nazwy"
+                android:paddingLeft="7dp"
                 android:inputType="textPersonName"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 tools:ignore="DuplicateIds" />
 
             <ImageButton
+                android:layout_marginTop="5dp"
                 android:id="@+id/wyszukajButton"
+                android:background="@drawable/button_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_baseline_search_24"
@@ -44,13 +49,17 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:layout_marginTop="5dp"
                     android:id="@+id/checkBoxCel"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="0" />
 
                 <Spinner
+                    android:layout_marginTop="5dp"
                     android:id="@+id/szukanieCelem"
+                    android:background="@drawable/user_form"
+                    android:paddingLeft="7dp"
                     android:layout_width="330dp"
                     android:layout_height="match_parent" />
 
@@ -63,6 +72,7 @@
 
                 <CheckBox
                     android:id="@+id/checkboxWiek"
+                    android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="22dp"
                     android:layout_weight="0" />
@@ -73,6 +83,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/user_form"
+                    android:paddingLeft="7dp"
                     android:hint="szukanie wiekiem: od"
                     android:inputType="numberDecimal|numberSigned"
                     android:textSize="15dp" />
@@ -83,7 +96,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:layout_marginTop="5dp"
                     android:hint="szukanie wiekiem: do"
+                    android:background="@drawable/user_form"
+                    android:paddingLeft="7dp"
                     android:inputType="numberDecimal"
                     android:textSize="15dp" />
 
@@ -91,6 +107,8 @@
 
             <ImageButton
                 android:id="@+id/wyszukaj"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_baseline_search_24"
@@ -98,18 +116,17 @@
 
             <Button
                 android:id="@+id/pokażWszystkich"
+                android:background="@drawable/button_"
+                android:textColor="#FFF"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:text="Pokaż wszystkich" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listaUzytkownikow"
-                android:layout_width="match_parent"
-                android:layout_height="368dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_width="381dp"
+                android:layout_height="456dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

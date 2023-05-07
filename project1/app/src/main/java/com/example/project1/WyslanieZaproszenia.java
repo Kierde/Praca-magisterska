@@ -26,32 +26,26 @@ import java.util.Date;
 
 public class WyslanieZaproszenia extends AppCompatActivity {
 
-
     DatabaseReference databaseReference;
-
     FirebaseAuth mAuth;
     TextView nazwaUzytkownika;
     TextView wiek;
     TextView cel;
     TextView poziomRuchu;
     ImageView profilowe;
-
     String textNazwa;
     String textProfilowe;
     String textWiek;
     String textPoziom;
     String textCel;
-
     DatabaseReference databaseReferenceZaproszenia;
+    DatabaseReference root;
     Button zapros;
     Button odrzuc;
     String stanZnajomości;
     String idZalogowanego;
     DatabaseReference databaseReferenceZnajomi;
-
-
     String useridZapraszany;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,24 +54,22 @@ public class WyslanieZaproszenia extends AppCompatActivity {
 
         //id wyświetlanego użytkoniwnika do zaproszenia
         useridZapraszany = getIntent().getStringExtra("userid");
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Uzytkownicy").child(useridZapraszany);
         databaseReferenceZaproszenia = FirebaseDatabase.getInstance().getReference().child("Zaproszenia do znajomych");
         databaseReferenceZnajomi = FirebaseDatabase.getInstance().getReference().child("Znajomi");
-
+        root = FirebaseDatabase.getInstance().getReference();
         //id zalogowanego użytkownika
         mAuth = FirebaseAuth.getInstance();
         idZalogowanego  = mAuth.getUid();
-
         nazwaUzytkownika = (TextView) findViewById(R.id.nazwaZap);
         wiek = (TextView) findViewById(R.id.wiekZap);
         cel = (TextView) findViewById(R.id.celZap);
         poziomRuchu = (TextView) findViewById(R.id.poziomZap);
         profilowe = (ImageView) findViewById(R.id.profZap);
-
         zapros = (Button) findViewById(R.id.buttonZapros);
         odrzuc = (Button) findViewById(R.id.odrzucZaproszenie);
         odrzuc.setVisibility(View.GONE);
-
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,7 +80,6 @@ public class WyslanieZaproszenia extends AppCompatActivity {
                  textPoziom = snapshot.child("poziomAktywnosci").getValue().toString();
                  textCel = snapshot.child("cel").getValue().toString();
                  textWiek = snapshot.child("wiek").getValue().toString();
-
 
                 if(!textProfilowe.equals(""))
                     Picasso.get().load(textProfilowe).into(profilowe);
@@ -107,11 +98,11 @@ public class WyslanieZaproszenia extends AppCompatActivity {
 
                     if(textPoziom.equals("1")){
                         poziomRuchu.setText("Poziom aktywności fizycznej: siedzący");
-                    }else if(textCel.equals("2")){
+                    }else if(textPoziom.equals("2")){
                         poziomRuchu.setText("Poziom aktywności fizycznej: mało aktywny");
-                    }else if(textCel.equals("3")){
+                    }else if(textPoziom.equals("3")){
                         poziomRuchu.setText("Poziom aktywności fizycznej: aktywny");
-                    }else if(textCel.equals("4")){
+                    }else if(textPoziom.equals("4")){
                         poziomRuchu.setText("Poziom aktywności fizycznej: bardzo aktywny");
                     }
 
@@ -119,7 +110,6 @@ public class WyslanieZaproszenia extends AppCompatActivity {
                     databaseReferenceZaproszenia.child(idZalogowanego).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
 
                             if(snapshot.hasChild(useridZapraszany)){
 
@@ -133,14 +123,10 @@ public class WyslanieZaproszenia extends AppCompatActivity {
                                 stanZnajomości = "nie_znajomi";
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
-
-
                 //sprwadzenie czy już nie są znajomymi - usuwanie znajomych
                 databaseReferenceZnajomi.child(idZalogowanego).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -150,28 +136,16 @@ public class WyslanieZaproszenia extends AppCompatActivity {
                             stanZnajomości = "znajomi";
                             zapros.setText("Usuń znajomego");
                         }
-
-
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
-
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-
-
 
         // odczytanie czy użytkownik został już wcześniej zaproszony, przycik zaproś lub analuj
         databaseReferenceZaproszenia.addValueEventListener(new ValueEventListener() {
@@ -195,8 +169,6 @@ public class WyslanieZaproszenia extends AppCompatActivity {
 
             }
         });
-
-
 
 
         zapros.setOnClickListener(new View.OnClickListener() {
@@ -287,8 +259,6 @@ public class WyslanieZaproszenia extends AppCompatActivity {
                                                         }
                                                     });
 
-
-
                                         }
                                     });
 
@@ -299,6 +269,19 @@ public class WyslanieZaproszenia extends AppCompatActivity {
                 }
 
                 if(stanZnajomości.equals("znajomi")){
+
+                    root.child("Rozmowy").child(idZalogowanego).child(useridZapraszany)
+                            .removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+                    root.child("Rozmowy").child(useridZapraszany).child(idZalogowanego)
+                            .removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
 
                     databaseReferenceZnajomi.child(idZalogowanego).
                             child(useridZapraszany).removeValue()

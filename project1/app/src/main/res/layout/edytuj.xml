@@ -8,59 +8,81 @@
     tools:context=".Edytuj" >
 
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/textView15"
+        android:textColor="#000"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:text="Waga (kg):"
+        android:paddingLeft="7dp"
         android:textSize="18dp" />
 
     <EditText
         android:id="@+id/editWaga"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="45dp"
+        android:background="@drawable/user_form"
         android:ems="10"
         android:inputType="numberDecimal|numberSigned"
+        android:paddingLeft="7dp"
         android:textSize="18dp" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:paddingLeft="7dp"
         android:text="Wzrost (cm):"
+        android:layout_marginTop="10dp"
+        android:textColor="#000"
         android:textSize="18dp" />
 
     <EditText
         android:id="@+id/editWzrost"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="45dp"
+        android:background="@drawable/user_form"
         android:ems="10"
         android:inputType="numberDecimal|numberSigned"
+        android:paddingLeft="7dp"
         android:textSize="18dp" />
 
     <TextView
         android:id="@+id/Weik"
+        android:paddingLeft="7dp"
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:text="Wiek (lata):"
+        android:layout_marginTop="10dp"
+
+        android:textColor="#000"
         android:textSize="18dp" />
 
     <EditText
         android:id="@+id/editWiek"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="45dp"
+        android:background="@drawable/user_form"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:paddingLeft="7dp"
         android:textSize="18dp" />
 
     <TextView
         android:id="@+id/labelTryb"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:layout_marginTop="10dp"
         android:text="Poziom aktywności fizycznej:"
+        android:textColor="#000"
+        android:paddingLeft="7dp"
         android:textSize="18dp" />
 
     <Spinner
         android:id="@+id/spinnerAktywnosc"
+        android:background="@drawable/user_form"
+        android:paddingLeft="7dp"
         android:layout_width="match_parent"
         android:layout_height="45dp" />
 
@@ -69,31 +91,45 @@
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:text="Cel:"
+        android:layout_marginTop="10dp"
+        android:textColor="#000"
+        android:paddingLeft="7dp"
         android:textSize="18dp" />
 
     <Spinner
         android:id="@+id/spinnerCel"
+        android:background="@drawable/user_form"
+        android:paddingLeft="7dp"
         android:layout_width="match_parent"
         android:layout_height="45dp" />
 
     <TextView
         android:id="@+id/textView3"
+        android:paddingLeft="7dp"
+        android:textColor="#000"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:text="Płeć:"
+        android:layout_marginTop="10dp"
         android:textSize="18dp" />
 
     <Spinner
         android:id="@+id/plecSpinner"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="45dp"
+        android:background="@drawable/user_form"
+        android:paddingLeft="7dp" />
 
     <Button
         android:id="@+id/wszyscyUzytkownicy"
-        android:layout_gravity=""
         android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
         android:layout_height="wrap_content"
+        android:layout_gravity=""
+        android:background="@drawable/button_"
         android:text="Zapisz"
+        android:textColor="#FFF"
+
         />
 
 </LinearLayout>

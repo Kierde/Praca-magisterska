@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/nazwaZap"
+        android:textColor="#000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -18,7 +19,7 @@
 
     <ImageView
         android:id="@+id/profZap"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="284dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:textSize="20dp"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nazwaZap" />
@@ -42,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:textSize="20dp"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:textSize="20dp"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,21 +68,23 @@
         android:layout_height="65dp"
         android:layout_marginTop="8dp"
         android:text="Zapros do znajomych"
-        android:textAllCaps="false"
         android:textSize="13dp"
+        android:background="@drawable/button_"
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/celZap" />
 
     <Button
         android:id="@+id/odrzucZaproszenie"
-        android:layout_width="157dp"
-        android:layout_height="57dp"
+        android:layout_width="151dp"
+        android:layout_height="65dp"
         android:layout_marginTop="12dp"
+        android:background="@drawable/button_"
         android:text="Odrzuć  zaproszenie"
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonZapros"
-        android:textAllCaps="false"/>
+        app:layout_constraintTop_toBottomOf="@+id/buttonZapros" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

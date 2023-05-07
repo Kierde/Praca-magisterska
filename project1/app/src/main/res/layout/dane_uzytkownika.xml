@@ -8,83 +8,101 @@
 
     <TextView
         android:id="@+id/labelInformacjeOTobie"
-        android:layout_width="wrap_content"
+        android:textColor="#000"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Informacje o Tobie"
-        android:textSize="25dp"
+        android:textSize="30dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewNazwaUzytkownika"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/user_data"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:paddingLeft="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilowe1" />
 
     <TextView
         android:id="@+id/textViewAresEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/user_data"
+        android:paddingLeft="7dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNazwaUzytkownika" />
 
     <TextView
         android:id="@+id/textViewPlec"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/user_data"
+        android:paddingLeft="7dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAresEmail" />
 
     <TextView
         android:id="@+id/textViewWiek"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/user_data"
+        android:paddingLeft="7dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPlec" />
 
     <TextView
         android:id="@+id/textViewWzrost"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/user_data"
+        android:paddingLeft="7dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewWiek" />
 
     <TextView
         android:id="@+id/textViewWaga"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/user_data"
+        android:paddingLeft="7dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewWzrost" />
 
     <TextView
         android:id="@+id/labelKalorie"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Ilość kalorii do dziennego spożycia"
-        android:textSize="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/user_data"
+        android:text="Ilość kalorii do dziennego spożycia:"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCel" />
 
@@ -93,7 +111,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="16dp"
+        android:textSize="18dp"
+        android:textColor="#000"
+        android:paddingLeft="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,12 +121,11 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilowe1"
-        android:layout_width="106dp"
-        android:layout_height="106dp"
+        android:layout_width="142dp"
+        android:layout_height="120dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/profilowe"
         app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +139,6 @@
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" >
@@ -129,62 +147,90 @@
 
     <TextView
         android:id="@+id/textViewCel"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/user_data"
+        android:paddingLeft="7dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPoziom" />
 
     <TextView
         android:id="@+id/textViewPoziom"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/user_data"
+        android:paddingLeft="7dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewWaga" />
 
     <Button
         android:id="@+id/buttonTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_"
         android:text="Edytuj profil"
+        android:textColor="#FFFF"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zapotrzebowanieWegle"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="0.23" />
 
     <TextView
         android:id="@+id/zapotrzebowanieBialko"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewKalorie" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView
         android:id="@+id/zapotrzebowanieWegle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintEnd_toStartOf="@+id/zapotrzebowanieTluszcz"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toEndOf="@+id/zapotrzebowanieBialko"
-        app:layout_constraintTop_toBottomOf="@+id/textViewKalorie" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView
         android:id="@+id/zapotrzebowanieTluszcz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="36dp"
+        android:textColor="#000"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/zapotrzebowanieWegle" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Zapotrzebowanie na makroskładniki:"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:background="@drawable/user_data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewKalorie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

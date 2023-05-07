@@ -4,41 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Rejestracja">
+    tools:context=".Rejestracja"
+    >
 
     <EditText
         android:id="@+id/editTextAdresEmail"
         android:layout_width="343dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="64dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/user_form"
         android:ems="10"
         android:hint="Adres e-mail"
         android:inputType="textPersonName"
+        android:paddingLeft="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNazwaUżytkownika" />
 
+
     <EditText
         android:id="@+id/editTextNazwaUżytkownika"
         android:layout_width="343dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="48dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/user_form"
         android:ems="10"
         android:hint="Nazwa użytkownika"
         android:inputType="textPersonName"
+        android:paddingLeft="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topicOfActi" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/topicOfActi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="Rejestracja"
-        android:textSize="28dp"
+        android:textColor="#000"
+        android:textSize="45dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,19 +53,24 @@
         android:id="@+id/bntRejestruj"
         android:layout_width="210dp"
         android:layout_height="49dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="48dp"
         android:text="Zarejestruj się"
+        android:background="@drawable/button_"
+        android:textColor="#FFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextHaslo" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextHaslo"
+        />
 
     <TextView
         android:id="@+id/textLinkToLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textSize="16dp"
         android:text="Masz już konto? Zaloguj się"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,12 +79,25 @@
     <EditText
         android:id="@+id/editTextHaslo"
         android:layout_width="343dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="64dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/user_form"
         android:ems="10"
         android:hint="Hasło"
         android:inputType="textPassword"
+        android:paddingLeft="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextAdresEmail" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="135dp"
+        android:layout_height="118dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topicOfActi"
+        app:srcCompat="@mipmap/app_icon_round" />
 </androidx.constraintlayout.widget.ConstraintLayout>

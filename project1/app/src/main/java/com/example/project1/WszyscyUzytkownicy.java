@@ -214,7 +214,7 @@ public class WszyscyUzytkownicy extends AppCompatActivity {
                             Picasso.get().load(model.getZdjecieProfilowe()).into(holder.zdjcieProfilowe);
 
                         if (model.getCel() == 1) {
-                            holder.status.setText("Status diety: utracenie wagi");
+                            holder.status.setText("Status diety: utrata wagi");
                         } else if (model.getCel() == 2) {
                             holder.status.setText("Status diety: utrzymanie wagi");
                         } else if (model.getCel() == 3) {

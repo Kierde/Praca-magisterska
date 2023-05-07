@@ -61,7 +61,6 @@ public class DodawanieKomentarza extends AppCompatActivity {
     TextView trescKomentowanegoPosta;
     TextView dataKomentowanegoPosta;
     Button opublikujKomentarz;
-    Button lubieTo;
     EditText trescKomentarza;
 
 

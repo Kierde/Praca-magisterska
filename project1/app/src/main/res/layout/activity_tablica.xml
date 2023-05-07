@@ -67,17 +67,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/posty"
         android:layout_width="match_parent"
-        android:layout_height="385dp"
+        android:layout_height="451dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nazwaTablica" />
+        app:layout_constraintTop_toBottomOf="@+id/nazwaTablica"
+        app:layout_constraintVertical_bias="0.538" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_alignParentBottom="true"
         android:background="#C6C6C6"
@@ -97,11 +101,14 @@
 
         <Button
             android:id="@+id/opublikuj1"
+            android:layout_marginRight="90dp"
+            android:background="@drawable/button_"
+            android:textColor="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Opublikuj"
-            android:textAllCaps="false" />
+            />
     </LinearLayout>
 
 

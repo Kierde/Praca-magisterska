@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Czy chcesz zapisać swój bieg?"
+        android:textColor="#000"
         android:textSize="18sp" />
 
     <Button
@@ -18,10 +19,14 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Zapisz bieg" />
+        android:background="@drawable/button_"
+        android:text="Zapisz bieg"
+        android:textColor="#FFF" />
 
     <Button
         android:id="@+id/wyjdz"
+        android:background="@drawable/button_"
+        android:textColor="#FFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"

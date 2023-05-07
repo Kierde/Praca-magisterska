@@ -70,13 +70,11 @@ public class EkranGlowny extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat;
     GregorianCalendar dt1 = new GregorianCalendar();
     ArrayList<Posilek> lista;
-
     BottomNavigationView bottomNavigationView;
     Button dodajWage;
     Button edycjaWag;
     EditText wagaText;
     int suma;
-
     LineChart wagaLineChart;
     String[] datyWag;
     LineDataSet lineDataSet;
@@ -86,7 +84,6 @@ public class EkranGlowny extends AppCompatActivity {
     TextView wagaPoczatkowa;
     TextView wagaBiezaca;
     ImageButton inneWykresy;
-    ImageButton zdjecieWagi;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
@@ -139,7 +136,6 @@ public class EkranGlowny extends AppCompatActivity {
 
         dodajWage = (Button) findViewById(R.id.dodajwage);
         edycjaWag = (Button) findViewById(R.id.edycjaWag);
-        zdjecieWagi = (ImageButton) findViewById(R.id.zdjecieWagi);
         wagaText = (EditText) findViewById(R.id.waga1);
         wagaBiezaca = (TextView) findViewById(R.id.wagaBiezaca);
         wagaPoczatkowa = (TextView) findViewById(R.id.wagaPoczatkowa);
@@ -204,12 +200,7 @@ public class EkranGlowny extends AppCompatActivity {
         });
 
 
-        zdjecieWagi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                zrobZdjecieWagi();
-            }
-        });
+
 
 
         dodajWage.setOnClickListener(new View.OnClickListener() {
@@ -396,17 +387,6 @@ public class EkranGlowny extends AppCompatActivity {
     public void openInneWykresy(){
         Intent intent = new Intent(this, InneWykresy.class);
         startActivity(intent);
-    }
-
-
-    private void zrobZdjecieWagi() {
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        } catch (ActivityNotFoundException e) {
-        }
     }
 
     private void dispTextFromImage(FirebaseVisionText firebaseVisionText) {

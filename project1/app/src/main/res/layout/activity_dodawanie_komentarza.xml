@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A3D2D8"
+    android:background="#FFF"
     tools:layout_editor_absoluteY="25dp">
 
 
@@ -25,10 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="249dp"
         android:text="TextView"
-        android:textSize="17dp"
+        android:textColor="#000"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/profiloweTab2"
@@ -40,36 +41,41 @@
         android:layout_height="100dp"
         android:text="TextView"
         android:textSize="18dp"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profiloweTab2" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="411dp"
-        android:layout_height="398dp"
+        android:layout_width="match_parent"
+        android:layout_height="470dp"
         android:background="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/komentarze"
-            android:layout_width="411dp"
-            android:layout_height="368dp"
-            android:layout_marginTop="2dp"
+            android:layout_width="406dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintVertical_bias="0.142" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="174dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="179dp"
             android:text="Komentarze"
+            android:textColor="#000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,20 +108,23 @@
 
         <EditText
             android:id="@+id/komentarzTresc"
-            android:layout_width="320dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:paddingLeft="7dp" />
 
         <Button
             android:id="@+id/opublikuj1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Opublikuj"
-            android:textAllCaps="false" />
+            android:background="@drawable/button_"
+            android:textColor="#FFF"
+            android:text="Opublikuj" />
     </LinearLayout>
 
 

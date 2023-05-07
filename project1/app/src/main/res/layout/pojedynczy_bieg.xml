@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:background="@drawable/user_data">
+
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -25,12 +27,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:text="Bieg"
+        android:textColor="#000"
         app:layout_constraintStart_toEndOf="@+id/profilowe1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/biegDystansLista"
         android:layout_width="wrap_content"
+        android:textColor="#000"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="60dp"
@@ -45,6 +49,7 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="48dp"
         android:text="TextView"
+        android:textColor="#000"
         app:layout_constraintEnd_toStartOf="@+id/srednieTempoLista"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
+        android:textColor="#000"
         android:layout_marginEnd="16dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"

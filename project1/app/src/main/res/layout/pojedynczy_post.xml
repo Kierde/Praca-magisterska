@@ -5,7 +5,7 @@
     android:id="@+id/layoutPostu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#A3D2D8">
+    android:background="#b5b3f4">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -25,10 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="249dp"
         android:layout_marginBottom="10dp"
         android:text="TextView"
+        android:textColor="#000"
         android:textSize="17dp"
         app:layout_constraintBottom_toTopOf="@+id/trescPostaPoj2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,19 +40,21 @@
         android:id="@+id/trescPostaPoj2"
         android:layout_width="395dp"
         android:layout_height="92dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="40dp"
         android:layout_marginEnd="17dp"
         android:text="TextView"
+        android:textColor="#000"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.419"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataPostu2" />
 
     <ImageButton
         android:id="@+id/opcje"
-        android:layout_width="35dp"
-        android:layout_height="36dp"
+        android:layout_width="38dp"
+        android:layout_height="43dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,17 +74,20 @@
 
         <Button
             android:id="@+id/lubieTo"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
+            android:layout_marginStart="30dp"
             android:layout_height="wrap_content"
-            android:text="Lubie to" />
+            android:background="@drawable/button_"
+            android:textColor="#FFF"
+            android:text="Lubię to" />
 
         <Button
+            android:background="@drawable/button_"
+            android:textColor="#FFF"
+            android:layout_width="180dp"
             android:id="@+id/dodajKomentarz"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
+            android:layout_marginLeft="20dp"
             android:text="dodaj komentarz" />
     </LinearLayout>
 
@@ -91,6 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="1dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/dataPostu2"
         app:layout_constraintStart_toEndOf="@+id/profiloweTab2"
@@ -103,7 +109,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="5dp"
-        android:textColor="#25A62A"
+        android:textColor="#000"
         android:textSize="15dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintStart_toStartOf="parent"

@@ -399,8 +399,8 @@ public class SledzenieBiegu extends FragmentActivity
                 startTracking.setVisibility(View.GONE);
                 zapiszBazieDanych();
                 zrobScreenMapyZapiszStorage();
-                dialog.dismiss();
                 zapisywanie=true;
+                dialog.dismiss();
             }
         });
 
@@ -431,6 +431,8 @@ public class SledzenieBiegu extends FragmentActivity
                     czasTrwania.setText("00:00:00 \n Czas");
                     czas=0.0;
                     czasKilometra=0.0;
+                    dialog.dismiss();
+
                 }
             }
         });

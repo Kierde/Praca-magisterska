@@ -11,7 +11,7 @@
         android:id="@+id/zdjecieMapyBiegu"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
+        android:textColor="#000"
         android:text="TextView"
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/dystansPodsumowania"
@@ -38,6 +39,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="70dp"
         android:gravity="center"
+        android:textColor="#000"
         android:text="TextView"
         app:layout_constraintEnd_toStartOf="@+id/srednieTempoPodsumowanie"
         app:layout_constraintTop_toBottomOf="@+id/zdjecieMapyBiegu" />
@@ -47,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:textColor="#000"
         android:layout_marginEnd="44dp"
         android:text="TextView"
         android:gravity="center"
@@ -60,20 +63,34 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
+        android:textColor="#000"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zdjecieMapyBiegu" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profilowe1"
+        android:layout_width="51dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/run"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
+        app:civ_circle_background_color="#ffa500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelInformacjeOTobie"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/dataBieguPodsumowania"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="TextView"
         android:gravity="center"
+        android:text="TextView"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/profilowe1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -90,12 +107,13 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="169dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="185dp"
         android:text="Kilometry biegu: "
+        android:textColor="#000"
+
         app:layout_constraintBottom_toTopOf="@+id/kilometryBiegu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dystansPodsumowania" />
+        app:layout_constraintTop_toBottomOf="@+id/dystansPodsumowania"
+        app:layout_constraintVertical_bias="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

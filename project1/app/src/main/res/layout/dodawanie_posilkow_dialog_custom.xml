@@ -4,27 +4,31 @@
     android:orientation="vertical">
 
     <EditText
+        android:layout_marginTop="10dp"
         android:id="@+id/nazwaCwiczenia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_marginBottom="4dp"
+        android:paddingLeft="7dp"
+        android:background="@drawable/user_form"
         android:hint="Nazwa posiłku"
-        android:textSize="15dp"
         android:inputType="textCapSentences"
-        />
+        android:textSize="15dp" />
 
     <EditText
         android:id="@+id/spaloneKalorie1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="Ilość kalorii na 100 g"
         android:textSize="15dp"
+        android:hint="Ilość kalorii na 100 g"
+        android:paddingLeft="7dp"
+        android:background="@drawable/user_form"
         android:inputType="numberDecimal|numberSigned"
         />
 
@@ -39,6 +43,8 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:textSize="15dp"
+        android:paddingLeft="7dp"
+        android:background="@drawable/user_form"
         android:hint="Ilość węglowodanów na 100 [g] produktu"
         android:inputType="numberDecimal"
         />
@@ -53,7 +59,8 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:textSize="15dp"
-        android:hint="Ilość białka na 100 [g] produktu"
+        android:paddingLeft="7dp"
+        android:background="@drawable/user_form"        android:hint="Ilość białka na 100 [g] produktu"
         android:inputType= "numberDecimal"/>
 
     <EditText
@@ -63,7 +70,8 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
         android:textSize="15dp"
-        android:layout_marginRight="4dp"
+        android:paddingLeft="7dp"
+        android:background="@drawable/user_form"        android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:hint="Ilość tłuszczu na 100 [g] produktu"
@@ -80,6 +88,8 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:textSize="15dp"
+        android:paddingLeft="7dp"
+        android:background="@drawable/user_form"
         android:hint="Ilość produktu [g]"
         android:inputType="numberDecimal"
         />
@@ -94,16 +104,15 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:textSize="15dp"
+        android:paddingLeft="7dp"
+        android:background="@drawable/rectangle_4_shape"
         android:hint="Ilość kcal do dodania do bazy [g]"
-        android:inputType="numberDecimal"
         />
-
-
-
-
 
     <Button
         android:id="@+id/dodajCwiczenie1"
+        android:background="@drawable/button_"
+        android:textColor="#FFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="dodaj" />

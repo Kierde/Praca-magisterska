@@ -9,6 +9,8 @@
     <Button
         android:id="@+id/buttonZmniejsz"
         android:text="Utrata wagi"
+        android:background="@drawable/button_"
+        android:textColor="#FFFF"
         android:textAllCaps="false"
         android:layout_width="362dp"
         android:layout_height="53dp"
@@ -24,6 +26,7 @@
         android:layout_marginTop="76dp"
         android:text="Postaw przed sobą cel"
         android:textSize="25dp"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +37,8 @@
         android:layout_height="53dp"
         android:layout_marginTop="64dp"
         android:text="Utrzymanie wagi"
-        android:textAllCaps="false"
+        android:background="@drawable/button_"
+        android:textColor="#FFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewcel" />
@@ -45,7 +49,8 @@
         android:layout_height="53dp"
         android:layout_marginTop="68dp"
         android:text="Przybranie na wadze"
-        android:textAllCaps="false"
+        android:background="@drawable/button_"
+        android:textColor="#FFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonZmniejsz" />

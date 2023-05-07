@@ -50,6 +50,7 @@
         android:id="@+id/wykreskolowy"
         android:layout_width="412dp"
         android:layout_height="265dp"
+        android:layout_marginTop="40dp"
         android:padding="8dp"
         app:egLegendTextSize="18sp"
         app:egUsePieRotation="true"
@@ -82,24 +83,30 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <EditText
+        android:layout_marginTop="7dp"
         android:id="@+id/dataStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="197dp"
+        android:layout_height="46dp"
+        android:background="@drawable/user_form"
         android:cursorVisible="false"
         android:ems="10"
         android:hint="data od:"
         android:inputType="textPersonName"
+        android:paddingLeft="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zmianaDanych" />
 
     <EditText
+        android:layout_marginTop="7dp"
         android:id="@+id/dataStop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="197dp"
+        android:layout_height="46dp"
+        android:background="@drawable/user_form"
         android:cursorVisible="false"
         android:ems="10"
         android:hint="data do:"
         android:inputType="textPersonName"
+        android:paddingLeft="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zmianaDanych" />
 

@@ -172,6 +172,12 @@ public class ZapisPosilkow extends AppCompatActivity {
             dodajKolacje.setVisibility(View.GONE);
             dodajPrzekaski.setVisibility(View.GONE);
             dodajCwczenia.setVisibility(View.GONE);
+            wszukajSniadanie.setVisibility(View.GONE);
+            wyszukajObiad.setVisibility(View.GONE);
+            wyszukajKolacje.setVisibility(View.GONE);
+            wyszukajPrzekaski.setVisibility(View.GONE);
+
+
             bottomNavigationView.setVisibility(View.GONE);
         }
 
@@ -184,40 +190,38 @@ public class ZapisPosilkow extends AppCompatActivity {
         //śniadanie
         sniadanie = (RecyclerView) findViewById(R.id.sniadanie);
         sniadanieAdapter = new PosilekAdapter(listaSniadania);
-        sniadanie.setHasFixedSize(true);
+        sniadanie.setHasFixedSize(false);
         sniadanie.setLayoutManager(new LinearLayoutManager(this));
         sniadanie.setAdapter(sniadanieAdapter);
         //obiad
         obiad = (RecyclerView) findViewById(R.id.obiad);
         obiadAdapter = new PosilekAdapter(listaObiad);
-        obiad.setHasFixedSize(true);
+        obiad.setHasFixedSize(false);
         obiad.setLayoutManager(new LinearLayoutManager(this));
         obiad.setAdapter(obiadAdapter);
         //kolacja
         kolacja = (RecyclerView) findViewById(R.id.kolacja);
         kolacjaAdapter = new PosilekAdapter(listaKolacja);
-        kolacja.setHasFixedSize(true);
+        kolacja.setHasFixedSize(false);
         kolacja.setLayoutManager(new LinearLayoutManager(this));
         kolacja.setAdapter(kolacjaAdapter);
         //przeksaski
         przekaski = (RecyclerView) findViewById(R.id.przekaski);
         przekaskiAdapter = new PosilekAdapter(listaPrzekaski);
-        przekaski.setHasFixedSize(true);
+        przekaski.setHasFixedSize(false);
         przekaski.setLayoutManager(new LinearLayoutManager(this));
         przekaski.setAdapter(przekaskiAdapter);
         //ćwiczenia
         cwiczenia = (RecyclerView)findViewById(R.id.cwiczenia);
         cwiczeniaAdapter = new PosilekAdapter(listaCwiczen);
-        cwiczenia.setHasFixedSize(true);
+        cwiczenia.setHasFixedSize(false);
         cwiczenia.setLayoutManager(new LinearLayoutManager(this));
         cwiczenia.setAdapter(cwiczeniaAdapter);
-
         //format daty
         simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dt1 = new GregorianCalendar();
         GregorianCalendar today = new GregorianCalendar();
         String todayDate =  simpleDateFormat.format(today.getTime());
-        Log.d("dzis", todayDate);
 
 
         data.setOnClickListener(new View.OnClickListener() {
@@ -335,7 +339,6 @@ public class ZapisPosilkow extends AppCompatActivity {
                     dodajPrzekaski.setVisibility(View.VISIBLE);
                     dodajCwczenia.setVisibility(View.VISIBLE);
                 }
-                ///
                 sniadanieAdapter.zmienDate(dt1);
                 obiadAdapter.zmienDate(dt1);
                 kolacjaAdapter.zmienDate(dt1);

@@ -276,9 +276,9 @@ public class Tablica extends AppCompatActivity {
                                 stanPolubienia = (boolean) snapshot.child("polubienie").getValue();
 
                                 if(stanPolubienia==true){
-                                    holder.lubieTo.setText("Nie lubie tego");
+                                    holder.lubieTo.setText("Nie lubię tego");
                                 }else {
-                                    holder.lubieTo.setText("Lubie to");
+                                    holder.lubieTo.setText("Lubię to");
                                 }
 
 

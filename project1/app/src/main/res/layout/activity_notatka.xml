@@ -9,10 +9,12 @@
 
     <Button
         android:id="@+id/zapiszNotatke"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/button_"
         android:text="Zapisz"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -20,14 +22,14 @@
 
     <EditText
         android:id="@+id/notatkaText"
-        android:layout_width="406dp"
-        android:layout_height="570dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/zapiszNotatke"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
