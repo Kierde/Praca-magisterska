@@ -474,9 +474,9 @@ public class ZapisPosilkow extends AppCompatActivity {
                             sumaTluszczu+=makro[2];
                         }
 
-                        dziennyStanBialka.setText("        B. \n"+String.format("%.1f",sumaBialka)+" g"+"/"+String.format("%.1f",getBialkoRet())+" g");
-                        dziennyStanWegli.setText("        W. \n"+String.format("%.1f",sumaWeglowodanow)+" g"+"/"+String.format("%.1f",getWegleRet())+" g");
-                        dziennyStanTluszczu.setText("        T. \n"+String.format("%.1f",sumaTluszczu)+" g"+"/"+String.format("%.1f",getTluszczeRet())+" g");
+                        dziennyStanBialka.setText("Białko: \n"+String.format("%.1f",sumaBialka)+" g"+"/"+String.format("%.1f",getBialkoRet())+" g");
+                        dziennyStanWegli.setText("Węglowodany:\n"+String.format("%.1f",sumaWeglowodanow)+" g"+"/"+String.format("%.1f",getWegleRet())+" g");
+                        dziennyStanTluszczu.setText("Tłuszcze:\n"+String.format("%.1f",sumaTluszczu)+" g"+"/"+String.format("%.1f",getTluszczeRet())+" g");
                     }
 
                     @Override

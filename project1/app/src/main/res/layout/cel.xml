@@ -11,7 +11,6 @@
         android:text="Utrata wagi"
         android:background="@drawable/button_"
         android:textColor="#FFFF"
-        android:textAllCaps="false"
         android:layout_width="362dp"
         android:layout_height="53dp"
         android:layout_marginTop="64dp"

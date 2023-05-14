@@ -290,9 +290,9 @@ public class DaneUzytkownika extends AppCompatActivity {
                 //1 g weglowodanów - 4 kcal
                 wegleRet = kcalWeglowodanow/4;
 
-                zapotrzeBialko.setText("B. "+ String.format("%.1f",bialkoRet)+" g");
-                zapotrzeWegle.setText("W. " + String.format("%.1f",wegleRet)+" g");
-                zapotrzebTluszcz.setText("T. "+ String.format("%.1f",tluszczeRet)+" g");
+                zapotrzeBialko.setText("Białko:\n"+ String.format("%.1f",bialkoRet)+" g");
+                zapotrzeWegle.setText("Węglowodany:\n " + String.format("%.1f",wegleRet)+" g");
+                zapotrzebTluszcz.setText("Tłuszcze:\n "+ String.format("%.1f",tluszczeRet)+" g");
             }
 
             @Override
