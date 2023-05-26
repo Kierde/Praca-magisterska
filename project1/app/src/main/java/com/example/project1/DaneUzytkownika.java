@@ -33,9 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DaneUzytkownika extends AppCompatActivity {
 
-
     BottomNavigationView bottomNavigationView;
-
     DatabaseReference databaseReference;
     DatabaseReference databaseReference1;
     FirebaseStorage storage;
