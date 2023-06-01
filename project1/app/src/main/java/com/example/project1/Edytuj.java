@@ -245,7 +245,7 @@ public class Edytuj extends AppCompatActivity {
                         }
 
 
-                        databaseReference.child("poziom").setValue(poziom);
+                        databaseReference.child("poziomAktywnosci").setValue(poziom);
                         databaseReference.child("cel").setValue(cel);
                         databaseReference.child("plec").setValue(plec);
 
