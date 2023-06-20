@@ -19,7 +19,6 @@ public class Bieg {
 
 
     public Bieg(){
-
     }
 
     public Bieg(double dystans, double czas, double sredniaPredkosc, double tempo, String dataDnia, int spaloneKalorie, String mapaBiegu, String index) {

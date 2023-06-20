@@ -180,6 +180,7 @@ public class EkranGlowny extends AppCompatActivity {
 
                 if(wartosc<100){
                     labelKalorii.setText("Pozostałe kalorie do spożycia: ");
+                    labelKalorii.setTextColor(Color.rgb(0,0,0));
                 }else if(wartosc>=100){
                     labelKalorii.setText("Przekroczyłeś limit kaloryczny na dzisiejszy dzień!");
                     labelKalorii.setTextColor(Color.RED);
