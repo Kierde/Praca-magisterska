@@ -1,6 +1,8 @@
 package com.example.project1;
 
 import android.graphics.Bitmap;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class Bieg {
@@ -57,7 +59,13 @@ public class Bieg {
     }
 
     public void obliczSrednieTempo(){
-        tempo=(1/(3600*sredniaPredkosc))*60;
+        tempo=(1/(sredniaPredkosc))*0.01666666666666666666666666666667;
+        double doubleNumber =tempo;
+        int intPart = (int) tempo;
+        double doublePart = doubleNumber - intPart;
+        tempo = intPart+(doublePart*60*0.01);
+
+
     }
 
     public double getSpaloneKalorie() {

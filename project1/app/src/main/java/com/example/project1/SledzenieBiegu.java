@@ -187,9 +187,7 @@ public class SledzenieBiegu extends FragmentActivity
                                     }
 
                                     predkoscWdanejChwili = odleglosc(locations.get(locations.size()-1), locations.get(locations.size()-2));
-
-                                    if(predkoscWdanejChwili!=0)
-                                        predkoscWdanejChwili = (1/(predkoscWdanejChwili*3600)*60);
+                                    predkoscWdanejChwili = predkoscWdanejChwili*3600;
                                     nowyBieg.spaloneKalorie += oszacujWartoscMET(predkoscWdanejChwili)*getWagaRet()*(0.00027777777);
                                 }
                                 int iloscKilometrow = nowyBieg.getKilometrBiegus().size()-1;
@@ -463,26 +461,26 @@ public class SledzenieBiegu extends FragmentActivity
         float MET = 0;
         Map<Double, Float> mapPredkosciMET = new HashMap<>();
 
-        //k-tempo min/h, v-MET
+        //k-tempo km/h, v-MET
         mapPredkosciMET.put(0.0,2f);
-        mapPredkosciMET.put(21.93271044,2.3f);
-        mapPredkosciMET.put(14.9142431,2.9f);
-        mapPredkosciMET.put(12.42853592,	3.3f);
-        mapPredkosciMET.put(10.96635522,3.6f);
-        mapPredkosciMET.put(9.321401939,6f);
-        mapPredkosciMET.put(7.457121551,8.3f);
-        mapPredkosciMET.put(7.170309184,9f);
-        mapPredkosciMET.put(6.214267959,9.8f);
-        mapPredkosciMET.put(5.565016083,10.5f);
-        mapPredkosciMET.put(5.326515394,11f);
-        mapPredkosciMET.put(4.971414367,11.5f);
-        mapPredkosciMET.put(4.335535786,12.3f);
-        mapPredkosciMET.put(4.142845306,12.8f);
-        mapPredkosciMET.put(3.728560776,14.5f);
-        mapPredkosciMET.put(3.389600705,16f);
-        mapPredkosciMET.put(3.10713398,19f);
-        mapPredkosciMET.put(2.868123673,19.8f);
-        mapPredkosciMET.put(2.663257697,23f);
+        mapPredkosciMET.put(2.7356,2.3f);
+        mapPredkosciMET.put(4.023,2.9f);
+        mapPredkosciMET.put(4.8276,	3.3f);
+        mapPredkosciMET.put(5.47128,3.6f);
+        mapPredkosciMET.put(6.4368,6f);
+        mapPredkosciMET.put(8.046,8.3f);
+        mapPredkosciMET.put(8.36784,9f);
+        mapPredkosciMET.put(9.6552,9.8f);
+        mapPredkosciMET.put(10.78164,10.5f);
+        mapPredkosciMET.put(11.2644,11f);
+        mapPredkosciMET.put(12.069,11.5f);
+        mapPredkosciMET.put(13.83912,12.3f);
+        mapPredkosciMET.put(14.4828,12.8f);
+        mapPredkosciMET.put(16.092,14.5f);
+        mapPredkosciMET.put(17.7012,16f);
+        mapPredkosciMET.put(19.3104,19f);
+        mapPredkosciMET.put(20.9196,19.8f);
+        mapPredkosciMET.put(22.5288,23f);
 
         Set<Double> keys= mapPredkosciMET.keySet();
         double[] array = new double[19];

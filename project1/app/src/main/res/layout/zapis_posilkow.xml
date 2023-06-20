@@ -65,21 +65,27 @@
 
             <ImageButton
                 android:id="@+id/poprzedniDzien"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginEnd="3dp"
+                android:background="#FFFFFF"
+                android:rotation="180"
+                app:layout_constraintEnd_toStartOf="@+id/data"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/strzalka_lewo"
+                app:srcCompat="@drawable/arrow_icon"
                 tools:ignore="VectorDrawableCompat" />
 
             <ImageButton
                 android:id="@+id/nastepnyDzien"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="2dp"
+                android:background="#00000000"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/data"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                app:srcCompat="@drawable/arrow_icon"
                 tools:ignore="VectorDrawableCompat" />
 
             <TextView
