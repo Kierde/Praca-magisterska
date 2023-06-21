@@ -59,12 +59,10 @@ public class Bieg {
 
     public void obliczSrednieTempo(){
         tempo=(1/(sredniaPredkosc))*0.01666666666666666666666666666667;
-        double doubleNumber =tempo;
+        double doubleNumber = tempo;
         int intPart = (int) tempo;
         double doublePart = doubleNumber - intPart;
         tempo = intPart+(doublePart*60*0.01);
-
-
     }
 
     public double getSpaloneKalorie() {
