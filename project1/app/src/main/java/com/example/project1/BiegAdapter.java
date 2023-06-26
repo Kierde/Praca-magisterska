@@ -36,7 +36,7 @@ public class BiegAdapter extends RecyclerView.Adapter<BiegAdapter.BiegViewHolder
         int minutes = ((rounded % 86400) % 3600) / 60;
         int hours = ((rounded % 86400) / 3600);
         holder.czasTrwania.setText(String.format("%02d",hours) + ":" + String.format("%02d",minutes) +  ":" + String.format("%02d",seconds)+"\n hh:mm:ss");
-        holder.srednieTempo.setText(String.format("%.2f",bieg.getSredniaPredkosc())+"\n min/km");
+        holder.srednieTempo.setText(String.valueOf(String.format("%.2f",bieg.getTempo())).replace(".",":")+"\n min/km");
 
 
         holder.view.setOnClickListener(new View.OnClickListener() {

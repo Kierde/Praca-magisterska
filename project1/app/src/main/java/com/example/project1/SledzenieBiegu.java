@@ -211,7 +211,7 @@ public class SledzenieBiegu extends FragmentActivity
                                     kilometr.obliczSrednieTempo();
 
 
-                                    srednieTempo.setText(String.valueOf(String.format("%.2f",nowyBieg.getTempo() )+"\n min/km)").replace('.',':'));
+                                    srednieTempo.setText(String.valueOf(String.format("%.2f",nowyBieg.getTempo())+"\n min/km").replace('.',':'));
                                     srednieTempoBierzacegoKm.setText(String.valueOf(String.format("%.2f",kilometr.getTempo() )+"\n min/km").replace('.',':'));
                                 }
                                 polyline = map.addPolyline(polylineOptions);

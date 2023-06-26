@@ -79,7 +79,7 @@ public class PodsumowanieBiegu extends AppCompatActivity {
                  int minutes = ((rounded % 86400) % 3600) / 60;
                  int hours = ((rounded % 86400) / 3600);
                  czasPodsumowania.setText(SledzenieBiegu.fortmatTime(seconds,minutes,hours)+"\n hh:mm:ss");
-                 tempoPodusmowania.setText(String.format("%.2f",bieg.getTempo())+"\n min/km");
+                 tempoPodusmowania.setText(String.valueOf(String.format("%.2f",bieg.getTempo())+"\n min/km").replace(".",":" ));
                  kcalPodsumowania.setText((int)bieg.getSpaloneKalorie()+"\n kcal");
                  Picasso.get().load(bieg.getMapaBiegu()).fit().into(zdjecieMapy);
              }

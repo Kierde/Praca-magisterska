@@ -81,7 +81,7 @@ public class WyszukanyPosilekAdapter extends RecyclerView.Adapter<WyszukanyPosil
                             float iloscProduktu = Float.parseFloat(holder.iloscProduktu.getText().toString());
                             int kcalorie = Integer.parseInt(dish.caloric);
                             int wynik = calculateHowMuchCalories(iloscProduktu, kcalorie);
-                            holder.iloscKalorii.setText(wynik);
+                            holder.iloscKalorii.setText(String.valueOf((wynik)));
                         } else {
                             holder.iloscProduktu.setError("Podaj ilość produktu (w gramach)");
                         }
