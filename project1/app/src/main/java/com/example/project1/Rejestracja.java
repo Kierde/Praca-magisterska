@@ -44,7 +44,7 @@ public class Rejestracja extends AppCompatActivity{
     static String nazwaUzytkownika_;
     static String adresEmail_;
     static String haslo_;
-    boolean error ;
+    boolean error;
 
 
 
@@ -52,6 +52,17 @@ public class Rejestracja extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rejestracja);
+        
+        FAuth = FirebaseAuth.getInstance();
+
+        if(FAuth.getCurrentUser()!=null){
+            Intent intent = new Intent(this,ZapisPosilkow.class);
+            startActivity(intent);
+        }
+
+
+
+
 
         nazwaUzytkownika = (EditText) findViewById(R.id.editTextNazwaUżytkownika);
         adresEmail = (EditText) findViewById(R.id.editTextAdresEmail);
